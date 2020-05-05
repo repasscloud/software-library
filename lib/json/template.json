@@ -1,0 +1,26 @@
+{
+    "matrix_name": "utilities",
+    "matrix_version": "3.4",
+    "matrix_release": "20200505",
+    "list":
+    [
+        "app-name-goes-here"
+    ],
+    "setup_config": {
+        "app-name-goes-here": {
+            "app_name": "Java SE Runtime Environment",
+            "copyright": "Copyright © 1984-2018 Adobe Systems Incorporated and its licensors",
+            "license": "GPL",
+            "notes": "",
+            "version": "8.0.251",
+            "arch": ["x64","x86"],
+            "url64": "",
+            "checksum64": "",
+            "url32": "",
+            "checksum32": "",
+            "install_type": "exe|msi",
+            "install_args": "/quiet /norestart",
+            "install_script": "" 
+        }
+    }
+}
