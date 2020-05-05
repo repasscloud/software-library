@@ -27,6 +27,6 @@ Temporary Items
 .apdisk
 
 # Application files from checksums
-.msi
-.exe
+*.msi
+*.exe
 
