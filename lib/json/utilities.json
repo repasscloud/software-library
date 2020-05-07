@@ -9,9 +9,9 @@
     "setup_config": {
         "jre8": {
             "app_name": "Java SE Runtime Environment",
+            "version": "8.0.251.8",
             "copyright": "",
             "notes": "Java allows you to play online games, chat with people around the world, calculate your mortgage interest, and view images in 3D, just to name a few. It's also integral to the intranet applications and other e-business solutions that are the foundation of corporate computing. Please note you now need a Java License from Oracle to use unless installed for Personal Use and Development Use.",
-            "version": "8.0.251.8",
             "arch": ["x86"],
             "url64": "https://javadl.oracle.com/webapps/download/AutoDL?BundleId=242060_3d5a2bb8f8d4428bbe94aed7ec7ae784",
             "checksum64": "",
@@ -23,9 +23,9 @@
         },
         "7zip": {
             "app_name": "7-Zip",
+            "version": "8.0.251.8",
             "copyright": "7-Zip Copyright (C) 1999-2016 Igor Pavlov",
             "notes": "7-Zip is a file archiver with a high compression ratio.",
-            "version": "8.0.251.8",
             "arch": ["x86"],
             "url64": "https://www.7-zip.org/a/7z1900-x64.msi",
             "checksum64": "A7803233EEDB6A4B59B3024CCF9292A6FFFB94507DC998AA67C5B745D197A5DC",
@@ -37,10 +37,10 @@
         },
         "notepadplusplus": {
             "app_name": "Notepad++",
+            "version": "7.8.6",
             "copyright": "Copyright (C)2016 Don HO <don.h@free.fr>",
             "license": "GPL",
             "notes": "Notepad++ is a free (as in \"free speech\" and also as in \"free beer\") source code editor and Notepad replacement that supports several languages. Running in the MS Windows environment, its use is governed by GPL License.",
-            "version": "7.8.6",
             "arch": ["x64","x86"],
             "url64": "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v7.8.6/npp.7.8.6.Installer.x64.exe",
             "checksum64": "03B3A8E2D0395B2DCAF7CD30CB47106EBAC678CBCD72E81BB5EE0E618927D3DD",
@@ -52,17 +52,17 @@
         },
         "flash-player-ppapi": {
             "app_name": "Flash Player PPAPI",
+            "version": "7.8.6",
             "copyright": "Copyright (C)2016 Don HO <don.h@free.fr>",
             "license": "GPL",
             "notes": "The Adobe Flash Player is freeware software for viewing multimedia, executing Rich Internet Applications, and streaming video and audio, content created on the Adobe Flash platform.",
-            "version": "7.8.6",
             "arch": ["x86"],
             "url64": "",
             "checksum64": "",
             "url32": "https://download.macromedia.com/pub/flashplayer/pdc/32.0.0.363/install_flash_player_32_ppapi.msi",
             "checksum32": "F1A26CE58090E7CA81B22FD3403CE9988166EEF108E6A1E3E166CDCECF1FE1B3",
             "install_type": "msi",
-            "install_args": "/quiet /norestart",
+            "install_args": "/quiet /norestart REMOVE_PREVIOUS=YES",
             "install_script": "" 
         }
     }
