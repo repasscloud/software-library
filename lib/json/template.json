@@ -8,15 +8,15 @@
     ],
     "setup_config": {
         "app-name-goes-here": {
-            "app_name": "Java SE Runtime Environment",
-            "version": "8.0.251",
-            "copyright": "Copyright © 1984-2018 Adobe Systems Incorporated and its licensors",
-            "license": "GPL",
+            "app_name": "",
+            "version": "",
+            "copyright": "",
+            "license": "GPL|MIT|Apache2",
             "notes": "",
             "requires": {
                 "matrix_name": "",
                 "app_name": ""
-            }
+            },
             "arch": ["x64","x86"],
             "url64": "",
             "checksum64": "",
