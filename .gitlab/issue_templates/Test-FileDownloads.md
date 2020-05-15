@@ -14,4 +14,4 @@
 
 **Possible Fixes:** [possible_fixes]
 
-/label ~bug ~matrix-download-error ~needs-investigation
+/label ~bug ~matrix-dload-error ~needs-investigation
