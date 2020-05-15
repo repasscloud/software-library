@@ -5,7 +5,7 @@
     "matrix_copyright": "Copyright 2020 RePassCloud.com \nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",
     "list":
     [
-        "jre8","7zip","notepadplusplus","flash-player-ppapi","open-vpn"
+        "jre8","7zip","notepadplusplus","flash-player-ppapi","open-vpn","zoom"
     ],
     "setup_config": {
         "jre8": {
@@ -85,6 +85,27 @@
             "checksum32": "",
             "install_type": "exe",
             "install_args": "/S /SELECT_OPENVPN=1 /SELECT_OPENVPNGUI=1 /SELECT_TAP=1 /SELECT_EASYRSA=1 /SELECT_OPENSSLDLLS=1 /SELECT_LZODLLS=1 /SELECT_PKCS11DLLS=1 /SELECT_SERVICE=1 /SELECT_OPENSSL_UTILITIES=1 /SELECT_PATH=1 /SELECT_SHORTCUTS=1 /SELECT_ASSOCIATIONS=1 /SELECT_LAUNCH=1",
+            "install_script": "" 
+        },
+        "zoom": {
+            "app_name": "Zoom Client for Meetings",
+            "version": "5.0.24046.0510",
+            "copyright": "Copyright © 2017 Zoom Video Communications, Inc. All rights reserved.",
+            "license": "GPL|MIT|Apache2",
+            "notes": "Zoom unifies cloud video conferencing, simple online meetings, group messaging, and a software-defined conference room solution into one easy-to-use platform. Zoom offers the best video, audio, and wireless screen-sharing experience across Windows, Mac, iOS, Android, Blackberry, Linux, Zoom Rooms, and H.323/SIP room systems. Founded in 2011, Zoom's mission is to develop a people-centric cloud service that transforms the real-time collaboration experience and improves the quality and effectiveness of communications forever.",
+            "requires": {
+                "matrix_name": "",
+                "app_name": ""
+            },
+            "arch": ["x64","x86"],
+            "url64": "https://zoom.us/client/5.0.24046.0510/ZoomInstallerFull.msi",
+            "path64": "",
+            "checksum64": "",
+            "url32": "",
+            "path32": "",
+            "checksum32": "",
+            "install_type": "msi",
+            "install_args": "/quiet /norestart ZoomAutoUpdate=True",
             "install_script": "" 
         }
     }
