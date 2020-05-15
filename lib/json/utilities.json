@@ -4,7 +4,7 @@
     "matrix_release": "20200505",
     "list":
     [
-        "jre8","7zip","notepadplusplus","flash-player-ppapi"
+        "jre8","7zip","notepadplusplus","flash-player-ppapi","open-vpn"
     ],
     "setup_config": {
         "jre8": {
@@ -63,6 +63,27 @@
             "checksum32": "F1A26CE58090E7CA81B22FD3403CE9988166EEF108E6A1E3E166CDCECF1FE1B3",
             "install_type": "msi",
             "install_args": "/quiet /norestart REMOVE_PREVIOUS=YES",
+            "install_script": "" 
+        },
+        "open-vpn": {
+            "app_name": "OpenVPN",
+            "version": "2.4.9",
+            "copyright": "Copyright (C) 2002-2017 OpenVPN Technologies, Inc. <sales@openvpn.net>",
+            "license": "GPL2",
+            "notes": "OpenVPN provides flexible VPN solutions to secure your data communications, whether it's for Internet privacy, remote access for employees, securing IoT, or for networking Cloud data centers.",
+            "requires": {
+                "matrix_name": "",
+                "app_name": ""
+            },
+            "arch": ["x64"],
+            "url64": "https://swupdate.openvpn.org/community/releases/openvpn-install-2.4.9-I601-Win10.exe",
+            "path64": "",
+            "checksum64": "4F95A674C3FFAFD85062DF995A182CFB57CA56D96084472A48A65C546C815F0C",
+            "url32": "",
+            "path32": "",
+            "checksum32": "",
+            "install_type": "exe",
+            "install_args": "/S /SELECT_OPENVPN=1 /SELECT_OPENVPNGUI=1 /SELECT_TAP=1 /SELECT_EASYRSA=1 /SELECT_OPENSSLDLLS=1 /SELECT_LZODLLS=1 /SELECT_PKCS11DLLS=1 /SELECT_SERVICE=1 /SELECT_OPENSSL_UTILITIES=1 /SELECT_PATH=1 /SELECT_SHORTCUTS=1 /SELECT_ASSOCIATIONS=1 /SELECT_LAUNCH=1",
             "install_script": "" 
         }
     }
