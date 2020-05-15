@@ -1,3 +1,7 @@
+[array]$k = @(
+  'https://zoom.us/client/5.0.24046.0510/ZoomInstallerFull.msi'
+)
+
 # Remove the files we had previously
 $appDL = $env:HOME + '/Developer/software-matrix/lib/.public/'
 Get-ChildItem -Path $appDL | ForEach-Object { Remove-Item -Path $_.FullName -Confirm:$false -Force }
@@ -53,6 +57,6 @@ function Invoke-PullDownThatFile() {
     Invoke-Webrequest -Uri $UrlX -OutFile $($env:HOME + '/Developer/software-matrix/lib/.public/' + (Split-Path -Path $UrlX -Leaf))
 }
 
-'https://swupdate.openvpn.org/community/releases/openvpn-install-2.4.9-I601-Win10.exe' | ForEach-Object { Invoke-PullDownThatFile -URI $_ }
+$k | ForEach-Object { Invoke-PullDownThatFile -URI $_ }
 
 Get-ChildItem -Path $appDL | ForEach-Object { Get-FileHash -Path $_.FullName }
