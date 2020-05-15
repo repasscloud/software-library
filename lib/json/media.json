@@ -4,7 +4,7 @@
     "matrix_release": "20200505",
     "list":
     [
-        "vlc"
+        "vlc","spotify"
     ],
     "setup_config": {
         "vlc": {
@@ -20,6 +20,27 @@
             "checksum32": "3F5689B5AD71420F0DF82953AEADBC3A44CD6E72AACD1B1054B2C55F8B12322D",
             "install_type": "exe",
             "install_args": "/S",
+            "install_script": "" 
+        },
+        "spotify": {
+            "app_name": "Spotify",
+            "version": "",
+            "copyright": "Copyright © 2017 Spotify AB",
+            "license": "Unknown",
+            "notes": "With Spotify, it’s easy to find the right music or podcast for every moment – on your phone, your computer, your tablet and more. There are millions of tracks and episodes on Spotify. So whether you’re behind the wheel, working out, partying or relaxing, the right music or podcast is always at your fingertips. Choose what you want to listen to, or let Spotify surprise you. You can also browse through the collections of friends, artists, and celebrities, or create a radio station and just sit back. Soundtrack your life with Spotify. Subscribe or listen for free.",
+            "requires": {
+                "matrix_name": "",
+                "app_name": ""
+            },
+            "arch": ["x64","x86"],
+            "url64": "https://download.scdn.co/SpotifyFullSetup.exe",
+            "path64": "",
+            "checksum64": "0C34185F5521A0ADB63F327AC15EEBA88AB4A0F3D515A4045D1868DD0166CD8B",
+            "url32": "",
+            "path32": "",
+            "checksum32": "",
+            "install_type": "exe|msi",
+            "install_args": "/silent",
             "install_script": "" 
         }
     }
