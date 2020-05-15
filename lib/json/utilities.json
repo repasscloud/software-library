@@ -5,7 +5,7 @@
     "matrix_copyright": "Copyright 2020 RePassCloud.com \nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",
     "list":
     [
-        "jre8","7zip","notepadplusplus","flash-player-ppapi","open-vpn","zoom"
+        "jre8","7zip","notepadplusplus","flash-player-ppapi","open-vpn","zoom","dropbox"
     ],
     "setup_config": {
         "jre8": {
@@ -106,6 +106,27 @@
             "checksum32": "",
             "install_type": "msi",
             "install_args": "/quiet /norestart ZoomAutoUpdate=True",
+            "install_script": "" 
+        },
+        "dropbox": {
+            "app_name": "Dropbox",
+            "version": "97.4.467",
+            "copyright": "CCopyright © Dropbox, Inc. All rights reserved.",
+            "license": "Combined GPLv2 and proprietary software (Linux Nautilus)",
+            "notes": "Dropbox is a free service that lets you bring all your photos, docs, and videos anywhere. This means that any file you save to your Dropbox will automatically save to all your computers, phones and even the Dropbox website. Dropbox also makes it super easy to share with others, whether you're a student or professional, parent or grandparent. Even if you accidentally spill a latte on your laptop, have no fear! You can relax knowing that Dropbox always has you covered, and none of your stuff will ever be lost.",
+            "requires": {
+                "matrix_name": "",
+                "app_name": ""
+            },
+            "arch": ["x64","x86"],
+            "url64": "",
+            "path64": "",
+            "checksum64": "2777A4171820FE385B9E88664F1FF593474AFC962A9F42F463530E42E0C0ED35",
+            "url32": "",
+            "path32": "",
+            "checksum32": "",
+            "install_type": "exe",
+            "install_args": "/NOLAUNCH",
             "install_script": "" 
         }
     }
