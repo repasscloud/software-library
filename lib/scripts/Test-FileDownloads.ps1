@@ -1,5 +1,5 @@
 [array]$k = @(
-  'https://zoom.us/client/5.0.24046.0510/ZoomInstallerFull.msi'
+  ''
 )
 
 # Remove the files we had previously
