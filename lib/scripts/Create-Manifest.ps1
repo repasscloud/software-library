@@ -551,8 +551,8 @@ Write-Host '    }'
 Write-Host '}'
 
 
-mkdir -p "/Users/danijeljw/Developer/software-matrix/lib/app/${publisher}/${appName}"
-$outFile="/Users/danijeljw/Developer/software-matrix/lib/app/${publisher}/${appName}/${version}.json"
+mkdir -p "/Users/danijeljw/Developer/software-matrix/app/${publisher}/${appName}"
+$outFile="/Users/danijeljw/Developer/software-matrix/app/${publisher}/${appName}/${version}.json"
 
 '{' | Out-File $outFile -Append -Encoding utf8
 $json2 | Out-File $outFile -Append -Encoding utf8
