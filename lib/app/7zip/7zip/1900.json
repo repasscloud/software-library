@@ -1,0 +1,33 @@
+{
+    "Category": "Productivity",
+    "Manifest": "4.1.3.4",
+    "Release": "",
+    "Copyright": "Copyright © 2020 RePassCloud.com\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",
+    "Id": {
+        "Version": "1900",
+        "Name": "7-Zip",
+        "Publisher": "7-Zip Copyright © 1999-2016 Igor Pavlov",
+        "License": "",
+        "LicenseURL": "",
+        "Tags": [],
+        "Description": "7-Zip is a file archiver with a high compression ratio.",
+        "Homepage": "",
+        "Arch": ["x64","x86"],
+        "Installers": {
+            "x64": {
+                "Url": "https://www.7-zip.org/a/7z1900-x64.msi",
+                "FollowUrl": "",
+                "Sha256": "A7803233EEDB6A4B59B3024CCF9292A6FFFB94507DC998AA67C5B745D197A5DC",
+                "InstallerType": "msi",
+                "Switches": "/quiet /norestart"
+            },
+            "x86": {
+                "Url": "https://www.7-zip.org/a/7z1900.msi",
+                "FollowUrl": "",
+                "Sha256": "B49D55A52BC0EAB14947C8982C413D9BE141C337DA1368A24AA0484CBB5E89CD",
+                "InstallerType": "msi",
+                "Switches": "/quiet /norestart"
+            }
+        }
+    }
+}
