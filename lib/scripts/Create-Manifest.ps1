@@ -55,6 +55,9 @@ function Get-RedirectedUrl() {
             if ( ($_.Exception.GetType() -match "HttpResponseException") -and ($_.Exception -match "302") ) {
                 $request_url=$_.Exception.Response.Headers.Location.AbsoluteUri
                 $retry=$true
+            } elseif ( ($_.Exception.GetType() -match "HttpResponseException") -and ($_.Exception -match "403") ) {
+                $result=($request_url).OriginalString
+                $retry=$false
             } else {
                 throw $_
             }
@@ -85,6 +88,8 @@ Switch ($IsMacOS) {
         $Hashfile32=$tempFolder + "\TempfileName32.txt"
     }
 }
+$appName=$null
+$publisher=$null
 
 
 <#########################################
