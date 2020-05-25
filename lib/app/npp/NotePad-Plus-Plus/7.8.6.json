@@ -1,0 +1,34 @@
+{
+    "Category": "productivity",
+    "Manifest": "4.1.3.4",
+    "Release": "1",
+    "Id": {
+        "Version": "7.8.6",
+        "Name": "NotePad-Plus-Plus",
+        "Publisher": "npp",
+        "Copyright": "7-Zip Copyright © 1999-2016 Igor Pavlov",
+        "License": "GPLv2",
+        "LicenseURL": "https://raw.githubusercontent.com/notepad-plus-plus/notepad-plus-plus/master/LICENSE",
+        "Tags": ["notepad","c++","powershell","editor","ide","c#","Makefile","Python","SQL","TeX","XML","YAML","CoffeeScript","CMake","Ada","ActionScript","HTML","CSS","LaTeX","R"],
+        "Description": "Notepad++ is a text and source code editor for use with Microsoft Windows. It supports tabbed editing, which allows working with multiple open files in a single window. The project's name comes from the C increment operator.",
+        "Homepage": "https://notepad-plus-plus.org/",
+        "Depends": "",
+        "Arch": ["x64","x86"],
+        "Installers": {
+            "x64": {
+                "Url": "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v7.8.6/npp.7.8.6.Installer.x64.exe",
+                "FollowUrl": "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v7.8.6/npp.7.8.6.Installer.x64.exe",
+                "Sha256": "03B3A8E2D0395B2DCAF7CD30CB47106EBAC678CBCD72E81BB5EE0E618927D3DD",
+                "InstallerType": "exe",
+                "Switches": "/S"
+            },
+            "x86": {
+                "Url": "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v7.8.6/npp.7.8.6.Installer.exe",
+                "FollowUrl": "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v7.8.6/npp.7.8.6.Installer.exe",
+                "Sha256": "26CA36509EA21535A39F812A1EABDBDC8BACC617E517700229E3A662DB00FF95",
+                "InstallerType": "exe",
+                "Switches": "/S"
+            }
+        }
+    }
+}
