@@ -21,7 +21,7 @@ build:
   only:
   - docker-tests
 
-build:
+test:
   stage: build
   script:
   # run PowerShell Command
