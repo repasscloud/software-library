@@ -9,15 +9,19 @@ build:
   script:
   # run PowerShell Command
   - powershell -Command "New-Item -Path . -ItemType Directory -Name '.public' -Force"
+  - powershell -Command "dir"
+  - powershell -Command "$IsMacOS"
+  - powershell -Command "$IsLinux"
+  - powershell -Command "$IsWindows"
   # run PowerShell Script
-  - powershell -File build.ps1
+  #- powershell -File build.ps1
   # run PowerShell Commands
   - powershell -Command "Get-Date"
-  - powershell -Command "Copy-Item -Path .\bin\*.exe -Destination .\public\ -Force"
-  - powershell -Command "Rename-Item -Path .\.public -NewName .\public -Force"
-  artifacts:
-    paths:
-    - public
+  #- powershell -Command "Copy-Item -Path .\bin\*.exe -Destination .\public\ -Force"
+  #- powershell -Command "Rename-Item -Path .\.public -NewName .\public -Force"
+  #artifacts:
+  #  paths:
+  #  - public
   only:
   - docker-tests
 
