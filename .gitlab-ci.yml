@@ -13,8 +13,8 @@ build:
   - powershell -File .\build.ps1
   # run PowerShell Commands
   - powershell -Command "Get-Date"
-  - powershell -Command "Copy-Item -Path .\bin\*.exe -Destination .\public\ -Confirm:$false -Force"
-  - powershell -Command "Rename-Item -Path .\.public -NewName .\public -Confirm:$false -Force"
+  - powershell -Command "Copy-Item -Path .\bin\*.exe -Destination .\public\ -Confirm:`$false -Force"
+  - powershell -Command "Rename-Item -Path .\.public -NewName .\public -Confirm:`$false -Force"
   artifacts:
     paths:
     - public
@@ -30,8 +30,8 @@ test:
   - powershell -File .\build.ps1
   # run PowerShell Commands
   - powershell -Command "Get-Date"
-  - powershell -Command "Copy-Item -Path .\bin\*.exe -Destination .\public\ -Confirm:$false -Force"
-  - powershell -Command "Rename-Item -Path .\.public -NewName .\public -Confirm:$false -Force"
+  - powershell -Command "Copy-Item -Path .\bin\*.exe -Destination .\public\ -Confirm:`$false -Force"
+  - powershell -Command "Rename-Item -Path .\.public -NewName .\public -Confirm:`$false -Force"
   artifacts:
     paths:
     - public
