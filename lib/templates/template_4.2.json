@@ -1,6 +1,3 @@
-# Software Matrix
-
-```json
 {
     "category": "<Category of manifest>",
     "manifest": "<Version number, 4.2.4.6>",
@@ -55,4 +52,3 @@
         }
     }
 }
-```
