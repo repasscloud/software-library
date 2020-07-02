@@ -27,7 +27,7 @@ build:
   - powershell -File whichos.ps1
   - powershell -File build.ps1
   - powershell -Command "New-Item -Path . -ItemType Directory -Name '.public' -Force"
-  - powershell -Command "Copy-Item -Path C:\GitLab-Runner\builds\reform-cloud\r-and-d\software-matrix\bin\cmani.exe -Destination .\public\ -Force"
+  - powershell -Command "Copy-Item -Path C:\GitLab-Runner\builds\reform-cloud\r-and-d\software-matrix\bin\cmani.exe -Destination .\.public\ -Force"
   - powershell -Command "Rename-Item -Path .\.public -NewName .\public -Force"
   - powershell -Command "dir"
   - powershell -Command "pwd"
