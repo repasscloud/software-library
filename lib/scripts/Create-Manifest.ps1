@@ -224,8 +224,9 @@ Select Application License type
   [4]  Apache 2.0
   [5]  GPLv2
   [6]  LGPLv2.1+
-  [7]  Proprietary
-  [8]  Other
+  [7]  MPL 2.0
+  [8]  Proprietary
+  [9]  Other
   
   Make selection
 "@
@@ -239,8 +240,9 @@ do {
         4 { $LicenseType='Apache 2.0'; }
         5 { $LicenseType='GPLv2'; }
         6 { $LicenseType='LGPLv2.1+'; }
-        7 { $LicenseType='Proprietary'; }
-        8 { $LicenseType='Other'; }
+        7 { $LicenseType='MPL 2.0'; }
+        8 { $LicenseType='Proprietary'; }
+        9 { $LicenseType='Other'; }
         Default {
             #[VOID]
         }
