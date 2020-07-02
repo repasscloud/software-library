@@ -725,6 +725,9 @@ $Json19 | Out-File $outFile -Append -Encoding utf8
 $Json20_34 | Out-File $outFile -Append -Encoding utf8
 
 
+# Make a "latest.json" of each application after it's built
+Copy-Item -Path $outFile -Destination "${MaifestDirectory}\${publisher}\${appName}\latest.json"
+
 
 # Git auto-commit
 git add .
