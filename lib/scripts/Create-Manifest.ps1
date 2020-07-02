@@ -14,7 +14,13 @@ RePass Cloud (https://repasscloud.com/).
 
 # Encoding utf-8
 [Console]::OutputEncoding=[System.Text.Encoding]::UTF8
-$OFS="`r`n"  #linebreak
+
+# Linebreak
+$OFS="`r`n"
+
+# Script current directory
+$currentDir = [System.IO.Path]::GetDirectoryName($myInvocation.MyCommand.Definition)
+$MaifestDirectory = Join-Path -Path (Split-Path -Path (Split-Path -Path $currentDir -Parent) -Parent) -ChildPath 'app'
 
 #region LoadFunctions
 # This function was designed to pull down a file from even a redirected URL via PowerShell
@@ -694,7 +700,7 @@ $Json20_34 += '}' + $OFS
 if (-not(Test-Path -Path "C:\tmp\software-matrix\app\${publisher}\${appName}")) {
     mkdir -p "C:\tmp\software-matrix\app\${publisher}\${appName}"
 }
-$outFile="C:\tmp\software-matrix\app\${publisher}\${appName}\${filename}"
+$outFile="${MaifestDirectory}\${publisher}\${appName}\${filename}"
 $Json1 | Out-File $outFile -Append -Encoding utf8
 $Json2 | Out-File $outFile -Append -Encoding utf8
 $Json3 | Out-File $outFile -Append -Encoding utf8
