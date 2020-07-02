@@ -1,0 +1,40 @@
+{
+    "Category": "browser",
+    "Manifest": "4.2.4.6",
+    "Nuspec": false,
+    "Copyright": "Copyright © 2020 RePassCloud.com\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",
+    "Id": {
+        "Version": "78.0.1",
+        "Name": "Firefox",
+        "Publisher": "Mozilla",
+        "AppCopyright": "Copyright © 1998–2020 Mozilla Foundation",
+        "License": "MPL 2.0",
+        "LicenseURL": "https://www.mozilla.org/en-US/MPL/",
+        "Tags": ["browser","mozilla","firefox","foss","cross-platform","admin"],
+        "Description": "Bringing together all kinds of awesomeness to make browsing better for you.",
+        "Homepage": "https://www.mozilla.org/en-US/firefox/new/",
+        "Languages": ["en-US"],
+        "Depends": "",
+        "Installers": {
+            "en-US": {
+                "x64": {
+                    "Url": "https://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win64&lang=en-US",
+                    "FollowUrl": "https://download-installer.cdn.mozilla.net/pub/firefox/releases/78.0.1/win64/en-US/Firefox%20Setup%2078.0.1.msi",
+                    "Sha256": "9CD69FA4B082DFBFC82E2F04FB2D8109BBE04B953B186780F79D2316BF536FDA",
+                    "Sha512": "3DB9B50046E9C18E1CB084EDC788508841937F68C74EDCD4C3CF8297686A2A30D55CEEE3DE2EE5F3B77E56FC3732FFD07EB512838C04863DE0BA5C22E8624FBD",
+                    "InstallerType": "msi",
+                    "Switches": "/qn /norestart"
+                },
+                "x86": {
+                    "Url": "https://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win&lang=en-US",
+                    "FollowUrl": "https://download-installer.cdn.mozilla.net/pub/firefox/releases/78.0.1/win32/en-US/Firefox%20Setup%2078.0.1.msi",
+                    "Sha256": "2DA80FAC69B69FC1DF135B59B4FADE86569F0350D16F0D86BB640EB2C611FD15",
+                    "Sha512": "D57B08987C6CF4F82F27CB416945E8CF5B55B80FD87EDA67A396BAA2959CB52E67A90164BE91AFCC2DE23D91A64D2F011B812720F16236F31E7C4BC8FFBAB5F8",
+                    "InstallerType": "msi",
+                    "Switches": "/qn /norestart"
+                }
+            }
+        }
+    }
+}
+
