@@ -10,9 +10,9 @@ build:
   # run PowerShell Command
   - powershell -Command "New-Item -Path . -ItemType Directory -Name '.public' -Force"
   - powershell -Command "dir"
-  - powershell -Command "$IsMacOS"
-  - powershell -Command "$IsLinux"
-  - powershell -Command "$IsWindows"
+  - powershell -Command $IsMacOS
+  - powershell -Command $IsLinux
+  - powershell -Command $IsWindows
   # run PowerShell Script
   #- powershell -File build.ps1
   # run PowerShell Commands
