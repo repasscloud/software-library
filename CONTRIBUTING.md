@@ -6,20 +6,20 @@ contributions to RePass Cloud open source projects. This Agreement is effective 
 date below.
 
 ## 1. Definitions. 
-*"Code"* means the computer software code, whether in human-readable or machine-executable form, 
+**"Code"** means the computer software code, whether in human-readable or machine-executable form, 
 that is delivered by You to RePass Cloud under this Agreement.
 
-*"Project"* means any of the projects owned or managed by RePass Cloud in which software is offered under 
+**"Project"** means any of the projects owned or managed by RePass Cloud in which software is offered under 
 a license approved by the Open Source Initiative (OSI) (www.opensource.org) and documentation
 offered under an OSI or a Creative Commons license (https://creativecommons.org/licenses).
 
-*"Submit"* is the act of uploading, submitting, transmitting, or distributing code or other content to any 
+**"Submit"** is the act of uploading, submitting, transmitting, or distributing code or other content to any 
 Project, including but not limited to communication on electronic mailing lists, source code control 
 systems, and issue tracking systems that are managed by, or on behalf of, the Project for the purpose of 
 discussing and improving that Project, but excluding communication that is conspicuously marked or 
 otherwise designated in writing by You as "Not a Submission." 
 
-*"Submission"* means the Code and any other copyrightable material Submitted by You, including any 
+**"Submission"** means the Code and any other copyrightable material Submitted by You, including any 
 associated comments and documentation.
 
 ## 2. Your Submission.
@@ -47,17 +47,17 @@ desire to Submit additional Submissions for the new employer, then You agree to 
 and secure permission from the new employer before Submitting those Submissions. 
 
 ## 5. Licenses. 
-*a. Copyright License.* You grant RePass Cloud, and those who receive the Submission directly or 
+**a. Copyright License.** You grant RePass Cloud, and those who receive the Submission directly or 
 indirectly from RePass Cloud, a perpetual, worldwide, non-exclusive, royalty-free, irrevocable license in the 
 Submission to reproduce, prepare derivative works of, publicly display, publicly perform, and distribute 
 the Submission and such derivative works, and to sublicense any or all of the foregoing rights to third 
 parties. 
-*b. Patent License.* You grant RePass Cloud, and those who receive the Submission directly or 
+**b. Patent License.** You grant RePass Cloud, and those who receive the Submission directly or 
 indirectly from RePass Cloud, a perpetual, worldwide, non-exclusive, royalty-free, irrevocable license under 
 Your patent claims that are necessarily infringed by the Submission or the combination of the 
 Submission with the Project to which it was Submitted to make, have made, use, offer to sell, sell and 
 import or otherwise dispose of the Submission alone or with the Project. 
-*c. Other Rights Reserved.* Each party reserves all rights not expressly granted in this Agreement. 
+**c. Other Rights Reserved.** Each party reserves all rights not expressly granted in this Agreement. 
 No additional licenses or rights whatsoever (including, without limitation, any implied licenses) are 
 granted by implication, exhaustion, estoppel or otherwise. 
 
@@ -104,12 +104,12 @@ terms of this Contribution License Agreement for Your present and future Submiss
 ___  I have sole ownership of intellectual property rights to my Submissions and I am not making 
 Submissions in the course of work for my employer.
 
-Name ("You"): _________________________________________
-Signature: _________________________________________
-Date: _________________________________________
-GitHub/GitLab Login: _________________________________________
-Email: _________________________________________
-Address: _________________________________________
+Name ("You"): _________________________________________  
+Signature: _________________________________________  
+Date: _________________________________________  
+GitHub/GitLab Login: _________________________________________  
+Email: _________________________________________  
+Address: _________________________________________  
 
 
 ___  I am making Submissions in the course of work for my employer (or my employer has intellectual 
@@ -117,11 +117,11 @@ property rights in my Submissions by contract or applicable law).  I have permis
 employer to make Submissions and enter into this Agreement on behalf of my employer.  By signing 
 below, the defined term "You" includes me and my employer.
 
-Company Name: _________________________________________
-Signature: _________________________________________
-By: _________________________________________
-Title: _________________________________________
-Date: _________________________________________
-GitHub/GitLab Login: _________________________________________
-Email: _________________________________________
-Address: ________________________________________
+Company Name: _________________________________________  
+Signature: _________________________________________  
+By: _________________________________________  
+Title: _________________________________________  
+Date: _________________________________________  
+GitHub/GitLab Login: _________________________________________  
+Email: _________________________________________  
+Address: ________________________________________  
