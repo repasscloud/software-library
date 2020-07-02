@@ -1,0 +1,40 @@
+{
+    "Category": "entertainment",
+    "Manifest": "4.2.4.6",
+    "Nuspec": false,
+    "Copyright": "Copyright © 2020 RePassCloud.com\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",
+    "Id": {
+        "Version": "3.0.11",
+        "Name": "VLC",
+        "Publisher": "VideoLAN",
+        "AppCopyright": "Copyright (c) 2001-2020 VideoLAN",
+        "License": "GPLv2",
+        "LicenseURL": "http://www.videolan.org/legal.html",
+        "Tags": ["vlc","foss","cross-platform","multimedia","audio","video","mp3","dvd","avi","media player","admin"],
+        "Description": "VLC is a free and open source cross-platform multimedia player and framework that plays most multimedia files as well as DVD, Audio CD, VCD, and various streaming protocols.",
+        "Homepage": "https://www.videolan.org/",
+        "Languages": ["en-US"],
+        "Depends": "",
+        "Installers": {
+            "en-US": {
+                "x64": {
+                    "Url": "http://get.videolan.org/vlc/3.0.11/win64/vlc-3.0.11-win64.exe",
+                    "FollowUrl": "http://get.videolan.org/vlc/3.0.11/win64/vlc-3.0.11-win64.exe",
+                    "Sha256": "2E41F1959AD77C34746715DA5027C5ED554C35361397C9984A9EF78BC0B5E937",
+                    "Sha512": "D4D9F1C9DA50CF0FD17E7E3CFC1959895666D74009FDF16D1E2E7FD4756C0775B67D36C914BCF1C3CD99223DC95603C94CF4664813B0C8C117FC27A5A81D7F93",
+                    "InstallerType": "exe",
+                    "Switches": "/L=1033 /S"
+                },
+                "x86": {
+                    "Url": "http://get.videolan.org/vlc/3.0.11/win32/vlc-3.0.11-win32.exe",
+                    "FollowUrl": "http://get.videolan.org/vlc/3.0.11/win32/vlc-3.0.11-win32.exe",
+                    "Sha256": "86A95690916F9F5B86593EF3F146C101D11F5D5E55670613BF88211CA3036ACA",
+                    "Sha512": "A524781B1C6AE9418712F5E6A1A766C9524EE25B4F578DE74BFEC927304FFA152E0455A3694795BF58168D22EBCFA1DD1C051EFE5E7C291462CD0CC0D30ED032",
+                    "InstallerType": "exe",
+                    "Switches": "/L=1033 /S"
+                }
+            }
+        }
+    }
+}
+
