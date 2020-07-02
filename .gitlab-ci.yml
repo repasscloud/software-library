@@ -8,12 +8,9 @@ build:
   stage: build
   script:
   # run PowerShell Command
-  - powershell -Command "New-Item -Path . -ItemType Directory -Name '.public' -Force"
-  - powershell -Command "dir"
-  - powershell -Command {$IsMacOS}
-  - powershell -Command {$IsLinux}
-  - powershell -Command {$IsWindows}
+  #- powershell -Command "New-Item -Path . -ItemType Directory -Name '.public' -Force"
   # run PowerShell Script
+  - powershell -File whichos.ps1
   #- powershell -File build.ps1
   # run PowerShell Commands
   - powershell -Command "Get-Date"
