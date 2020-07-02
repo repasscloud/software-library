@@ -1,4 +1,8 @@
 # Software Matrix
+                    
+[![pipeline status](https://gitlab.com/reform-cloud/r-and-d/software-matrix/badges/master/pipeline.svg)](https://gitlab.com/reform-cloud/r-and-d/software-matrix/commits/master)
+
+
 
 ```json
 {
