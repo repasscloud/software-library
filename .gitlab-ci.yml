@@ -10,7 +10,7 @@ build:
   # run PowerShell Command
   - powershell -Command "New-Item -Path . -ItemType Directory -Name '.public' -Force"
   # run PowerShell Script
-  - powershell -File .\build.ps1
+  - powershell -File build.ps1
   # run PowerShell Commands
   - powershell -Command "Get-Date"
   - powershell -Command "Copy-Item -Path .\bin\*.exe -Destination .\public\ -Force"
