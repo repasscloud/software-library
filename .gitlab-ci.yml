@@ -21,6 +21,13 @@ build:
   script:
   - echo "running scripts in the build job"
   - powershell -File whichos.ps1
+  - powershell -File build.ps1
+  - powershell -Command "New-Item -Path . -ItemType Directory -Name '.public' -Force"
+  - powershell -Command "Copy-Item -Path .\bin\*.exe -Destination .\public\ -Force"
+  - powershell -Command "Rename-Item -Path .\.public -NewName .\public -Force"
+  artifacts:
+    paths:
+    - public
   only:
   - docker-tests
 
