@@ -7,18 +7,15 @@ date below.
 
 ## 1. Definitions. 
 **"Code"** means the computer software code, whether in human-readable or machine-executable form, 
-that is delivered by You to RePass Cloud under this Agreement.
-
+that is delivered by You to RePass Cloud under this Agreement.  
 **"Project"** means any of the projects owned or managed by RePass Cloud in which software is offered under 
 a license approved by the Open Source Initiative (OSI) (www.opensource.org) and documentation
-offered under an OSI or a Creative Commons license (https://creativecommons.org/licenses).
-
+offered under an OSI or a Creative Commons license (https://creativecommons.org/licenses).  
 **"Submit"** is the act of uploading, submitting, transmitting, or distributing code or other content to any 
 Project, including but not limited to communication on electronic mailing lists, source code control 
 systems, and issue tracking systems that are managed by, or on behalf of, the Project for the purpose of 
 discussing and improving that Project, but excluding communication that is conspicuously marked or 
-otherwise designated in writing by You as "Not a Submission." 
-
+otherwise designated in writing by You as "Not a Submission."  
 **"Submission"** means the Code and any other copyrightable material Submitted by You, including any 
 associated comments and documentation.
 
