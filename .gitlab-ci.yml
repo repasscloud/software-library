@@ -24,13 +24,10 @@ build:
   stage: build
   script:
   - echo "running scripts in the build job"
-  - powershell -File whichos.ps1
-  - powershell -File build.ps1
+  - powershell -File Invoke-BuildScript.ps1
   - powershell -Command "New-Item -Path . -ItemType Directory -Name '.public' -Force"
   - powershell -Command "Copy-Item -Path .\bin\cmani.exe -Destination .\.public\ -Force"
   - powershell -Command "Rename-Item -Path .\.public -NewName .\public -Force"
-  - powershell -Command "dir"
-  - powershell -Command "pwd"
   artifacts:
     paths:
     - public
@@ -47,8 +44,7 @@ test:
   stage: test
   script:
   - echo "running scripts in the test job"
-  - powershell -File whichos.ps1
-  - powershell -File build.ps1
+  - powershell -File Invoke-BuildScript.ps1
   - powershell -Command "New-Item -Path . -ItemType Directory -Name '.public' -Force"
   - powershell -Command "Copy-Item -Path .\bin\*.exe -Destination .\public\ -Force"
   - powershell -Command "Rename-Item -Path .\.public -NewName .\public -Force"
