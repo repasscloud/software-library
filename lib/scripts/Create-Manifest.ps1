@@ -99,9 +99,18 @@ For installer language ${Language}, select architecture
 "@
         [Int16]$architecture=Read-Host -Prompt $ArchPrompt
         Switch ($architecture) {
-            1 { [Int16]$archType=1 }  #x64
-            2 { [Int16]$archType=2 }  #x86
-            3 { [Int16]$archType=3 }  #x86_x64
+            1 {  #x64
+                [Int16]$archType=1;
+                [String]$global:Json19b='        "Arch": ["x64"],';
+            }
+            2 {  #x86
+                [Int16]$archType=2
+                [String]$global:Json19b='        "Arch": ["x86"],';
+            }
+            3 {  #x86_x64
+                [Int16]$archType=3
+                [String]$global:Json19b='        "Arch": ["x64","x86"],';
+            }
             Default { }
         }
         
@@ -283,7 +292,8 @@ Switch ($LicenseType) {
 
 # Ask for tags to create the array or blank array $Json13
 $TagList = @()
-do { 
+do {
+    Clear-Host;
     $Tag=Read-Host -Prompt '[OPTIONAL] Enter any tags that would be useful to discover this tool. For example: zip, c++'
     $TagList += $Tag
 } until ($tag -like $null)
@@ -354,7 +364,7 @@ Clear-Host;
 
 [String]$Json1='{'
 [String]$Json2  #No need to apply data, built in the funtion
-[String]$Json3='    "Manifest": "4.2.4.6",'  #This will be updated in the future to read live from the repo
+[String]$Json3='    "Manifest": "4.2.5.7",'  #This will be updated in the future to read live from the repo
 [String]$Json4='    "Nuspec": false,'  #This will be updated to change later
 [String]$Json5='    "Copyright": "Copyright © 2020 RePassCloud.com\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",'
 [String]$Json6='    "Id": {'
@@ -376,7 +386,7 @@ Clear-Host;
 
 [String]$Json20_34 = ''
 # Request ArchType to install
-$LangList| ForEach-Object {
+$LangList | ForEach-Object {
     $Lang=$_;
     if ($Lang -notlike $null ){
         $archSelection = New-LanguageInstallerSelection -Language $Lang
@@ -702,7 +712,8 @@ $Json20_34 += '}' + $OFS
 if (-not(Test-Path -Path "C:\tmp\software-matrix\app\${publisher}\${appName}")) {
     mkdir -p "C:\tmp\software-matrix\app\${publisher}\${appName}"
 }
-$outFile="${MaifestDirectory}\${publisher}\${appName}\${filename}"
+$ManifestDirectory='C:\tmp\software-matrix\app'
+$outFile="${ManifestDirectory}\${publisher}\${appName}\${filename}"
 $Json1 | Out-File $outFile -Append -Encoding utf8
 $Json2 | Out-File $outFile -Append -Encoding utf8
 $Json3 | Out-File $outFile -Append -Encoding utf8
@@ -721,15 +732,16 @@ $Json15 | Out-File $outFile -Append -Encoding utf8
 $Json16 | Out-File $outFile -Append -Encoding utf8
 $Json17 | Out-File $outFile -Append -Encoding utf8
 $Json18 | Out-File $outFile -Append -Encoding utf8
+$global:Json19b | Out-File $outFile -Append -Encoding utf8
 $Json19 | Out-File $outFile -Append -Encoding utf8
 $Json20_34 | Out-File $outFile -Append -Encoding utf8
 
 
 # Make a "latest.json" of each application after it's built
-Copy-Item -Path $outFile -Destination "${MaifestDirectory}\${publisher}\${appName}\latest.json"
+Copy-Item -Path $outFile -Destination "${ManifestDirectory}\${publisher}\${appName}\latest.json"
 
 
 # Git auto-commit
-git add .
-git commit -m "${publisher}/${AppName}/${version}"
-git push
+#git add .
+#git commit -m "${publisher}/${AppName}/${version}"
+#git push
