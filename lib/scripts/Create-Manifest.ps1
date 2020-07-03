@@ -20,7 +20,7 @@ $OFS="`r`n"
 
 # Script current directory
 $currentDir = [System.IO.Path]::GetDirectoryName($myInvocation.MyCommand.Definition)
-$MaifestDirectory = Join-Path -Path (Split-Path -Path (Split-Path -Path $currentDir -Parent) -Parent) -ChildPath 'app'
+$ManifestDirectory = Join-Path -Path (Split-Path -Path (Split-Path -Path $currentDir -Parent) -Parent) -ChildPath 'app'
 
 #region LoadFunctions
 # This function was designed to pull down a file from even a redirected URL via PowerShell
