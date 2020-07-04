@@ -5,7 +5,7 @@ build: false
 version: 4.2.4.{build}
 init:
   - git config --global core.autocrlf true
-  - ps: Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
+  - ps: Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Machine -Force
 install:
 - ps: |
     Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.208 -Force
