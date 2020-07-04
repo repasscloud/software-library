@@ -28,7 +28,7 @@ build:
   - powershell -Command "New-Item -Path . -ItemType Directory -Name '.public' -Force"
   - powershell -Command "Copy-Item -Path .\bin\cmani.exe -Destination .\.public\ -Force"
   - powershell -Command "Rename-Item -Path .\.public -NewName .\public -Force"
-  - powershell -File lib\scripts\Test-Manifests.ps1
+# - powershell -File lib\scripts\Test-Manifests.ps1
   artifacts:
     paths:
     - public

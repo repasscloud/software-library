@@ -48,7 +48,8 @@ Get-ChildItem -Path $ManifestDirectory -Recurse -Filter "latest.json" | ForEach-
                     Start-Sleep -Seconds 1
                     Switch ($j.Id.Installers.$lang.$arch.InstallerType) {
                         'msi' {
-                            $outFile = Split-Path -Path $j.Id.Installers.$lang.$arch.FollowUrl -Leaf
+                            $patch_17 = $j.Id.Installers.$lang.$arch.FollowUrl -replace '%20','_'
+                            $outFile = Split-Path -Path $patch_17 -Leaf
                             Invoke-WebRequest -Uri $j.Id.Installers.$lang.$arch.FollowUrl -OutFile $env:TEMP\$outFile -UserAgent $null
                             if (-not((Get-FileHash -Path $env:TEMP\$outFile -Algorithm SHA512).Hash -match $j.Id.Installers.$lang.$arch.Sha512)) { break; }
                             else {Write-Host "SHA512 match" -ForegroundColor DarkGreen }
@@ -64,7 +65,8 @@ Get-ChildItem -Path $ManifestDirectory -Recurse -Filter "latest.json" | ForEach-
                             break;
                         }
                         'exe' {
-                            $outFile = Split-Path -Path $j.Id.Installers.$lang.$arch.FollowUrl -Leaf
+                            $patch_17 = $j.Id.Installers.$lang.$arch.FollowUrl -replace '%20','_'
+                            $outFile = Split-Path -Path $patch_17 -Leaf
                             Invoke-WebRequest -Uri $j.Id.Installers.$lang.$arch.FollowUrl -OutFile $env:TEMP\$outFile -UserAgent $null
                             if (-not((Get-FileHash -Path $env:TEMP\$outFile -Algorithm SHA512).Hash -match $j.Id.Installers.$lang.$arch.Sha512)) { break; }
                             else {Write-Host "SHA512 match" -ForegroundColor DarkGreen }
