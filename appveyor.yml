@@ -1,0 +1,28 @@
+image:
+  - Visual Studio 2017
+build: false
+#version: 1.0.{build}
+version: 4.2.4.{build}
+init:
+  - git config --global core.autocrlf true
+  - ps: Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
+install:
+- ps: |
+    Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.208 -Force
+    Install-Module -Name PowerShellGet -Force
+    Install-Module -Name PSSQLite -Force
+    Import-Module PSSQLite
+    "Git version: $(git.exe --version)"
+    "PSVersion:   $($PSVersionTable.PSVersion), build: $($PSVersionTable.BuildVersion), clr version: $($PSVersionTable.ClrVersion)"
+    "Host name:   $($Host.Name)"
+build_script:
+- ps: |
+    Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
+    ./lib/scripts/Test-Manifests.ps1
+#test_script:
+#- ps: ./test/appveyor/test.ps1
+#on_finish:
+#- ps: #$blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+
+
+
