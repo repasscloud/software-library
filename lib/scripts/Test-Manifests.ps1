@@ -13,7 +13,7 @@ RePass Cloud (https://repasscloud.com/).
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
 
 # Encoding utf-8
-[Console]::OutputEncoding=[System.Text.Encoding]::UTF8
+#[Console]::OutputEncoding=[System.Text.Encoding]::UTF8
 
 # Linebreak
 $OFS="`r`n"
