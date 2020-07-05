@@ -2,7 +2,7 @@ image:
   - Visual Studio 2017
 # scripts that are called at very beginning, before repo cloning
 init:
-  - git config --global core.autocrlf input
+  - git config --global core.autocrlf true
 
 # clone directory
 clone_folder: c:\projects\software-matrix
@@ -42,9 +42,15 @@ before_build:
       Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.208 -Force
       Install-Module -Name PowerShellGet -Force
       Install-Module -Name PSSQLite -Force
-      Import-Module PSSQLite
+      Install-Module -Name PS2EXE -Force
+      Install-Module -Name SpeedTester
+      Import-Module -Name SpeedTester
+      Import-Module -Name PSSQLite
+      Start-SpeedTest -UploadMB 30 -DownloadMB 30
       "Git version: $(git.exe --version)"
-      "PSVersion:   $($PSVersionTable.PSVersion), build: $($PSVersionTable.BuildVersion), clr version: $($PSVersionTable.ClrVersion)"
+      "PSVersion:   $($PSVersionTable.PSVersion)"
+      "PSBuild:     $($PSVersionTable.BuildVersion)"
+      "clr version: $($PSVersionTable.ClrVersion)"
       "Host name:   $($Host.Name)"
 
 # to run your custom scripts instead of automatic MSBuild
