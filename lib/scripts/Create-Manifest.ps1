@@ -742,6 +742,6 @@ Copy-Item -Path $outFile -Destination "${ManifestDirectory}\${publisher}\${appNa
 
 
 # Git auto-commit
-#git add .
-#git commit -m "${publisher}/${AppName}/${version}"
-#git push
+git add .
+git commit -m "${publisher}/${AppName}/${version}"
+git push
