@@ -1,5 +1,6 @@
 image:
   - Visual Studio 2017
+
 # scripts that are called at very beginning, before repo cloning
 init:
   - git config --global core.autocrlf true
@@ -57,7 +58,7 @@ before_build:
 build_script:
   - ps: |
       Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
-#      ./lib/scripts/Test-Manifests.ps1
+      c:\projects\software-matrix/lib/scripts/Test-Manifests.ps1
 
 # scripts to run after build (working directory and environment changes are persisted from the previous steps)
 after_build:
