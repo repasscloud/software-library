@@ -1,0 +1,39 @@
+{
+    "Category": "microsoft",
+    "Manifest": "4.2.5.7",
+    "Nuspec": false,
+    "Copyright": "Copyright © 2020 RePassCloud.com\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",
+    "Id": {
+        "Version": "4.6.2",
+        "Name": "DotNet 4",
+        "Publisher": "Microsoft",
+        "AppCopyright": "Copyright (c) Microsoft 2002-2020",
+        "License": "Proprietary",
+        "LicenseURL": "https://dotnet.microsoft.com/platform/open-source",
+        "Tags": ["dotnet",".net","net","4.6.2"],
+        "Description": "Microsoft .NET Framework 4.6.2",
+        "Homepage": "https://dotnet.microsoft.com/download/dotnet-framework/net462",
+        "Languages": ["en-US"],
+        "Depends": "",
+        "Arch": ["x64"],
+        "Installers": {
+            "en-US": {
+                "x64": {
+                    "Url": "",
+                    "FollowUrl": "",
+                    "Sha256": "",
+                    "InstallerType": "",
+                    "Switches": ""
+                },
+                "x86": {
+                    "Url": "http://go.microsoft.com/fwlink/?linkid=780596",
+                    "FollowUrl": "https://download.microsoft.com/download/D/5/C/D5C98AB0-35CC-45D9-9BA5-B18256BA2AE6/NDP462-KB3151802-Web.exe",
+                    "Sha256": "5E21C85034311C51D8B0367A773D475AF2392B3DDCD90676C61697C6B5FD2E6A",
+                    "InstallerType": "exe",
+                    "Switches": "/q /norestart"
+                }
+            }
+        }
+    }
+}
+

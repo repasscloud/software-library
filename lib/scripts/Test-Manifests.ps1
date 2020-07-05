@@ -10,13 +10,13 @@ RePass Cloud (https://repasscloud.com/).
 # to the Windows Package Manager repository.
 
 # Set TLS 1.2
-[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
+#[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
 
 # Encoding utf-8
 #[Console]::OutputEncoding=[System.Text.Encoding]::UTF8
 
 # Linebreak
-$OFS="`r`n"
+#$OFS="`r`n"
 
 # Script current directory
 if ($Host.Name -like 'RemoteHostImplementation') {
