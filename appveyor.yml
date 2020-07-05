@@ -1,44 +1,15 @@
 image:
   - Visual Studio 2017
-
-# scripts that are called at very beginning, before repo cloning
-init:
-  - git config --global core.autocrlf true
-
-# clone directory
-clone_folder: c:\projects\software-matrix
-
-# fetch repository as zip archive
-shallow_clone: true  #default is "false"
-
-# set clone depth
-clone_depth: 5  #clone entire repository history if not defined
-
-#---------------------------------#
-#       build configuration       #
-#---------------------------------#
-
-# build platform, i.e. x86, x64, Any CPU. This setting is optional.
-platform: x64
-
-# to add several platforms to build matrix:
-#platform:
-#  - x86
-#  - Any CPU
-
-# build Configuration, i.e. Debug, Release, etc.
-configuration: Testing
-
-# to disable automatic builds
+clone_folder:
+  - c:\projects\software-matrix
+platform:
+  - x64
 build: false
-
 version: 4.2.4.{build}
 init:
   - git config --global core.autocrlf true
   - ps: Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
-
-# scripts to run before build
-before_build:
+install:
   - ps: |
       Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.208 -Force
       Install-Module -Name PowerShellGet -Force
@@ -53,18 +24,11 @@ before_build:
       "PSBuild:     $($PSVersionTable.BuildVersion)"
       "clr version: $($PSVersionTable.ClrVersion)"
       "Host name:   $($Host.Name)"
-
-# to run your custom scripts instead of automatic MSBuild
 build_script:
-  - ps: |
-      Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
-      c:\projects\software-matrix/lib/scripts/Test-Manifests.ps1
-
-# scripts to run after build (working directory and environment changes are persisted from the previous steps)
-after_build:
-
-# scripts to run *after* solution is built and *before* automatic packaging occurs (web apps, NuGet packages, Azure Cloud Services)
-before_package:
-
+- ps: |
+    Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
+    c:\projects\software-matrix/lib/scripts/Test-Manifests.ps1
+#test_script:
+#- ps: ./test/appveyor/test.ps1
 on_finish:
-  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
