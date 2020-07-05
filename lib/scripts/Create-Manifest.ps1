@@ -39,10 +39,10 @@ function Get-RedirectedUrl() {
         try {
             $response=Invoke-WebRequest -Method Head -WebSession $Session -Uri $request_url
 
-            if ($response.BaseResponse.ResponseUri -ne $null) {
+            if ($null -ne $response.BaseResponse.ResponseUri) {
                 # PowerShell 5
                 $result=$response.BaseResponse.ResponseUri.AbsoluteUri
-            } elseif ($response.BaseResponse.RequestMessage.RequestUri -ne $null) {
+            } elseif ($null -ne $response.BaseResponse.RequestMessage.RequestUri) {
                 # PowerShell Core
                 $result=$response.BaseResponse.RequestMessage.RequestUri.AbsoluteUri
             }
@@ -68,10 +68,10 @@ function Get-UrlStatusCode() {
     #Source: https://stackoverflow.com/a/20262872
     param(
         [Parameter(Mandatory=$true, Position=0)]
-        [Uri] $Url
+        [Uri]$Url
     )
-    # First we create the request
-    $HTTP_Request=[System.Net.WebRequest]::Create('https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v7.8.8/npp.7.8.8.Installer.x64.exe')
+    # First we create the request.
+    $HTTP_Request=[System.Net.WebRequest]::Create($Url)
     # We then get a response from the site.
     $HTTP_Response=$HTTP_Request.GetResponse()
     # We then get the HTTP code as an integer.
