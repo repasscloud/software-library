@@ -19,9 +19,12 @@ RePass Cloud (https://repasscloud.com/).
 $OFS="`r`n"
 
 # Script current directory
-$currentDir = [System.IO.Path]::GetDirectoryName($myInvocation.MyCommand.Definition)
-$ManifestDirectory = Join-Path -Path (Split-Path -Path (Split-Path -Path $currentDir -Parent) -Parent) -ChildPath 'app'
-
+if ($Host.Name -like 'RemoteHostImplementation') {
+    $ManifestDirectory = C:\projects\software-matrix\app  #Appveyor home directory hardcode
+} else {
+    $currentDir = [System.IO.Path]::GetDirectoryName($myInvocation.MyCommand.Definition)
+    $ManifestDirectory = Join-Path -Path (Split-Path -Path (Split-Path -Path $currentDir -Parent) -Parent) -ChildPath 'app'
+}
 # Get all scripts in the manifest directory
 Get-ChildItem -Path $ManifestDirectory -Recurse -Filter "latest.json" | ForEach-Object {
     Clear-Host;
