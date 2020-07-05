@@ -256,7 +256,7 @@ do {
             #[VOID]
         }
     }
-} until ($License -gt 0 -and $License -lt 8)
+} until ($License -ge 1 -and $License -le 9)
 Clear-Host;
 
 
