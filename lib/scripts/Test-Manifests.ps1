@@ -20,7 +20,7 @@ RePass Cloud (https://repasscloud.com/).
 
 # Script current directory
 if ($Host.Name -like 'RemoteHostImplementation') {
-    $ManifestDirectory = C:\projects\software-matrix\app  #Appveyor home directory hardcode
+    [String]$ManifestDirectory = 'C:\projects\software-matrix\app'  #Appveyor home directory hardcode
 } else {
     $currentDir = [System.IO.Path]::GetDirectoryName($myInvocation.MyCommand.Definition)
     $ManifestDirectory = Join-Path -Path (Split-Path -Path (Split-Path -Path $currentDir -Parent) -Parent) -ChildPath 'app'
