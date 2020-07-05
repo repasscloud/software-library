@@ -1,7 +1,6 @@
 image:
   - Visual Studio 2017
-clone_folder:
-  - c:\projects\software-matrix
+clone_folder: c:\projects\software-matrix
 platform:
   - x64
 build: false
