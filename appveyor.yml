@@ -11,7 +11,7 @@ init:
   - ps: Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
 install:
   - ps: |
-      Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.208 -Force
+      Install-PackageProvider -Name NuGet -Force
       Install-Module -Name PowerShellGet -Force
       Install-Module -Name PSSQLite -Force
       Install-Module -Name PS2EXE -Force
