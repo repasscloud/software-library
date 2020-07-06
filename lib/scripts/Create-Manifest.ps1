@@ -174,7 +174,22 @@ $fillerText_x64 = @"
 $appCategory=$null
 do {
     Clear-Host;
-    [Int16]$appCategory=Read-Host -Prompt "Application category`r`n  [1]  browser`r`n  [2]  business`r`n  [3]  entertainment`r`n  [4]  graphic & design`r`n  [5]  photo`r`n  [6]  social`r`n  [7]  productivity`r`n  [8]  games`r`n  [9]  microsoft`r`n`r`nMake selection"
+    [String]$appCategoryPrompt = @"
+Application category
+  [1]   browser
+  [2]   business
+  [3]   entertainment
+  [4]   graphic & design
+  [5]   photo
+  [6]   social
+  [7]   productivity
+  [8]   games
+  [9]   security
+  [10]  microsoft
+  
+Make selection
+"@
+    [Int16]$appCategory=Read-Host -Prompt $appCategoryPrompt
     Switch ($appCategory) {
         1 { [String]$Json2='    "Category": "browser",' }
         2 { [String]$Json2='    "Category": "buiness",' }
@@ -184,12 +199,13 @@ do {
         6 { [String]$Json2='    "Category": "social",' }
         7 { [String]$Json2='    "Category": "productivity",' }
         8 { [String]$Json2='    "Category": "games",' }
-        9 { [String]$Json2='    "Category": "microsoft",' }
+        9 { [String]$Json2='    "Category": "security",' }
+        10 { [String]$Json2='    "Category": "microsoft",' }
         Default {
             $appCategory=$null #reassign to $null if nothing selected
         }
     }
-} until ($appCategory -lt 10 -and $appCategory -gt 0)
+} until ($appCategory -lt 11 -and $appCategory -gt 0)
 Clear-Host;
 
 
