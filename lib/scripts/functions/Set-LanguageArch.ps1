@@ -17,7 +17,7 @@ Version: 2.0.0.26
 #    $query = Read-Host -Prompt $(Set-LanguageArch)
 #    $query
 
-function Set-LanguageArch() {
+function Set-LanguageArch {
     param(
         [Parameter(Mandatory=$false, Position=0)]
         [Uri]$Url='https://gitlab.com/reform-cloud/r-and-d/software-matrix/-/raw/patch/20/lib/public/installer_type.ini',
