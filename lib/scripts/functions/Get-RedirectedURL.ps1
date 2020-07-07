@@ -4,6 +4,8 @@ Copyright 2020 RePass Cloud Pty Ltd
 
 This product includes software developed at
 RePass Cloud (https://repasscloud.com/).
+
+Version: 2.0.0.3
 #>
 
 
