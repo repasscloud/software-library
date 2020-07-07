@@ -7,10 +7,10 @@ RePass Cloud (https://repasscloud.com/).
 #>
 
 
-function Get-RedirectedUrl() {
+function Get-RedirectedUrl {
     param(
         [Parameter(Mandatory=$true, Position=0)]
-        [uri] $Url,
+        [Uri] $Url,
         [Parameter(Position=1)]
         [Microsoft.PowerShell.Commands.WebRequestSession] $Session=$null
     )
