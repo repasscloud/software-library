@@ -19,7 +19,7 @@ Version: 2.0.0.1
 #    $query
 
 
-function Get-UrlStatusCode() {
+function Get-UrlStatusCode {
     #Source: https://stackoverflow.com/a/20262872
     param(
         [Parameter(Mandatory=$true, Position=0)]
