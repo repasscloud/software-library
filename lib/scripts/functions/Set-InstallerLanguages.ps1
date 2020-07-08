@@ -134,10 +134,7 @@ function Set-InstallerLanguages {
     }
     
     process {
-        Write-Host $Arch
-        Write-Host $Lang
-        Write-Host $l_count
-        Start-Sleep -Seconds 3
+        Start-Sleep -Seconds 1
 
         foreach ($l in $Lang) {
 
@@ -230,7 +227,7 @@ function Set-InstallerLanguages {
             Write-Host "Getting SHA-256 checksum...${OFS}" -ForeGroundColor Yellow
             $sha256=(Get-FileHash -Path $hashfile64 -Algorithm SHA256).Hash
             Start-Sleep -Seconds 1
-            Write-Host "Getting SHA-2512 checksum...${OFS}" -ForeGroundColor Yellow
+            Write-Host "Getting SHA-512 checksum...${OFS}" -ForeGroundColor Yellow
             $sha512=(Get-FileHash -Path $hashfile64 -Algorithm SHA512).Hash
             Start-Sleep -Seconds 1
 
