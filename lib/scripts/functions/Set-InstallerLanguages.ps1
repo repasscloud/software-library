@@ -118,6 +118,7 @@ function Set-InstallerLanguages {
         [ValidateSet('MSI','EXE')]
         [String]
         $64MsiExe,
+        
         [Parameter(Mandatory=$false,Position=10)]
         [ValidateSet('MSI','EXE')]
         [String]
