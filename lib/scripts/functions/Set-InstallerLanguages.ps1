@@ -239,7 +239,7 @@ function Set-InstallerLanguages {
             $json_SHA256='                    "Sha256": "' + $sha256 + '",'
             $json_SHA512='                    "Sha512": "' + $sha512 + '",'
             $json_InstallerType='                    "InstallerType": "' + $exec_type + '",'
-            $json_SilentSwitches='                    "InstallSwitches": "'+ $silent_install_switches + '",'
+            $json_SilentSwitches='                    "InstallSwitches": "'+ $silent_install_switches.Replace('"','\"') + '",'
             $json_SilentUninstallString='                    "UninstallString": "'+ $silent_uninstall_string.Replace('"','\"') + '",'
             $json_UpdateURI='                    "UpdateURI": "'+ $update_URI_lookup + '",'
             $json_UpdateRegex='                    "UpdateRegex": "'+ $update_regex_lookup.Replace('"','\"') + '"'
