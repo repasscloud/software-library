@@ -5,7 +5,7 @@ Copyright 2020 RePass Cloud Pty Ltd
 This product includes software developed at
 RePass Cloud (https://repasscloud.com/).
 
-Version: 2.0.0.68
+Version: 2.1.0.71
 #>
 
 # Stems from issue #24
@@ -95,7 +95,61 @@ function Set-InstallerLanguages {
             }
         )]
         [Uri]
-        $x64InstallURI
+        $x64InstallURI,
+
+        [Parameter(Mandatory=$false,Position=8)]
+        [ValidateScript(
+            {
+                $_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200
+            }
+        )]
+        [Uri]
+        $x86InstallURI,
+
+        [Parameter(Mandatory=$false,Position=9)]
+        [ValidateSet('MSI','EXE')]
+        [String]
+        $64MsiExe,
+        [Parameter(Mandatory=$false,Position=10)]
+        [ValidateSet('MSI','EXE')]
+        [String]
+        $32MsiExe,
+
+        [Parameter(Mandatory=$false,Position=11)]
+        [ValidateScript(
+            {
+                $_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200
+            }
+        )]
+        [Uri]
+        $64UpdateURI,
+        
+        [Parameter(Mandatory=$false,Position=12)]
+        [ValidateScript(
+            {
+                $_ -match [System.Text.RegularExpressions.Regex]::New('\W\w') -or $_ -match [System.Text.RegularExpressions.Regex]::New('')
+            }
+        )]
+        [String]
+        $64UpdateRegex,
+
+        [Parameter(Mandatory=$false,Position=13)]
+        [ValidateScript(
+            {
+                $_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200
+            }
+        )]
+        [Uri]
+        $32UpdateURI,
+        
+        [Parameter(Mandatory=$false,Position=14)]
+        [ValidateScript(
+            {
+                $_ -match [System.Text.RegularExpressions.Regex]::New('\W\w') -or $_ -match [System.Text.RegularExpressions.Regex]::New('')
+            }
+        )]
+        [String]
+        $32UpdateRegex
     )
     
 
@@ -136,132 +190,534 @@ function Set-InstallerLanguages {
     process {
         Start-Sleep -Seconds 1
 
-        foreach ($l in $Lang) {
+        # Switch [Arch] to create manifest for
+        Switch ($Arch) {
+            'x64' {
+                foreach ($l in $Lang) {
 
+                    # Prompt for executable type on loop until valid
+                    if (-not($MsiExe -like 'MSI' -or $MsiExe -like 'EXE')) {
+                        $executable_type=$null
+                        do {
+                            Clear-Host;
+                            [Int16]$executable_type=Read-Host -Prompt "Select INSTALLER TYPE for language ${l}${OFS}${OFS}  [1]  MSI${OFS}  [2]  EXE${OFS}${OFS}  Enter selection"
+                        } until ($executable_type -lt 3 -and $executable_type -gt 0)
+                        Switch ($executable_type) {
+                            1 { [String]$exec_type='MSI' }
+                            2 { [String]$exec_type='EXE' }
+                            Default {}
+                        }
+                    } else {
+                        Switch ($MsiExe) {
+                            'MSI' { [String]$exec_type='MSI' }
+                            'EXE' { [String]$exec_type='EXE' }
+                        }
+                    }
+
+                    # Prompt for silent install switch(es) on loop until valid
+                    if (-not($SilentSwitch)) {
+                        [String]$silent_switch_prompt="[OPTIONAL] Provide SILENT INSTALL switch(es) for language ${l}"
+                        $silent_install_switches=$null
+                        do {
+                            Clear-Host;
+                            [String]$silent_install_switches=Read-Host -Prompt $silent_switch_prompt
+                        } until ($silent_install_switches -match [System.Text.RegularExpressions.Regex]::New('\W|\w|\W\w') -or $silent_install_switches -match [System.Text.RegularExpressions.Regex]::New(''))
+                    } else {
+                        $silent_install_switches=$SilentSwitch
+                    }
+
+                    # Prompt for silent uninstall string on loop until valid ~> must be provided
+                    if (-not($UninstallSwitch)) {
+                        [String]$silent_uninstall_prompt="Provide UNINSTALL string for language ${l}"
+                        $silent_uninstall_string=$null
+                        do {
+                            Clear-Host;
+                            [String]$silent_uninstall_string=Read-Host -Prompt $silent_uninstall_prompt
+                        } until ($silent_uninstall_string -match [System.Text.RegularExpressions.Regex]::New('\W|\w|\W\w'))
+                    } else {
+                        $silent_uninstall_string=$UninstallSwitch
+                    }
+
+                    # Prompt for update URI
+                    if (-not($UpdateURI)) {
+                        [String]$update_URI_prompt="Provide UPDATE URI for reference for language ${l}"
+                        $update_URI_lookup=$null
+                        do {
+                            Clear-Host;
+                            [Uri]$update_URI_lookup=Read-Host -Prompt $update_URI_prompt
+                        } until ($update_URI_lookup -match [System.Text.RegularExpressions.Regex]::New('\W\w') -and (Get-UrlStatusCode -Url $update_URI_lookup) -like 200)
+                    } else {
+                        $update_URI_lookup=$UpdateURI
+                    }
+
+                    # Prompt for update regex
+                    if (-not($UpdateRegex)) {
+                        [String]$update_regex_prompt="[OPTIONAL] Provide UPDATE URI regex string for language ${l}"
+                        $update_regex_lookup=$null
+                        do {
+                            Clear-Host;
+                            [String]$update_regex_lookup=Read-Host -Prompt $update_regex_prompt
+                        } until ($update_regex_lookup -match [System.Text.RegularExpressions.Regex]::New('\W\w') -or $update_regex_lookup -match [System.Text.RegularExpressions.Regex]::New(''))
+                    } else {
+                        $update_regex_lookup=$UpdateRegex
+                    }
+
+                    # Prompt for URL64 on loop until valid
+                    if (-not($x64InstallURI)) {
+                        [String]$url64_prompt="Enter the 64-bit URL to the installer for language ${l}"
+                        $url64=$null
+                        do {
+                            Clear-Host;
+                            [Uri]$url64=Read-Host -Prompt $url64_prompt
+                        } until ($url64.Length -gt 0 -and (Get-UrlStatusCode -Url $url64) -like 200)  #URL must be valid and exist, tests to confirm is valid
+                        Clear-Host;
+                    } else {
+                        $url64=$x64InstallURI
+                    }
+
+                    # Main Region
+                    $followURL=Get-RedirectedUrl -Url $url64  #find the URL to download
+                    Write-Host "Downloading application package...${OFS}" -ForeGroundColor Yellow
+                    $WebClient=New-Object System.Net.WebClient
+                    $WebClient.DownloadFile($followURL, $Hashfile64)
+                    Write-Host "Getting SHA-256 checksum...${OFS}" -ForeGroundColor Yellow
+                    $sha256=(Get-FileHash -Path $hashfile64 -Algorithm SHA256).Hash
+                    Start-Sleep -Seconds 1
+                    Write-Host "Getting SHA-512 checksum...${OFS}" -ForeGroundColor Yellow
+                    $sha512=(Get-FileHash -Path $hashfile64 -Algorithm SHA512).Hash
+                    Start-Sleep -Seconds 1
+
+
+                    # Set the all the JSON data lines
+                    $json_ArchOpen='            "x64": {'
+                    $json_LanguageOpen='                "' + $l + '": {'
+                    $json_URL='                    "Url": "' + $url64 + '",'
+                    $json_followURL='                    "FollowUrl": "' + $followURL + '",'
+                    $json_SHA256='                    "Sha256": "' + $sha256 + '",'
+                    $json_SHA512='                    "Sha512": "' + $sha512 + '",'
+                    $json_InstallerType='                    "InstallerType": "' + $exec_type + '",'
+                    $json_SilentSwitches='                    "InstallSwitches": "'+ $silent_install_switches.Replace('"','\"') + '",'
+                    $json_SilentUninstallString='                    "UninstallString": "'+ $silent_uninstall_string.Replace('"','\"') + '",'
+                    $json_UpdateURI='                    "UpdateURI": "'+ $update_URI_lookup + '",'
+                    $json_UpdateRegex='                    "UpdateRegex": "'+ $update_regex_lookup.Replace('"','\"') + '"'
+                    if ($l_count -lt 2) {
+                        $json_LanguageClose='                }' + $OFS + '            },'
+                        #$json_ArchClose
+                        # the ArchClose is removed because it gets added on $json_LanguageClose selection
+                    } else {
+                        $json_LanguageClose='                },'
+                        $l_count -= 1  #deduct 1 from the language count, so the last line will automatically revent to the first and close off the JSON list
+                    }
+
+                    # Put all the results together
+                    $l_json += ($json_ArchOpen + $OFS)
+                    $l_json += ($json_LanguageOpen + $OFS)
+                    $l_json += ($json_URL + $OFS)
+                    $l_json += ($json_followURL + $OFS)
+                    $l_json += ($json_SHA256 + $OFS)
+                    $l_json += ($json_SHA512 + $OFS)
+                    $l_json += ($json_InstallerType + $OFS)
+                    $l_json += ($json_SilentSwitches + $OFS)
+                    $l_json += ($json_SilentUninstallString + $OFS)
+                    $l_json += ($json_UpdateURI + $OFS)
+                    $l_json += ($json_UpdateRegex + $OFS)
+                    $l_json += ($json_LanguageClose + $OFS)
+                }
+            }
+            'x86' {
+                foreach ($l in $Lang) {
             
-            # Prompt for executable type on loop until valid
-            if (-not($MsiExe -like 'MSI' -or $MsiExe -like 'EXE')) {
-                $executable_type=$null
-                do {
-                    Clear-Host;
-                    [Int16]$executable_type=Read-Host -Prompt "Select INSTALLER TYPE for language ${l}${OFS}${OFS}  [1]  MSI${OFS}  [2]  EXE${OFS}${OFS}  Enter selection"
-                } until ($executable_type -lt 3 -and $executable_type -gt 0)
-                Switch ($executable_type) {
-                    1 { [String]$exec_type='MSI' }
-                    2 { [String]$exec_type='EXE' }
-                    Default {}
+                    # Prompt for executable type on loop until valid
+                    if (-not($MsiExe -like 'MSI' -or $MsiExe -like 'EXE')) {
+                        $executable_type=$null
+                        do {
+                            Clear-Host;
+                            [Int16]$executable_type=Read-Host -Prompt "Select INSTALLER TYPE for language ${l}${OFS}${OFS}  [1]  MSI${OFS}  [2]  EXE${OFS}${OFS}  Enter selection"
+                        } until ($executable_type -lt 3 -and $executable_type -gt 0)
+                        Switch ($executable_type) {
+                            1 { [String]$exec_type='MSI' }
+                            2 { [String]$exec_type='EXE' }
+                            Default {}
+                        }
+                    } else {
+                        Switch ($MsiExe) {
+                            'MSI' { [String]$exec_type='MSI' }
+                            'EXE' { [String]$exec_type='EXE' }
+                        }
+                    }
+            
+                    # Prompt for silent install switch(es) on loop until valid
+                    if (-not($SilentSwitch)) {
+                        [String]$silent_switch_prompt="[OPTIONAL] Provide SILENT INSTALL switch(es) for language ${l}"
+                        $silent_install_switches=$null
+                        do {
+                            Clear-Host;
+                            [String]$silent_install_switches=Read-Host -Prompt $silent_switch_prompt
+                        } until ($silent_install_switches -match [System.Text.RegularExpressions.Regex]::New('\W|\w|\W\w') -or $silent_install_switches -match [System.Text.RegularExpressions.Regex]::New(''))
+                    } else {
+                        $silent_install_switches=$SilentSwitch
+                    }
+            
+                    # Prompt for silent uninstall string on loop until valid ~> must be provided
+                    if (-not($UninstallSwitch)) {
+                        [String]$silent_uninstall_prompt="Provide UNINSTALL string for language ${l}"
+                        $silent_uninstall_string=$null
+                        do {
+                            Clear-Host;
+                            [String]$silent_uninstall_string=Read-Host -Prompt $silent_uninstall_prompt
+                        } until ($silent_uninstall_string -match [System.Text.RegularExpressions.Regex]::New('\W|\w|\W\w'))
+                    } else {
+                        $silent_uninstall_string=$UninstallSwitch
+                    }
+            
+                    # Prompt for update URI
+                    if (-not($UpdateURI)) {
+                        [String]$update_URI_prompt="Provide UPDATE URI for reference for language ${l}"
+                        $update_URI_lookup=$null
+                        do {
+                            Clear-Host;
+                            [Uri]$update_URI_lookup=Read-Host -Prompt $update_URI_prompt
+                        } until ($update_URI_lookup -match [System.Text.RegularExpressions.Regex]::New('\W\w') -and (Get-UrlStatusCode -Url $update_URI_lookup) -like 200)
+                    } else {
+                        $update_URI_lookup=$UpdateURI
+                    }
+            
+                    # Prompt for update regex
+                    if (-not($UpdateRegex)) {
+                        [String]$update_regex_prompt="[OPTIONAL] Provide UPDATE URI regex string for language ${l}"
+                        $update_regex_lookup=$null
+                        do {
+                            Clear-Host;
+                            [String]$update_regex_lookup=Read-Host -Prompt $update_regex_prompt
+                        } until ($update_regex_lookup -match [System.Text.RegularExpressions.Regex]::New('\W\w') -or $update_regex_lookup -match [System.Text.RegularExpressions.Regex]::New(''))
+                    } else {
+                        $update_regex_lookup=$UpdateRegex
+                    }
+            
+                    # Prompt for URL32 on loop until valid
+                    if (-not($x86InstallURI)) {
+                        [String]$url32_prompt="Enter the 32-bit URL to the installer for language ${l}"
+                        $url32=$null
+                        do {
+                            Clear-Host;
+                            [Uri]$url32=Read-Host -Prompt $url32_prompt
+                        } until ($url32.Length -gt 0 -and (Get-UrlStatusCode -Url $url32) -like 200)  #URL must be valid and exist, tests to confirm is valid
+                        Clear-Host;
+                    } else {
+                        $url32=$x86InstallURI
+                    }
+            
+                    # Main Region
+                    $followURL=Get-RedirectedUrl -Url $url32  #find the URL to download
+                    Write-Host "Downloading application package...${OFS}" -ForeGroundColor Yellow
+                    $WebClient=New-Object System.Net.WebClient
+                    $WebClient.DownloadFile($followURL, $Hashfile32)
+                    Write-Host "Getting SHA-256 checksum...${OFS}" -ForeGroundColor Yellow
+                    $sha256=(Get-FileHash -Path $hashfile32 -Algorithm SHA256).Hash
+                    Start-Sleep -Seconds 1
+                    Write-Host "Getting SHA-512 checksum...${OFS}" -ForeGroundColor Yellow
+                    $sha512=(Get-FileHash -Path $hashfile32 -Algorithm SHA512).Hash
+                    Start-Sleep -Seconds 1
+            
+            
+                    # Set the all the JSON data lines
+                    $json_ArchOpen='            "x86": {'
+                    $json_LanguageOpen='                "' + $l + '": {'
+                    $json_URL='                    "Url": "' + $url32 + '",'
+                    $json_followURL='                    "FollowUrl": "' + $followURL + '",'
+                    $json_SHA256='                    "Sha256": "' + $sha256 + '",'
+                    $json_SHA512='                    "Sha512": "' + $sha512 + '",'
+                    $json_InstallerType='                    "InstallerType": "' + $exec_type + '",'
+                    $json_SilentSwitches='                    "InstallSwitches": "'+ $silent_install_switches.Replace('"','\"') + '",'
+                    $json_SilentUninstallString='                    "UninstallString": "'+ $silent_uninstall_string.Replace('"','\"') + '",'
+                    $json_UpdateURI='                    "UpdateURI": "'+ $update_URI_lookup + '",'
+                    $json_UpdateRegex='                    "UpdateRegex": "'+ $update_regex_lookup.Replace('"','\"') + '"'
+                    if ($l_count -lt 2) {
+                        $json_LanguageClose='                }' + $OFS + '            },'
+                        #$json_ArchClose
+                        # the ArchClose is removed because it gets added on $json_LanguageClose selection
+                    } else {
+                        $json_LanguageClose='                },'
+                        $l_count -= 1  #deduct 1 from the language count, so the last line will automatically revent to the first and close off the JSON list
+                    }
+            
+                    # Put all the results together
+                    $l_json += ($json_ArchOpen + $OFS)
+                    $l_json += ($json_LanguageOpen + $OFS)
+                    $l_json += ($json_URL + $OFS)
+                    $l_json += ($json_followURL + $OFS)
+                    $l_json += ($json_SHA256 + $OFS)
+                    $l_json += ($json_SHA512 + $OFS)
+                    $l_json += ($json_InstallerType + $OFS)
+                    $l_json += ($json_SilentSwitches + $OFS)
+                    $l_json += ($json_SilentUninstallString + $OFS)
+                    $l_json += ($json_UpdateURI + $OFS)
+                    $l_json += ($json_UpdateRegex + $OFS)
+                    $l_json += ($json_LanguageClose + $OFS)
                 }
-            } else {
-                Switch ($MsiExe) {
-                    'MSI' { [String]$exec_type='MSI' }
-                    'EXE' { [String]$exec_type='EXE' }
+            }
+            'x86_64' {
+                foreach ($l in $Lang) {
+
+                    # Prompt for executable type on loop until valid
+                    if (-not($64MsiExe -like 'MSI' -or $64MsiExe -like 'EXE')) {
+                        $executable_type=$null
+                        do {
+                            Clear-Host;
+                            [Int16]$executable_type=Read-Host -Prompt "Select 64-bit INSTALLER TYPE for language ${l}${OFS}${OFS}  [1]  MSI${OFS}  [2]  EXE${OFS}${OFS}  Enter selection"
+                        } until ($executable_type -lt 3 -and $executable_type -gt 0)
+                        Switch ($executable_type) {
+                            1 { [String]$64exec_type='MSI' }
+                            2 { [String]$64exec_type='EXE' }
+                            Default {}
+                        }
+                    } else {
+                        Switch ($64MsiExe) {
+                            'MSI' { [String]$64exec_type='MSI' }
+                            'EXE' { [String]$64exec_type='EXE' }
+                        }
+                    }
+            
+                    # Prompt for silent install switch(es) on loop until valid
+                    if (-not($SilentSwitch)) {
+                        [String]$silent_switch_prompt="[OPTIONAL] Provide SILENT INSTALL switch(es) for language ${l}"
+                        $silent_install_switches=$null
+                        do {
+                            Clear-Host;
+                            [String]$silent_install_switches=Read-Host -Prompt $silent_switch_prompt
+                        } until ($silent_install_switches -match [System.Text.RegularExpressions.Regex]::New('\W|\w|\W\w') -or $silent_install_switches -match [System.Text.RegularExpressions.Regex]::New(''))
+                    } else {
+                        $silent_install_switches=$SilentSwitch
+                    }
+            
+                    # Prompt for silent uninstall string on loop until valid ~> must be provided
+                    if (-not($UninstallSwitch)) {
+                        [String]$silent_uninstall_prompt="Provide UNINSTALL string for language ${l}"
+                        $silent_uninstall_string=$null
+                        do {
+                            Clear-Host;
+                            [String]$silent_uninstall_string=Read-Host -Prompt $silent_uninstall_prompt
+                        } until ($silent_uninstall_string -match [System.Text.RegularExpressions.Regex]::New('\W|\w|\W\w'))
+                    } else {
+                        $silent_uninstall_string=$UninstallSwitch
+                    }
+            
+                    # Prompt for update URI
+                    if (-not($64UpdateURI)) {
+                        [String]$64update_URI_prompt="Provide UPDATE URI for reference for language ${l}"
+                        $64update_URI_lookup=$null
+                        do {
+                            Clear-Host;
+                            [Uri]$64update_URI_lookup=Read-Host -Prompt $64update_URI_prompt
+                        } until ($64update_URI_lookup -match [System.Text.RegularExpressions.Regex]::New('\W\w') -and (Get-UrlStatusCode -Url $64update_URI_lookup) -like 200)
+                    } else {
+                        $64update_URI_lookup=$64UpdateURI
+                    }
+            
+                    # Prompt for update regex
+                    if (-not($64UpdateRegex)) {
+                        [String]$64update_regex_prompt="[OPTIONAL] Provide UPDATE URI regex string for language ${l}"
+                        $64update_regex_lookup=$null
+                        do {
+                            Clear-Host;
+                            [String]$64update_regex_lookup=Read-Host -Prompt $64update_regex_prompt
+                        } until ($64update_regex_lookup -match [System.Text.RegularExpressions.Regex]::New('\W\w') -or $64update_regex_lookup -match [System.Text.RegularExpressions.Regex]::New(''))
+                    } else {
+                        $64update_regex_lookup=$64UpdateRegex
+                    }
+            
+                    # Prompt for URL64 on loop until valid
+                    if (-not($x64InstallURI)) {
+                        [String]$url64_prompt="Enter the 64-bit URL to the installer for language ${l}"
+                        $url64=$null
+                        do {
+                            Clear-Host;
+                            [Uri]$url64=Read-Host -Prompt $url64_prompt
+                        } until ($url64.Length -gt 0 -and (Get-UrlStatusCode -Url $url64) -like 200)  #URL must be valid and exist, tests to confirm is valid
+                        Clear-Host;
+                    } else {
+                        $url64=$x64InstallURI
+                    }
+            
+
+                    # Main Region
+                    $followURL=Get-RedirectedUrl -Url $url64  #find the URL to download
+                    Write-Host "Downloading application package...${OFS}" -ForeGroundColor Yellow
+                    $WebClient=New-Object System.Net.WebClient
+                    $WebClient.DownloadFile($followURL, $Hashfile64)
+                    Write-Host "Getting SHA-256 checksum...${OFS}" -ForeGroundColor Yellow
+                    $sha256=(Get-FileHash -Path $hashfile64 -Algorithm SHA256).Hash
+                    Start-Sleep -Seconds 1
+                    Write-Host "Getting SHA-512 checksum...${OFS}" -ForeGroundColor Yellow
+                    $sha512=(Get-FileHash -Path $hashfile64 -Algorithm SHA512).Hash
+                    Start-Sleep -Seconds 1
+            
+            
+                    # Set the all the JSON data lines
+                    $json_ArchOpen='            "x64": {'
+                    $json_LanguageOpen='                "' + $l + '": {'
+                    $json_URL='                    "Url": "' + $url64 + '",'
+                    $json_followURL='                    "FollowUrl": "' + $followURL + '",'
+                    $json_SHA256='                    "Sha256": "' + $sha256 + '",'
+                    $json_SHA512='                    "Sha512": "' + $sha512 + '",'
+                    $json_InstallerType='                    "InstallerType": "' + $exec_type + '",'
+                    $json_SilentSwitches='                    "InstallSwitches": "'+ $silent_install_switches.Replace('"','\"') + '",'
+                    $json_SilentUninstallString='                    "UninstallString": "'+ $silent_uninstall_string.Replace('"','\"') + '",'
+                    $json_UpdateURI='                    "UpdateURI": "'+ $update_URI_lookup + '",'
+                    $json_UpdateRegex='                    "UpdateRegex": "'+ $update_regex_lookup.Replace('"','\"') + '"'
+                    if ($l_count -lt 2) {
+                        $json_LanguageClose='                }' + $OFS + '            },'
+                        #$json_ArchClose
+                        # the ArchClose is removed because it gets added on $json_LanguageClose selection
+                    } else {
+                        $json_LanguageClose='                },'
+                        $l_count -= 1  #deduct 1 from the language count, so the last line will automatically revent to the first and close off the JSON list
+                    }
+            
+                    # Put all the results together
+                    $l_json += ($json_ArchOpen + $OFS)
+                    $l_json += ($json_LanguageOpen + $OFS)
+                    $l_json += ($json_URL + $OFS)
+                    $l_json += ($json_followURL + $OFS)
+                    $l_json += ($json_SHA256 + $OFS)
+                    $l_json += ($json_SHA512 + $OFS)
+                    $l_json += ($json_InstallerType + $OFS)
+                    $l_json += ($json_SilentSwitches + $OFS)
+                    $l_json += ($json_SilentUninstallString + $OFS)
+                    $l_json += ($json_UpdateURI + $OFS)
+                    $l_json += ($json_UpdateRegex + $OFS)
+                    $l_json += ($json_LanguageClose + $OFS)
+            
+                    # Prompt for executable type on loop until valid
+                    if (-not($32MsiExe -like 'MSI' -or $32MsiExe -like 'EXE')) {
+                        $executable_type=$null
+                        do {
+                            Clear-Host;
+                            [Int16]$executable_type=Read-Host -Prompt "Select 32-bit INSTALLER TYPE for language ${l}${OFS}${OFS}  [1]  MSI${OFS}  [2]  EXE${OFS}${OFS}  Enter selection"
+                        } until ($executable_type -lt 3 -and $executable_type -gt 0)
+                        Switch ($executable_type) {
+                            1 { [String]$32exec_type='MSI' }
+                            2 { [String]$32exec_type='EXE' }
+                            Default {}
+                        }
+                    } else {
+                        Switch ($32MsiExe) {
+                            'MSI' { [String]$32exec_type='MSI' }
+                            'EXE' { [String]$32exec_type='EXE' }
+                        }
+                    }
+                
+                    # Prompt for silent install switch(es) on loop until valid
+                    if (-not($SilentSwitch)) {
+                        [String]$silent_switch_prompt="[OPTIONAL] Provide SILENT INSTALL switch(es) for language ${l}"
+                        $silent_install_switches=$null
+                        do {
+                            Clear-Host;
+                            [String]$silent_install_switches=Read-Host -Prompt $silent_switch_prompt
+                        } until ($silent_install_switches -match [System.Text.RegularExpressions.Regex]::New('\W|\w|\W\w') -or $silent_install_switches -match [System.Text.RegularExpressions.Regex]::New(''))
+                    } else {
+                        $silent_install_switches=$SilentSwitch
+                    }
+                
+                    # Prompt for silent uninstall string on loop until valid ~> must be provided
+                    if (-not($UninstallSwitch)) {
+                        [String]$silent_uninstall_prompt="Provide UNINSTALL string for language ${l}"
+                        $silent_uninstall_string=$null
+                        do {
+                            Clear-Host;
+                            [String]$silent_uninstall_string=Read-Host -Prompt $silent_uninstall_prompt
+                        } until ($silent_uninstall_string -match [System.Text.RegularExpressions.Regex]::New('\W|\w|\W\w'))
+                    } else {
+                        $silent_uninstall_string=$UninstallSwitch
+                    }
+                
+                    # Prompt for update URI
+                    if (-not($32UpdateURI)) {
+                        [String]$32update_URI_prompt="Provide UPDATE URI for reference for language ${l}"
+                        $32update_URI_lookup=$null
+                        do {
+                            Clear-Host;
+                            [Uri]$32update_URI_lookup=Read-Host -Prompt $32update_URI_prompt
+                        } until ($32update_URI_lookup -match [System.Text.RegularExpressions.Regex]::New('\W\w') -and (Get-UrlStatusCode -Url $32update_URI_lookup) -like 200)
+                    } else {
+                        $32update_URI_lookup=$32UpdateURI
+                    }
+                
+                    # Prompt for update regex
+                    if (-not($32UpdateRegex)) {
+                        [String]$32update_regex_prompt="[OPTIONAL] Provide UPDATE URI regex string for language ${l}"
+                        $32update_regex_lookup=$null
+                        do {
+                            Clear-Host;
+                            [String]$32update_regex_lookup=Read-Host -Prompt $32update_regex_prompt
+                        } until ($32update_regex_lookup -match [System.Text.RegularExpressions.Regex]::New('\W\w') -or $32update_regex_lookup -match [System.Text.RegularExpressions.Regex]::New(''))
+                    } else {
+                        $32update_regex_lookup=$32UpdateRegex
+                    }
+                
+                    # Prompt for URL32 on loop until valid
+                    if (-not($x86InstallURI)) {
+                        [String]$url32_prompt="Enter the 32-bit URL to the installer for language ${l}"
+                        $url32=$null
+                        do {
+                            Clear-Host;
+                            [Uri]$url32=Read-Host -Prompt $url32_prompt
+                        } until ($url32.Length -gt 0 -and (Get-UrlStatusCode -Url $url32) -like 200)  #URL must be valid and exist, tests to confirm is valid
+                        Clear-Host;
+                    } else {
+                        $url32=$x86InstallURI
+                    }
+                
+
+                    # Main Region
+                    $followURL=Get-RedirectedUrl -Url $url32  #find the URL to download
+                    Write-Host "Downloading application package...${OFS}" -ForeGroundColor Yellow
+                    $WebClient=New-Object System.Net.WebClient
+                    $WebClient.DownloadFile($followURL, $Hashfile32)
+                    Write-Host "Getting SHA-256 checksum...${OFS}" -ForeGroundColor Yellow
+                    $sha256=(Get-FileHash -Path $hashfile32 -Algorithm SHA256).Hash
+                    Start-Sleep -Seconds 1
+                    Write-Host "Getting SHA-512 checksum...${OFS}" -ForeGroundColor Yellow
+                    $sha512=(Get-FileHash -Path $hashfile32 -Algorithm SHA512).Hash
+                    Start-Sleep -Seconds 1
+                
+                
+                    # Set the all the JSON data lines
+                    $json_ArchOpen='            "x86": {'
+                    $json_LanguageOpen='                "' + $l + '": {'
+                    $json_URL='                    "Url": "' + $url32 + '",'
+                    $json_followURL='                    "FollowUrl": "' + $followURL + '",'
+                    $json_SHA256='                    "Sha256": "' + $sha256 + '",'
+                    $json_SHA512='                    "Sha512": "' + $sha512 + '",'
+                    $json_InstallerType='                    "InstallerType": "' + $exec_type + '",'
+                    $json_SilentSwitches='                    "InstallSwitches": "'+ $silent_install_switches.Replace('"','\"') + '",'
+                    $json_SilentUninstallString='                    "UninstallString": "'+ $silent_uninstall_string.Replace('"','\"') + '",'
+                    $json_UpdateURI='                    "UpdateURI": "'+ $update_URI_lookup + '",'
+                    $json_UpdateRegex='                    "UpdateRegex": "'+ $update_regex_lookup.Replace('"','\"') + '"'
+                    if ($l_count -lt 2) {
+                        $json_LanguageClose='                }' + $OFS + '            },'
+                        #$json_ArchClose
+                        # the ArchClose is removed because it gets added on $json_LanguageClose selection
+                    } else {
+                        $json_LanguageClose='                },'
+                        $l_count -= 1  #deduct 1 from the language count, so the last line will automatically revent to the first and close off the JSON list
+                    }
+                
+                    # Put all the results together
+                    $l_json += ($json_ArchOpen + $OFS)
+                    $l_json += ($json_LanguageOpen + $OFS)
+                    $l_json += ($json_URL + $OFS)
+                    $l_json += ($json_followURL + $OFS)
+                    $l_json += ($json_SHA256 + $OFS)
+                    $l_json += ($json_SHA512 + $OFS)
+                    $l_json += ($json_InstallerType + $OFS)
+                    $l_json += ($json_SilentSwitches + $OFS)
+                    $l_json += ($json_SilentUninstallString + $OFS)
+                    $l_json += ($json_UpdateURI + $OFS)
+                    $l_json += ($json_UpdateRegex + $OFS)
+                    $l_json += ($json_LanguageClose + $OFS)
                 }
             }
-
-            # Prompt for silent install switch(es) on loop until valid
-            if (-not($SilentSwitch)) {
-                [String]$silent_switch_prompt="[OPTIONAL] Provide SILENT INSTALL switch(es) for language ${l}"
-                $silent_install_switches=$null
-                do {
-                    Clear-Host;
-                    [String]$silent_install_switches=Read-Host -Prompt $silent_switch_prompt
-                } until ($silent_install_switches -match [System.Text.RegularExpressions.Regex]::New('\W|\w|\W\w') -or $silent_install_switches -match [System.Text.RegularExpressions.Regex]::New(''))
-            } else {
-                $silent_install_switches=$SilentSwitch
-            }
-
-            # Prompt for silent uninstall string on loop until valid ~> must be provided
-            if (-not($UninstallSwitch)) {
-                [String]$silent_uninstall_prompt="Provide UNINSTALL string for language ${l}"
-                $silent_uninstall_string=$null
-                do {
-                    Clear-Host;
-                    [String]$silent_uninstall_string=Read-Host -Prompt $silent_uninstall_prompt
-                } until ($silent_uninstall_string -match [System.Text.RegularExpressions.Regex]::New('\W|\w|\W\w'))
-            } else {
-                $silent_uninstall_string=$UninstallSwitch
-            }
-
-            # Prompt for update URI
-            if (-not($UpdateURI)) {
-                [String]$update_URI_prompt="Provide UPDATE URI for reference for language ${l}"
-                $update_URI_lookup=$null
-                do {
-                    Clear-Host;
-                    [Uri]$update_URI_lookup=Read-Host -Prompt $update_URI_prompt
-                } until ($update_URI_lookup -match [System.Text.RegularExpressions.Regex]::New('\W\w') -and (Get-UrlStatusCode -Url $update_URI_lookup) -like 200)
-            } else {
-                $update_URI_lookup=$UpdateURI
-            }
-
-            # Prompt for update regex
-            if (-not($UpdateRegex)) {
-                [String]$update_regex_prompt="[OPTIONAL] Provide UPDATE URI regex string for language ${l}"
-                $update_regex_lookup=$null
-                do {
-                    Clear-Host;
-                    [String]$update_regex_lookup=Read-Host -Prompt $update_regex_prompt
-                } until ($update_regex_lookup -match [System.Text.RegularExpressions.Regex]::New('\W\w') -or $update_regex_lookup -match [System.Text.RegularExpressions.Regex]::New(''))
-            } else {
-                $update_regex_lookup=$UpdateRegex
-            }
-
-            # Prompt for URL64 on loop until valid
-            if (-not($x64InstallURI)) {
-                [String]$url64_prompt="Enter the 64-bit URL to the installer for language ${l}"
-                $url64=$null
-                do {
-                    Clear-Host;
-                    [Uri]$url64=Read-Host -Prompt $url64_prompt
-                } until ($url64.Length -gt 0 -and (Get-UrlStatusCode -Url $url64) -like 200)  #URL must be valid and exist, tests to confirm is valid
-                Clear-Host;
-            } else {
-                $url64=$x64InstallURI
-            }
-
-            # Main Region
-            $followURL=Get-RedirectedUrl -Url $url64  #find the URL to download
-            Write-Host "Downloading application package...${OFS}" -ForeGroundColor Yellow
-            $WebClient=New-Object System.Net.WebClient
-            $WebClient.DownloadFile($followURL, $Hashfile64)
-            Write-Host "Getting SHA-256 checksum...${OFS}" -ForeGroundColor Yellow
-            $sha256=(Get-FileHash -Path $hashfile64 -Algorithm SHA256).Hash
-            Start-Sleep -Seconds 1
-            Write-Host "Getting SHA-512 checksum...${OFS}" -ForeGroundColor Yellow
-            $sha512=(Get-FileHash -Path $hashfile64 -Algorithm SHA512).Hash
-            Start-Sleep -Seconds 1
-
-
-            # Set the all the JSON data lines
-            $json_LanguageOpen='                "' + $l + '": {'
-            $json_URL='                    "Url": "' + $url64 + '",'
-            $json_followURL='                    "FollowUrl": "' + $followURL + '",'
-            $json_SHA256='                    "Sha256": "' + $sha256 + '",'
-            $json_SHA512='                    "Sha512": "' + $sha512 + '",'
-            $json_InstallerType='                    "InstallerType": "' + $exec_type + '",'
-            $json_SilentSwitches='                    "InstallSwitches": "'+ $silent_install_switches.Replace('"','\"') + '",'
-            $json_SilentUninstallString='                    "UninstallString": "'+ $silent_uninstall_string.Replace('"','\"') + '",'
-            $json_UpdateURI='                    "UpdateURI": "'+ $update_URI_lookup + '",'
-            $json_UpdateRegex='                    "UpdateRegex": "'+ $update_regex_lookup.Replace('"','\"') + '"'
-            if ($l_count -lt 2) {
-                $json_LanguageClose='                }'
-            } else {
-                $json_LanguageClose='                },'
-                $l_count -= 1  #deduct 1 from the language count, so the last line will automatically revent to the first and close off the JSON list
-            }
-
-            # Put all the results together
-            $l_json += ($json_LanguageOpen + $OFS)
-            $l_json += ($json_URL + $OFS)
-            $l_json += ($json_followURL + $OFS)
-            $l_json += ($json_SHA256 + $OFS)
-            $l_json += ($json_SHA512 + $OFS)
-            $l_json += ($json_InstallerType + $OFS)
-            $l_json += ($json_SilentSwitches + $OFS)
-            $l_json += ($json_SilentUninstallString + $OFS)
-            $l_json += ($json_UpdateURI + $OFS)
-            $l_json += ($json_UpdateRegex + $OFS)
-            $l_json += ($json_LanguageClose + $OFS)
         }
     }
     
