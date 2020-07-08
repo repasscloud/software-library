@@ -42,8 +42,16 @@ function Set-InstallerLanguages {
         $Arch,
 
         [Parameter(Mandatory=$false,Position=1)]
-        [ArgumentCompleter({(Import-Csv -Path 'C:\tmp\software-matrix\lib\public\LCID.csv' -Delimiter ',').'BCP 47 Code'})]  #this path needs to be changed
-        [ValidateScript({$_ -in (((Import-Csv -Path 'C:\tmp\software-matrix\lib\public\LCID.csv' -Delimiter ',').'BCP 47 Code'))})]  #this path needs to be changed
+        [ArgumentCompleter(
+            {
+                (Import-Csv -Path 'C:\tmp\software-matrix\lib\public\LCID.csv' -Delimiter ',').'BCP 47 Code'
+            }
+        )]  #this path needs to be changed
+        [ValidateScript(
+            {
+                $_ -in (((Import-Csv -Path 'C:\tmp\software-matrix\lib\public\LCID.csv' -Delimiter ',').'BCP 47 Code'))
+            }
+        )]  #this path needs to be changed
         [Array]  #array to capture more than one
         $Lang=@('en-US'),  #default to en-US
 
