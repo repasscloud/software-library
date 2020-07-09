@@ -31,5 +31,3 @@ Temporary Items
 
 # Test directory and files
 test/*
-#lib/scripts/Test-Manifests.ps1
-lib/scripts/functions/temp*.ps1
