@@ -22,7 +22,7 @@ Version: 2.1.0.71
 #      -UninstallSwitch 'this cat says hello' `
 #      -UpdateURI https://notepad-plus-plus.org/ `
 #      -UpdateRegex '(\s)' `
-#      -x64InstallURI 'https://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win64&lang=en-US'
+#      -InstallURIx64 'https://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win64&lang=en-US'
 #    $jsonLangData
 #
 #    $jsonLangData = Set-InstallerLanguages -Arch x64
@@ -103,7 +103,7 @@ function Set-InstallerLanguages {
             }
         )]
         [Uri]
-        $x64InstallURI,
+        $InstallURI_x64,
 
         [Parameter(Mandatory=$false,Position=8)]
         [ValidateScript(
@@ -112,17 +112,17 @@ function Set-InstallerLanguages {
             }
         )]
         [Uri]
-        $x86InstallURI,
+        $InstallURI_x86,
 
         [Parameter(Mandatory=$false,Position=9)]
         [ValidateSet('MSI','EXE')]
         [String]
-        $64MsiExe,
+        $MsiExe_x64,
         
         [Parameter(Mandatory=$false,Position=10)]
         [ValidateSet('MSI','EXE')]
         [String]
-        $32MsiExe,
+        $MsiExe_x86,
 
         [Parameter(Mandatory=$false,Position=11)]
         [ValidateScript(
@@ -131,7 +131,7 @@ function Set-InstallerLanguages {
             }
         )]
         [Uri]
-        $64UpdateURI,
+        $UpdateURI_x64,
         
         [Parameter(Mandatory=$false,Position=12)]
         [ValidateScript(
@@ -140,7 +140,7 @@ function Set-InstallerLanguages {
             }
         )]
         [String]
-        $64UpdateRegex,
+        $UpdateRegex_x64,
 
         [Parameter(Mandatory=$false,Position=13)]
         [ValidateScript(
@@ -149,7 +149,7 @@ function Set-InstallerLanguages {
             }
         )]
         [Uri]
-        $32UpdateURI,
+        $UpdateURI_x86,
         
         [Parameter(Mandatory=$false,Position=14)]
         [ValidateScript(
@@ -158,7 +158,7 @@ function Set-InstallerLanguages {
             }
         )]
         [String]
-        $32UpdateRegex
+        $UpdateRegex_x86
     )
     
 
@@ -272,7 +272,7 @@ function Set-InstallerLanguages {
                     }
 
                     # Prompt for URL64 on loop until valid
-                    if (-not($x64InstallURI)) {
+                    if (-not($InstallURI_x64)) {
                         [String]$url64_prompt="Enter the 64-bit URL to the installer for language ${l}"
                         $url64=$null
                         do {
@@ -281,7 +281,7 @@ function Set-InstallerLanguages {
                         } until ($url64.Length -gt 0 -and (Get-UrlStatusCode -Url $url64) -like 200)  #URL must be valid and exist, tests to confirm is valid
                         Clear-Host;
                     } else {
-                        $url64=$x64InstallURI
+                        $url64=$InstallURI_x64
                     }
 
                     # Main Region
@@ -404,7 +404,7 @@ function Set-InstallerLanguages {
                     }
             
                     # Prompt for URL32 on loop until valid
-                    if (-not($x86InstallURI)) {
+                    if (-not($InstallURI_x86)) {
                         [String]$url32_prompt="Enter the 32-bit URL to the installer for language ${l}"
                         $url32=$null
                         do {
@@ -413,7 +413,7 @@ function Set-InstallerLanguages {
                         } until ($url32.Length -gt 0 -and (Get-UrlStatusCode -Url $url32) -like 200)  #URL must be valid and exist, tests to confirm is valid
                         Clear-Host;
                     } else {
-                        $url32=$x86InstallURI
+                        $url32=$InstallURI_x86
                     }
             
                     # Main Region
@@ -469,7 +469,7 @@ function Set-InstallerLanguages {
                 foreach ($l in $Lang) {
 
                     # Prompt for executable type on loop until valid
-                    if (-not($64MsiExe -like 'MSI' -or $64MsiExe -like 'EXE')) {
+                    if (-not($MsiExe_x64 -like 'MSI' -or $MsiExe_x64 -like 'EXE')) {
                         $executable_type=$null
                         do {
                             Clear-Host;
@@ -481,7 +481,7 @@ function Set-InstallerLanguages {
                             Default {}
                         }
                     } else {
-                        Switch ($64MsiExe) {
+                        Switch ($MsiExe_x64) {
                             'MSI' { [String]$64exec_type='MSI' }
                             'EXE' { [String]$64exec_type='EXE' }
                         }
@@ -512,7 +512,7 @@ function Set-InstallerLanguages {
                     }
             
                     # Prompt for update URI
-                    if (-not($64UpdateURI)) {
+                    if (-not($UpdateURI_x64)) {
                         [String]$64update_URI_prompt="Provide UPDATE URI for reference for language ${l}"
                         $64update_URI_lookup=$null
                         do {
@@ -520,11 +520,11 @@ function Set-InstallerLanguages {
                             [Uri]$64update_URI_lookup=Read-Host -Prompt $64update_URI_prompt
                         } until ($64update_URI_lookup -match [System.Text.RegularExpressions.Regex]::New('\W\w') -and (Get-UrlStatusCode -Url $64update_URI_lookup) -like 200)
                     } else {
-                        $64update_URI_lookup=$64UpdateURI
+                        $64update_URI_lookup=$UpdateURI_x64
                     }
             
                     # Prompt for update regex
-                    if (-not($64UpdateRegex)) {
+                    if (-not($UpdateRegex_x64)) {
                         [String]$64update_regex_prompt="[OPTIONAL] Provide UPDATE URI regex string for language ${l}"
                         $64update_regex_lookup=$null
                         do {
@@ -532,11 +532,11 @@ function Set-InstallerLanguages {
                             [String]$64update_regex_lookup=Read-Host -Prompt $64update_regex_prompt
                         } until ($64update_regex_lookup -match [System.Text.RegularExpressions.Regex]::New('\W\w') -or $64update_regex_lookup -match [System.Text.RegularExpressions.Regex]::New(''))
                     } else {
-                        $64update_regex_lookup=$64UpdateRegex
+                        $64update_regex_lookup=$UpdateRegex_x64
                     }
             
                     # Prompt for URL64 on loop until valid
-                    if (-not($x64InstallURI)) {
+                    if (-not($InstallURI_x64)) {
                         [String]$url64_prompt="Enter the 64-bit URL to the installer for language ${l}"
                         $url64=$null
                         do {
@@ -545,7 +545,7 @@ function Set-InstallerLanguages {
                         } until ($url64.Length -gt 0 -and (Get-UrlStatusCode -Url $url64) -like 200)  #URL must be valid and exist, tests to confirm is valid
                         Clear-Host;
                     } else {
-                        $url64=$x64InstallURI
+                        $url64=$InstallURI_x64
                     }
             
 
@@ -569,11 +569,11 @@ function Set-InstallerLanguages {
                     $json_followURL='                    "FollowUrl": "' + $followURL + '",'
                     $json_SHA256='                    "Sha256": "' + $sha256 + '",'
                     $json_SHA512='                    "Sha512": "' + $sha512 + '",'
-                    $json_InstallerType='                    "InstallerType": "' + $exec_type + '",'
+                    $json_InstallerType='                    "InstallerType": "' + $64exec_type + '",'
                     $json_SilentSwitches='                    "InstallSwitches": "'+ $silent_install_switches.Replace('"','\"') + '",'
                     $json_SilentUninstallString='                    "UninstallString": "'+ $silent_uninstall_string.Replace('"','\"') + '",'
-                    $json_UpdateURI='                    "UpdateURI": "'+ $update_URI_lookup + '",'
-                    $json_UpdateRegex='                    "UpdateRegex": "'+ $update_regex_lookup.Replace('"','\"') + '"'
+                    $json_UpdateURI='                    "UpdateURI": "'+ $64update_URI_lookup + '",'
+                    $json_UpdateRegex='                    "UpdateRegex": "'+ $64update_regex_lookup.Replace('"','\"') + '"'
                     if ($l_count -lt 2) {
                         $json_LanguageClose='                }' + $OFS + '            },'
                         #$json_ArchClose
@@ -598,7 +598,7 @@ function Set-InstallerLanguages {
                     $l_json += ($json_LanguageClose + $OFS)
             
                     # Prompt for executable type on loop until valid
-                    if (-not($32MsiExe -like 'MSI' -or $32MsiExe -like 'EXE')) {
+                    if (-not($MsiExe_x86 -like 'MSI' -or $MsiExe_x86 -like 'EXE')) {
                         $executable_type=$null
                         do {
                             Clear-Host;
@@ -610,7 +610,7 @@ function Set-InstallerLanguages {
                             Default {}
                         }
                     } else {
-                        Switch ($32MsiExe) {
+                        Switch ($MsiExe_x86) {
                             'MSI' { [String]$32exec_type='MSI' }
                             'EXE' { [String]$32exec_type='EXE' }
                         }
@@ -641,7 +641,7 @@ function Set-InstallerLanguages {
                     }
                 
                     # Prompt for update URI
-                    if (-not($32UpdateURI)) {
+                    if (-not($UpdateURI_x86)) {
                         [String]$32update_URI_prompt="Provide UPDATE URI for reference for language ${l}"
                         $32update_URI_lookup=$null
                         do {
@@ -649,11 +649,11 @@ function Set-InstallerLanguages {
                             [Uri]$32update_URI_lookup=Read-Host -Prompt $32update_URI_prompt
                         } until ($32update_URI_lookup -match [System.Text.RegularExpressions.Regex]::New('\W\w') -and (Get-UrlStatusCode -Url $32update_URI_lookup) -like 200)
                     } else {
-                        $32update_URI_lookup=$32UpdateURI
+                        $32update_URI_lookup=$UpdateURI_x86
                     }
                 
                     # Prompt for update regex
-                    if (-not($32UpdateRegex)) {
+                    if (-not($UpdateRegex_x86)) {
                         [String]$32update_regex_prompt="[OPTIONAL] Provide UPDATE URI regex string for language ${l}"
                         $32update_regex_lookup=$null
                         do {
@@ -661,11 +661,11 @@ function Set-InstallerLanguages {
                             [String]$32update_regex_lookup=Read-Host -Prompt $32update_regex_prompt
                         } until ($32update_regex_lookup -match [System.Text.RegularExpressions.Regex]::New('\W\w') -or $32update_regex_lookup -match [System.Text.RegularExpressions.Regex]::New(''))
                     } else {
-                        $32update_regex_lookup=$32UpdateRegex
+                        $32update_regex_lookup=$UpdateRegex_x86
                     }
                 
                     # Prompt for URL32 on loop until valid
-                    if (-not($x86InstallURI)) {
+                    if (-not($InstallURI_x86)) {
                         [String]$url32_prompt="Enter the 32-bit URL to the installer for language ${l}"
                         $url32=$null
                         do {
@@ -674,7 +674,7 @@ function Set-InstallerLanguages {
                         } until ($url32.Length -gt 0 -and (Get-UrlStatusCode -Url $url32) -like 200)  #URL must be valid and exist, tests to confirm is valid
                         Clear-Host;
                     } else {
-                        $url32=$x86InstallURI
+                        $url32=$InstallURI_x86
                     }
                 
 
@@ -698,11 +698,11 @@ function Set-InstallerLanguages {
                     $json_followURL='                    "FollowUrl": "' + $followURL + '",'
                     $json_SHA256='                    "Sha256": "' + $sha256 + '",'
                     $json_SHA512='                    "Sha512": "' + $sha512 + '",'
-                    $json_InstallerType='                    "InstallerType": "' + $exec_type + '",'
+                    $json_InstallerType='                    "InstallerType": "' + $32exec_type + '",'
                     $json_SilentSwitches='                    "InstallSwitches": "'+ $silent_install_switches.Replace('"','\"') + '",'
                     $json_SilentUninstallString='                    "UninstallString": "'+ $silent_uninstall_string.Replace('"','\"') + '",'
-                    $json_UpdateURI='                    "UpdateURI": "'+ $update_URI_lookup + '",'
-                    $json_UpdateRegex='                    "UpdateRegex": "'+ $update_regex_lookup.Replace('"','\"') + '"'
+                    $json_UpdateURI='                    "UpdateURI": "'+ $32update_URI_lookup + '",'
+                    $json_UpdateRegex='                    "UpdateRegex": "' + $32update_regex_lookup.Replace('"','\"') + '"'
                     if ($l_count -lt 2) {
                         $json_LanguageClose='                }' + $OFS + '            },'
                         #$json_ArchClose
