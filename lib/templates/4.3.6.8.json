@@ -1,0 +1,49 @@
+{
+    "Category": "",
+    "Manifest": "4.2.4.6",
+    "Nuspec": false,
+    "Copyright": "",
+    "Id": {
+      "Version": "",
+      "Name": "",
+      "Publisher": "",
+      "AppCopyright": "",
+      "License": "",
+      "LicenseURL": "",
+      "Tags": [],
+      "Description": "",
+      "Homepage": "",
+      "Arch": [],
+      "Languages": [],
+      "Depends": [],
+      "Installers": {
+        "x64": {
+          "en-US": {
+            "Url": "",
+            "FollowUrl": "",
+            "Sha256": "",
+            "Sha512": "",
+            "InstallerType": "",
+            "InstallSwitches": "",
+            "UninstallString": "",
+            "UpdateURI": "",
+            "UpdateRegex": ""
+          }
+        },
+        "x86": {
+          "en-US": {
+            "Url": "",
+            "FollowUrl": "",
+            "Sha256": "",
+            "Sha512": "",
+            "InstallerType": "",
+            "InstallSwitches": "",
+            "UninstallString": "",
+            "UpdateURI": "",
+            "UpdateRegex": ""
+          }
+        }
+      }
+    }
+  }
+      
