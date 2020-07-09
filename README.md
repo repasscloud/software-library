@@ -1,10 +1,10 @@
 # Software Matrix
                     
 [![pipeline status](https://gitlab.com/reform-cloud/r-and-d/software-matrix/badges/master/pipeline.svg)](https://gitlab.com/reform-cloud/r-and-d/software-matrix/commits/master)
-![GitHub top language](https://img.shields.io/github/languages/top/repasscloud/software-library?logo=powershell)
-[![CI](https://github.com/repasscloud/software-library/workflows/CI/badge.svg?branch=master)](https://github.com/repasscloud/software-library/actions?query=workflow%3ACI)
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/repasscloud/software-library)](https://github.com/repasscloud/software-library/releases/latest)
-![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/repasscloud/software-library/latest)
+[![GitHub top language](https://img.shields.io/github/languages/top/repasscloud/software-library?logo=powershell)]
+[![CI](https://github.com/repasscloud/software-library/workflows/CI/badge.svg?branch=master)](https://github.com/repasscloud/software-library/actions?query=workflow%3ACI)]
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/repasscloud/software-library)](https://github.com/repasscloud/software-library/releases/latest)]
+[![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/repasscloud/software-library/latest)]
 
 
 ```json
