@@ -18,6 +18,7 @@ $manifest_root_dir = Join-Path -Path $repo_root_dir -ChildPath 'app'
 # Start of $json_output
 [String]$json_output='{' + $OFS
 
+#region Category
 # Set application category
 $choice=$null
 do {
@@ -57,5 +58,19 @@ Switch ($choice) {
     9 { $json_output += '    "Category": "security",' + $OFS }
     10 { $json_output += '    "Category": "microsoft",' + $OFS }
 }
+#endregion Category
 
-$json_output
+
+#region Manifest Version
+# Read current manifest version to $json_output directly in-place
+$manifest_json='https://gitlab.com/reform-cloud/r-and-d/software-matrix/-/raw/patch/20/lib/public/manifest_version.json'
+$wc = [System.Net.WebClient]::new()
+$dl = $wc.DownloadString($manifest_json)
+$json_output += '    "Manifest": "' + $($dl | ConvertFrom-Json).Manifest_Version + '",' + $OFS
+$wc.Dispose()
+#endregion Manifest Version
+
+
+#region Nuspec
+'    "Nuspec": false,'
+#endregion Nuspec
