@@ -18,6 +18,7 @@ $manifest_root_dir = Join-Path -Path $repo_root_dir -ChildPath 'app'
 # Start of $json_output
 [String]$json_output='{' + $OFS
 
+
 #region Category
 # Set application category
 $choice=$null
@@ -71,6 +72,18 @@ $wc.Dispose()
 #endregion Manifest Version
 
 
-#region Nuspec
-'    "Nuspec": false,'
-#endregion Nuspec
+#region Nuspec & Copyright & Id
+# Add Nuspec value to $json_output
+$json_output += $(Set-NuspecValue) + $OFS
+
+# Add Copyright value to $json_output
+$json_output += $(Set-JsonCopyrightNotice) + $OFS
+
+# Add Id value to $json_output
+$json_output += '    "Id": {' + $OFS
+#endregion Nuspec & Copyright & Id
+
+
+#region Application particulars
+      "Version": "",
+#endregion Application particulars

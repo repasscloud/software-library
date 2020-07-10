@@ -84,7 +84,7 @@ function Set-InstallerLanguages {
                 $_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200
             }
         )]
-        [Uri]
+        [uri]
         $UpdateURI,
         
         [Parameter(Mandatory=$false,Position=6)]
@@ -102,7 +102,7 @@ function Set-InstallerLanguages {
                 $_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200
             }
         )]
-        [Uri]
+        [uri]
         $InstallURI_x64,
 
         [Parameter(Mandatory=$false,Position=8)]
@@ -111,7 +111,7 @@ function Set-InstallerLanguages {
                 $_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200
             }
         )]
-        [Uri]
+        [uri]
         $InstallURI_x86,
 
         [Parameter(Mandatory=$false,Position=9)]
@@ -130,7 +130,7 @@ function Set-InstallerLanguages {
                 $_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200
             }
         )]
-        [Uri]
+        [uri]
         $UpdateURI_x64,
         
         [Parameter(Mandatory=$false,Position=12)]
@@ -148,7 +148,7 @@ function Set-InstallerLanguages {
                 $_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200
             }
         )]
-        [Uri]
+        [uri]
         $UpdateURI_x86,
         
         [Parameter(Mandatory=$false,Position=14)]
@@ -253,7 +253,7 @@ function Set-InstallerLanguages {
                         $update_URI_lookup=$null
                         do {
                             Clear-Host;
-                            [Uri]$update_URI_lookup=Read-Host -Prompt $update_URI_prompt
+                            [uri]$update_URI_lookup=Read-Host -Prompt $update_URI_prompt
                         } until ($update_URI_lookup -match [System.Text.RegularExpressions.Regex]::New('\W\w') -and (Get-UrlStatusCode -Url $update_URI_lookup) -like 200)
                     } else {
                         $update_URI_lookup=$UpdateURI
@@ -277,7 +277,7 @@ function Set-InstallerLanguages {
                         $url64=$null
                         do {
                             Clear-Host;
-                            [Uri]$url64=Read-Host -Prompt $url64_prompt
+                            [uri]$url64=Read-Host -Prompt $url64_prompt
                         } until ($url64.Length -gt 0 -and (Get-UrlStatusCode -Url $url64) -like 200)  #URL must be valid and exist, tests to confirm is valid
                         Clear-Host;
                     } else {
@@ -385,7 +385,7 @@ function Set-InstallerLanguages {
                         $update_URI_lookup=$null
                         do {
                             Clear-Host;
-                            [Uri]$update_URI_lookup=Read-Host -Prompt $update_URI_prompt
+                            [uri]$update_URI_lookup=Read-Host -Prompt $update_URI_prompt
                         } until ($update_URI_lookup -match [System.Text.RegularExpressions.Regex]::New('\W\w') -and (Get-UrlStatusCode -Url $update_URI_lookup) -like 200)
                     } else {
                         $update_URI_lookup=$UpdateURI
@@ -409,7 +409,7 @@ function Set-InstallerLanguages {
                         $url32=$null
                         do {
                             Clear-Host;
-                            [Uri]$url32=Read-Host -Prompt $url32_prompt
+                            [uri]$url32=Read-Host -Prompt $url32_prompt
                         } until ($url32.Length -gt 0 -and (Get-UrlStatusCode -Url $url32) -like 200)  #URL must be valid and exist, tests to confirm is valid
                         Clear-Host;
                     } else {
@@ -517,7 +517,7 @@ function Set-InstallerLanguages {
                         $64update_URI_lookup=$null
                         do {
                             Clear-Host;
-                            [Uri]$64update_URI_lookup=Read-Host -Prompt $64update_URI_prompt
+                            [uri]$64update_URI_lookup=Read-Host -Prompt $64update_URI_prompt
                         } until ($64update_URI_lookup -match [System.Text.RegularExpressions.Regex]::New('\W\w') -and (Get-UrlStatusCode -Url $64update_URI_lookup) -like 200)
                     } else {
                         $64update_URI_lookup=$UpdateURI_x64
@@ -541,7 +541,7 @@ function Set-InstallerLanguages {
                         $url64=$null
                         do {
                             Clear-Host;
-                            [Uri]$url64=Read-Host -Prompt $url64_prompt
+                            [uri]$url64=Read-Host -Prompt $url64_prompt
                         } until ($url64.Length -gt 0 -and (Get-UrlStatusCode -Url $url64) -like 200)  #URL must be valid and exist, tests to confirm is valid
                         Clear-Host;
                     } else {
@@ -646,7 +646,7 @@ function Set-InstallerLanguages {
                         $32update_URI_lookup=$null
                         do {
                             Clear-Host;
-                            [Uri]$32update_URI_lookup=Read-Host -Prompt $32update_URI_prompt
+                            [uri]$32update_URI_lookup=Read-Host -Prompt $32update_URI_prompt
                         } until ($32update_URI_lookup -match [System.Text.RegularExpressions.Regex]::New('\W\w') -and (Get-UrlStatusCode -Url $32update_URI_lookup) -like 200)
                     } else {
                         $32update_URI_lookup=$UpdateURI_x86
@@ -670,7 +670,7 @@ function Set-InstallerLanguages {
                         $url32=$null
                         do {
                             Clear-Host;
-                            [Uri]$url32=Read-Host -Prompt $url32_prompt
+                            [uri]$url32=Read-Host -Prompt $url32_prompt
                         } until ($url32.Length -gt 0 -and (Get-UrlStatusCode -Url $url32) -like 200)  #URL must be valid and exist, tests to confirm is valid
                         Clear-Host;
                     } else {
