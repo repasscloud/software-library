@@ -54,7 +54,6 @@ function Set-ApplicationCategory {
         # Linebreak
         $OFS="`r`n"
 
-
         Switch ($Category) {
             'browser'        { [int16]$choice = 1; }
             'business'       { [int16]$choice = 2; }

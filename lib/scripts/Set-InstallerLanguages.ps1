@@ -203,6 +203,11 @@ function Set-InstallerLanguages {
         # Switch [Arch] to create manifest for
         Switch ($Arch) {
             'x64' {
+
+                # Add x64 once to the section
+                $json_ArchOpen='      "x64": {'
+                $l_json += ($json_ArchOpen + $OFS)
+                
                 foreach ($l in $Lang) {
 
                     # Prompt for executable type on loop until valid
@@ -299,7 +304,6 @@ function Set-InstallerLanguages {
 
 
                     # Set the all the JSON data lines
-                    $json_ArchOpen='      "x64": {'
                     $json_LanguageOpen='        "' + $l + '": {'
                     $json_URL='          "Url": "' + $url64 + '",'
                     $json_followURL='          "FollowUrl": "' + $followURL + '",'
@@ -315,12 +319,11 @@ function Set-InstallerLanguages {
                         #$json_ArchClose
                         # the ArchClose is removed because it gets added on $json_LanguageClose selection
                     } else {
-                        $json_LanguageClose='        }'
+                        $json_LanguageClose='        },'  #returning the comma, this _is_ required here
                         $l_count -= 1  #deduct 1 from the language count, so the last line will automatically revent to the first and close off the JSON list
                     }
 
                     # Put all the results together
-                    $l_json += ($json_ArchOpen + $OFS)
                     $l_json += ($json_LanguageOpen + $OFS)
                     $l_json += ($json_URL + $OFS)
                     $l_json += ($json_followURL + $OFS)

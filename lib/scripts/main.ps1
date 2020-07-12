@@ -145,7 +145,7 @@ $wc.Dispose()
 #region Nuspec & Copyright & Id
 # Add Nuspec value to [String]$json_output
 [String]$ns_val=Set-NuspecValue
-[String]$json_output += $ns_val + $OFS
+[String]$json_output += $ns_val
 
 # Add Copyright value to [String]$json_output
 #[String]$json_output += $(Set-JsonCopyrightNotice) + $OFS
