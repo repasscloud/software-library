@@ -5,7 +5,7 @@ Copyright 2020 RePass Cloud Pty Ltd
 This product includes software developed at
 RePass Cloud (https://repasscloud.com/).
 
-Version: 2.1.0.72
+Version: 2.1.0.73
 #>
 
 # Stems from issue #24
@@ -334,7 +334,7 @@ function Set-InstallerLanguages {
                     $l_json += ($json_SilentUninstallString + $OFS)
                     $l_json += ($json_UpdateURI + $OFS)
                     $l_json += ($json_UpdateRegex + $OFS)
-                    $l_json += ($json_LanguageClose + $OFS)
+                    $l_json += ($json_LanguageClose)
                 }
             }
             'x86' {
@@ -466,7 +466,7 @@ function Set-InstallerLanguages {
                     $l_json += ($json_SilentUninstallString + $OFS)
                     $l_json += ($json_UpdateURI + $OFS)
                     $l_json += ($json_UpdateRegex + $OFS)
-                    $l_json += ($json_LanguageClose + $OFS)
+                    $l_json += ($json_LanguageClose)
                 }
             }
             'x86_64' {
@@ -599,7 +599,7 @@ function Set-InstallerLanguages {
                     $l_json += ($json_SilentUninstallString + $OFS)
                     $l_json += ($json_UpdateURI + $OFS)
                     $l_json += ($json_UpdateRegex + $OFS)
-                    $l_json += ($json_LanguageClose + $OFS)
+                    $l_json += ($json_LanguageClose)
             
                     # Prompt for executable type on loop until valid
                     if (-not($MsiExe_x86 -like 'MSI' -or $MsiExe_x86 -like 'EXE')) {
@@ -728,7 +728,7 @@ function Set-InstallerLanguages {
                     $l_json += ($json_SilentUninstallString + $OFS)
                     $l_json += ($json_UpdateURI + $OFS)
                     $l_json += ($json_UpdateRegex + $OFS)
-                    $l_json += ($json_LanguageClose + $OFS)
+                    $l_json += ($json_LanguageClose)
                 }
             }
         }
