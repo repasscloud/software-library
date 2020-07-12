@@ -1,4 +1,3 @@
-# Set Nuspec value
 function Set-JsonCopyrightNotice {
     param(
         [Parameter(Mandatory=$false, Position=0)]
@@ -11,6 +10,7 @@ function Set-JsonCopyrightNotice {
         $dl = $wc.DownloadString($f)
         $return_value='    "Copyright": "' + $($dl | ConvertFrom-Json).Copyright + '",'
         $wc.Dispose()
+        [System.Threading.Thread]::Sleep(100)
         return $return_value
     } else {
         $f=$JsonCopyrightNoticeURI
@@ -18,6 +18,7 @@ function Set-JsonCopyrightNotice {
         $dl = $wc.DownloadString($f)
         $return_value='    "Copyright": "' + $($dl | ConvertFrom-Json).Copyright + '",'
         $wc.Dispose()
+        [System.Threading.Thread]::Sleep(100)
         return $return_value
     }
 }
