@@ -8,82 +8,89 @@
 $OFS="`r`n"
 
 # Repo directories
-$currentDir = [System.IO.Path]::GetDirectoryName($myInvocation.MyCommand.Definition)
-$repo_root_dir = Split-Path -Path (Split-Path -Path $currentDir -Parent) -Parent
-$manifest_root_dir = Join-Path -Path $repo_root_dir -ChildPath 'app'
+#$currentDir = [System.IO.Path]::GetDirectoryName($myInvocation.MyCommand.Definition)
+#$repo_root_dir = Split-Path -Path (Split-Path -Path $currentDir -Parent) -Parent
+#$manifest_root_dir = Join-Path -Path $repo_root_dir -ChildPath 'app'
+$repo_root_dir='C:\tmp\software-matrix'
+$manifest_root_dir='C:\tmp\software-matrix\app'
+
+# Load functions used
+Get-ChildItem -Path "${repo_root_dir}\lib\scripts" -Filter "Set-NuspecValue.ps1" | ForEach-Object { . $_.FullName }
+Get-ChildItem -Path "${repo_root_dir}\lib\scripts" -Filter "Set-JsonCopyrightNotice.ps1" | ForEach-Object { . $_.FullName }
+Get-ChildItem -Path "${repo_root_dir}\lib\scripts" -Filter "Set-ApplicationParticulars.ps1" | ForEach-Object { . $_.FullName }
+Get-ChildItem -Path "${repo_root_dir}\lib\scripts" -Filter "Set-ApplicationCategory.ps1" | ForEach-Object { . $_.FullName }
 
 #[void][System.Console]::Clear()
 #[void][System.Console]::WriteLine($appCategoryPrompt)
 
-# Start of $json_output
+# Start of [String]$json_output
+[String]$json_output=$null
 [String]$json_output='{' + $OFS
 
 
 #region Category
 # Set application category
-$choice=$null
-do {
-    [void][System.Console]::Clear()
-    [String]$menu = @"
-Application Category
-====================
-
-"@
-    $f='https://raw.githubusercontent.com/repasscloud/software-library/patch/20/lib/public/app_taxonomy.ini'
-    $output_file="${env:TEMP}\$([GUID]::NewGuid())_app_taxonomy.ini"
-    [int]$counter=1
-    ([System.Net.WebClient]::new()).DownloadFileAsync($f,$output_file)
-    [System.Threading.Thread]::Sleep(50)
-    $wc=[System.IO.File]::OpenText($output_file)
-    while (-not($wc.EndOfStream)) {
-        $line=$wc.ReadLine()
-        $menu += "`r`n" + '  [' + $counter + ']' + "`t" + $line
-        $counter += 1
-    }
-    $menu += "`r`n"
-    $wc.Close()
-    [void][System.Console]::WriteLine($menu)
-    [int]$choice=Read-Host -Prompt 'Enter choice'
-} until ($choice -in 1..($counter-1))
-
-# Add category to $json_output
-Switch ($choice) {
-    1 { $json_output += '    "Category": "browser",' + $OFS }
-    2 { $json_output += '    "Category": "business",' + $OFS }
-    3 { $json_output += '    "Category": "entertainment",' + $OFS }
-    4 { $json_output += '    "Category": "graphic & design",' + $OFS }
-    5 { $json_output += '    "Category": "photo",' + $OFS }
-    6 { $json_output += '    "Category": "social",' + $OFS }
-    7 { $json_output += '    "Category": "productivity",' + $OFS }
-    8 { $json_output += '    "Category": "games",' + $OFS }
-    9 { $json_output += '    "Category": "security",' + $OFS }
-    10 { $json_output += '    "Category": "microsoft",' + $OFS }
-}
+$appCat = Set-ApplicationCategory -Category 'browser'
+$json_output += $appCat
 #endregion Category
 
 
 #region Manifest Version
-# Read current manifest version to $json_output directly in-place
+# Read current manifest version to [String]$json_output directly in-place
 $manifest_json='https://gitlab.com/reform-cloud/r-and-d/software-matrix/-/raw/patch/20/lib/public/manifest_version.json'
 $wc = [System.Net.WebClient]::new()
 $dl = $wc.DownloadString($manifest_json)
-$json_output += '    "Manifest": "' + $($dl | ConvertFrom-Json).Manifest_Version + '",' + $OFS
+[String]$json_output += '    "Manifest": "' + $($dl | ConvertFrom-Json).Manifest_Version + '",' + $OFS
 $wc.Dispose()
 #endregion Manifest Version
 
 
 #region Nuspec & Copyright & Id
-# Add Nuspec value to $json_output
-$json_output += $(Set-NuspecValue) + $OFS
+# Add Nuspec value to [String]$json_output
+[String]$ns_val=Set-NuspecValue
+[String]$json_output += $ns_val + $OFS
 
-# Add Copyright value to $json_output
-$json_output += $(Set-JsonCopyrightNotice) + $OFS
+# Add Copyright value to [String]$json_output
+#[String]$json_output += $(Set-JsonCopyrightNotice) + $OFS
+[String]$json_output += '    "Copyright": "Copyright © 2020 RePassCloud.com\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",'
+[String]$json_output += $OFS
 
-# Add Id value to $json_output
-$json_output += '    "Id": {' + $OFS
+# Add Id value to [String]$json_output
+[String]$json_output += '    "Id": {' + $OFS
 #endregion Nuspec & Copyright & Id
 
 
+
+
 #region Application particulars
-      "Version": "",
+$var=Set-ApplicationParticulars -Publisher 'Google' `
+    -AppName 'Chrome' `
+    -Version 83.0.4103.116 `
+    -AppCopyright 'Copyright © 2020 Google LLC. All rights reserved.' `
+    -License 'Proprietary freeware, based on open source components' `
+    -LicenseURI https://www.google.com/intl/en/chrome/terms/ `
+    -Tags @('google','chrome','web','internet','browser') `
+    -Description 'Chrome is a fast, simple, and secure web browser, built for the modern web.' `
+    -Homepage https://www.google.com/chrome/browser/ `
+    -Arch x86 `
+    -Languages @('en-US','en-GB')
+[String]$json_output += [String]$var[2] + $OFS
 #endregion Application particulars
+
+[String]$Arch=$var[9]
+[Array]$Lang=$var[11]
+
+#region Application languages for installers
+$ves=Set-InstallerLanguages -Lang $Lang `
+  -SilentSwitch '/S' `
+  -UninstallSwitch '/uninstall_string_here' `
+  -Arch $Arch `
+  -MsiExe MSI `
+  -UpdateURI https://www.google.com/ `
+  -UpdateRegex '(+.*/S)' -InstallURI_x64 'https://dl.google.com/tag/s/dl/chrome/install/googlechromestandaloneenterprise64.msi'
+[String]$json_output += [String]$ves + $OFS
+#endregion Application languages for installers
+
+[String]$json_output | Out-File C:\tmp\jjjj.json -Force
+$json_output
+[System.GC]::Collect()
