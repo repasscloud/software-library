@@ -299,23 +299,23 @@ function Set-InstallerLanguages {
 
 
                     # Set the all the JSON data lines
-                    $json_ArchOpen='            "x64": {'
-                    $json_LanguageOpen='                "' + $l + '": {'
-                    $json_URL='                    "Url": "' + $url64 + '",'
-                    $json_followURL='                    "FollowUrl": "' + $followURL + '",'
-                    $json_SHA256='                    "Sha256": "' + $sha256 + '",'
-                    $json_SHA512='                    "Sha512": "' + $sha512 + '",'
-                    $json_InstallerType='                    "InstallerType": "' + $exec_type + '",'
-                    $json_SilentSwitches='                    "InstallSwitches": "'+ $silent_install_switches.Replace('"','\"') + '",'
-                    $json_SilentUninstallString='                    "UninstallString": "'+ $silent_uninstall_string.Replace('"','\"') + '",'
-                    $json_UpdateURI='                    "UpdateURI": "'+ $update_URI_lookup + '",'
-                    $json_UpdateRegex='                    "UpdateRegex": "'+ $update_regex_lookup.Replace('"','\"') + '"'
+                    $json_ArchOpen='      "x64": {'
+                    $json_LanguageOpen='        "' + $l + '": {'
+                    $json_URL='          "Url": "' + $url64 + '",'
+                    $json_followURL='          "FollowUrl": "' + $followURL + '",'
+                    $json_SHA256='          "Sha256": "' + $sha256 + '",'
+                    $json_SHA512='          "Sha512": "' + $sha512 + '",'
+                    $json_InstallerType='          "InstallerType": "' + $exec_type + '",'
+                    $json_SilentSwitches='          "InstallSwitches": "'+ $silent_install_switches.Replace('"','\"') + '",'
+                    $json_SilentUninstallString='          "UninstallString": "'+ $silent_uninstall_string.Replace('"','\"') + '",'
+                    $json_UpdateURI='          "UpdateURI": "'+ $update_URI_lookup + '",'
+                    $json_UpdateRegex='          "UpdateRegex": "'+ $update_regex_lookup.Replace('"','\"') + '"'
                     if ($l_count -lt 2) {
-                        $json_LanguageClose='                }' + $OFS + '            },'
+                        $json_LanguageClose='        }' + $OFS + '      }'
                         #$json_ArchClose
                         # the ArchClose is removed because it gets added on $json_LanguageClose selection
                     } else {
-                        $json_LanguageClose='                },'
+                        $json_LanguageClose='        }'
                         $l_count -= 1  #deduct 1 from the language count, so the last line will automatically revent to the first and close off the JSON list
                     }
 
@@ -431,23 +431,23 @@ function Set-InstallerLanguages {
             
             
                     # Set the all the JSON data lines
-                    $json_ArchOpen='            "x86": {'
-                    $json_LanguageOpen='                "' + $l + '": {'
-                    $json_URL='                    "Url": "' + $url32 + '",'
-                    $json_followURL='                    "FollowUrl": "' + $followURL + '",'
-                    $json_SHA256='                    "Sha256": "' + $sha256 + '",'
-                    $json_SHA512='                    "Sha512": "' + $sha512 + '",'
-                    $json_InstallerType='                    "InstallerType": "' + $exec_type + '",'
-                    $json_SilentSwitches='                    "InstallSwitches": "'+ $silent_install_switches.Replace('"','\"') + '",'
-                    $json_SilentUninstallString='                    "UninstallString": "'+ $silent_uninstall_string.Replace('"','\"') + '",'
-                    $json_UpdateURI='                    "UpdateURI": "'+ $update_URI_lookup + '",'
-                    $json_UpdateRegex='                    "UpdateRegex": "'+ $update_regex_lookup.Replace('"','\"') + '"'
+                    $json_ArchOpen='      "x86": {'
+                    $json_LanguageOpen='        "' + $l + '": {'
+                    $json_URL='          "Url": "' + $url32 + '",'
+                    $json_followURL='          "FollowUrl": "' + $followURL + '",'
+                    $json_SHA256='          "Sha256": "' + $sha256 + '",'
+                    $json_SHA512='          "Sha512": "' + $sha512 + '",'
+                    $json_InstallerType='          "InstallerType": "' + $exec_type + '",'
+                    $json_SilentSwitches='          "InstallSwitches": "'+ $silent_install_switches.Replace('"','\"') + '",'
+                    $json_SilentUninstallString='          "UninstallString": "'+ $silent_uninstall_string.Replace('"','\"') + '",'
+                    $json_UpdateURI='          "UpdateURI": "'+ $update_URI_lookup + '",'
+                    $json_UpdateRegex='          "UpdateRegex": "'+ $update_regex_lookup.Replace('"','\"') + '"'
                     if ($l_count -lt 2) {
-                        $json_LanguageClose='                }' + $OFS + '            },'
+                        $json_LanguageClose='        }' + $OFS + '      }'
                         #$json_ArchClose
                         # the ArchClose is removed because it gets added on $json_LanguageClose selection
                     } else {
-                        $json_LanguageClose='                },'
+                        $json_LanguageClose='        }'
                         $l_count -= 1  #deduct 1 from the language count, so the last line will automatically revent to the first and close off the JSON list
                     }
             
@@ -564,23 +564,23 @@ function Set-InstallerLanguages {
             
             
                     # Set the all the JSON data lines
-                    $json_ArchOpen='            "x64": {'
-                    $json_LanguageOpen='                "' + $l + '": {'
-                    $json_URL='                    "Url": "' + $url64 + '",'
-                    $json_followURL='                    "FollowUrl": "' + $followURL + '",'
-                    $json_SHA256='                    "Sha256": "' + $sha256 + '",'
-                    $json_SHA512='                    "Sha512": "' + $sha512 + '",'
-                    $json_InstallerType='                    "InstallerType": "' + $64exec_type + '",'
-                    $json_SilentSwitches='                    "InstallSwitches": "'+ $silent_install_switches.Replace('"','\"') + '",'
-                    $json_SilentUninstallString='                    "UninstallString": "'+ $silent_uninstall_string.Replace('"','\"') + '",'
-                    $json_UpdateURI='                    "UpdateURI": "'+ $64update_URI_lookup + '",'
-                    $json_UpdateRegex='                    "UpdateRegex": "'+ $64update_regex_lookup.Replace('"','\"') + '"'
+                    $json_ArchOpen='      "x64": {'
+                    $json_LanguageOpen='        "' + $l + '": {'
+                    $json_URL='          "Url": "' + $url64 + '",'
+                    $json_followURL='          "FollowUrl": "' + $followURL + '",'
+                    $json_SHA256='          "Sha256": "' + $sha256 + '",'
+                    $json_SHA512='          "Sha512": "' + $sha512 + '",'
+                    $json_InstallerType='          "InstallerType": "' + $64exec_type + '",'
+                    $json_SilentSwitches='          "InstallSwitches": "'+ $silent_install_switches.Replace('"','\"') + '",'
+                    $json_SilentUninstallString='          "UninstallString": "'+ $silent_uninstall_string.Replace('"','\"') + '",'
+                    $json_UpdateURI='          "UpdateURI": "'+ $64update_URI_lookup + '",'
+                    $json_UpdateRegex='          "UpdateRegex": "'+ $64update_regex_lookup.Replace('"','\"') + '"'
                     if ($l_count -lt 2) {
-                        $json_LanguageClose='                }' + $OFS + '            },'
+                        $json_LanguageClose='        }' + $OFS + '      }'
                         #$json_ArchClose
                         # the ArchClose is removed because it gets added on $json_LanguageClose selection
                     } else {
-                        $json_LanguageClose='                },'
+                        $json_LanguageClose='        }'
                         $l_count -= 1  #deduct 1 from the language count, so the last line will automatically revent to the first and close off the JSON list
                     }
             
@@ -693,23 +693,23 @@ function Set-InstallerLanguages {
                 
                 
                     # Set the all the JSON data lines
-                    $json_ArchOpen='            "x86": {'
-                    $json_LanguageOpen='                "' + $l + '": {'
-                    $json_URL='                    "Url": "' + $url32 + '",'
-                    $json_followURL='                    "FollowUrl": "' + $followURL + '",'
-                    $json_SHA256='                    "Sha256": "' + $sha256 + '",'
-                    $json_SHA512='                    "Sha512": "' + $sha512 + '",'
-                    $json_InstallerType='                    "InstallerType": "' + $32exec_type + '",'
-                    $json_SilentSwitches='                    "InstallSwitches": "'+ $silent_install_switches.Replace('"','\"') + '",'
-                    $json_SilentUninstallString='                    "UninstallString": "'+ $silent_uninstall_string.Replace('"','\"') + '",'
-                    $json_UpdateURI='                    "UpdateURI": "'+ $32update_URI_lookup + '",'
-                    $json_UpdateRegex='                    "UpdateRegex": "' + $32update_regex_lookup.Replace('"','\"') + '"'
+                    $json_ArchOpen='      "x86": {'
+                    $json_LanguageOpen='        "' + $l + '": {'
+                    $json_URL='          "Url": "' + $url32 + '",'
+                    $json_followURL='          "FollowUrl": "' + $followURL + '",'
+                    $json_SHA256='          "Sha256": "' + $sha256 + '",'
+                    $json_SHA512='          "Sha512": "' + $sha512 + '",'
+                    $json_InstallerType='          "InstallerType": "' + $32exec_type + '",'
+                    $json_SilentSwitches='          "InstallSwitches": "'+ $silent_install_switches.Replace('"','\"') + '",'
+                    $json_SilentUninstallString='          "UninstallString": "'+ $silent_uninstall_string.Replace('"','\"') + '",'
+                    $json_UpdateURI='          "UpdateURI": "'+ $32update_URI_lookup + '",'
+                    $json_UpdateRegex='          "UpdateRegex": "'+ $32update_regex_lookup.Replace('"','\"') + '"'
                     if ($l_count -lt 2) {
-                        $json_LanguageClose='                }' + $OFS + '            },'
+                        $json_LanguageClose='        }' + $OFS + '      }'
                         #$json_ArchClose
                         # the ArchClose is removed because it gets added on $json_LanguageClose selection
                     } else {
-                        $json_LanguageClose='                },'
+                        $json_LanguageClose='        }'
                         $l_count -= 1  #deduct 1 from the language count, so the last line will automatically revent to the first and close off the JSON list
                     }
                 

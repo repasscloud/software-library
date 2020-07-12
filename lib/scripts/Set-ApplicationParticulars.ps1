@@ -255,18 +255,18 @@ function Set-ApplicationParticulars {
         [Array]$function_return_array=@()
         
         [String]$json_data_return=@"
-      "Version": "$Version",
-      "Name": "$AppName",
-      "Publisher": "$Publisher",
-      "AppCopyright": "$AppCopyright",
-      "License": "$License",
-      "LicenseURL": "$LicenseURI",
-      "Tags": [$($result=$null; foreach($i in $Tags){$result+='"' + $i + '",'}; $result.Substring(0,$result.Length-1))],
-      "Description": "$Description",
-      "Homepage": "$Homepage",
-      "Arch": [$($result=$null; foreach($i in $Arch){$result+='"' + $i + '",'}; $result.Substring(0,$result.Length-1))],
-      "Languages": [$($result=$null; foreach($i in $Languages){$result+='"' + $i + '",'}; $result.Substring(0,$result.Length-1))],
-      "Depends": [$(if (-not($null -like $Depends)){$result=$null;foreach($i in $Depends){$result+='"' + $i + '",'};$result.Substring(0,$result.Length-1);}else{'""'})],
+    "Version": "$Version",
+    "Name": "$AppName",
+    "Publisher": "$Publisher",
+    "AppCopyright": "$AppCopyright",
+    "License": "$License",
+    "LicenseURL": "$LicenseURI",
+    "Tags": [$($result=$null; foreach($i in $Tags){$result+='"' + $i + '",'}; $result.Substring(0,$result.Length-1))],
+    "Description": "$Description",
+    "Homepage": "$Homepage",
+    "Arch": [$($result=$null; foreach($i in $Arch){$result+='"' + $i + '",'}; $result.Substring(0,$result.Length-1))],
+    "Languages": [$($result=$null; foreach($i in $Languages){$result+='"' + $i + '",'}; $result.Substring(0,$result.Length-1))],
+    "Depends": [$(if (-not($null -like $Depends)){$result=$null;foreach($i in $Depends){$result+='"' + $i + '",'};$result.Substring(0,$result.Length-1);}else{'""'})],
 "@
         # Create blank array for data to be returned
         [Array]$function_return_array=@()

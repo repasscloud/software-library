@@ -7,10 +7,10 @@ function Set-NuspecValue {
         $NuspecFile
     )
     if (-not($NuspecFile)) {
-        [String]$return_value='    "Nuspec": false,'
+        [String]$return_value='  "Nuspec": false,'
         return $return_value
     } else {
-        [String]$return_value='    "Nuspec": true,'
+        [String]$return_value='  "Nuspec": true,'
         return $return_value
     }
 }

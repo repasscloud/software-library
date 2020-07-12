@@ -99,16 +99,16 @@ Application Category
 
         # Add category to [String]$json_return_value
         Switch ($choice) {
-            1 { [String]$json_return_value += '    "Category": "browser",' + $OFS }
-            2 { [String]$json_return_value += '    "Category": "business",' + $OFS }
-            3 { [String]$json_return_value += '    "Category": "entertainment",' + $OFS }
-            4 { [String]$json_return_value += '    "Category": "graphic & design",' + $OFS }
-            5 { [String]$json_return_value += '    "Category": "photo",' + $OFS }
-            6 { [String]$json_return_value += '    "Category": "social",' + $OFS }
-            7 { [String]$json_return_value += '    "Category": "productivity",' + $OFS }
-            8 { [String]$json_return_value += '    "Category": "games",' + $OFS }
-            9 { [String]$json_return_value += '    "Category": "security",' + $OFS }
-            10 { [String]$json_return_value += '    "Category": "microsoft",' + $OFS }
+            1 { [String]$json_return_value += '  "Category": "browser",' + $OFS }
+            2 { [String]$json_return_value += '  "Category": "business",' + $OFS }
+            3 { [String]$json_return_value += '  "Category": "entertainment",' + $OFS }
+            4 { [String]$json_return_value += '  "Category": "graphic & design",' + $OFS }
+            5 { [String]$json_return_value += '  "Category": "photo",' + $OFS }
+            6 { [String]$json_return_value += '  "Category": "social",' + $OFS }
+            7 { [String]$json_return_value += '  "Category": "productivity",' + $OFS }
+            8 { [String]$json_return_value += '  "Category": "games",' + $OFS }
+            9 { [String]$json_return_value += '  "Category": "security",' + $OFS }
+            10 { [String]$json_return_value += '  "Category": "microsoft",' + $OFS }
         }
 
         return $json_return_value
