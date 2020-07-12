@@ -5,7 +5,7 @@ Copyright 2020 RePass Cloud Pty Ltd
 This product includes software developed at
 RePass Cloud (https://repasscloud.com/).
 
-Version: 2.1.0.71
+Version: 2.1.0.72
 #>
 
 # Stems from issue #24
@@ -37,7 +37,12 @@ function Set-InstallerLanguages {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory=$true,Position=0)]
-        [ValidateSet('x64','x86','x86_64','arm','arm64')]
+        #[ValidateSet('x64','x86','x86_64','arm','arm64')]
+        [ValidateScript(
+            {
+                $_ -in @('x64','x86','x86_64','arm','arm64')
+            }
+        )]
         [String]
         $Arch,
 
@@ -70,20 +75,16 @@ function Set-InstallerLanguages {
         $SilentSwitch,
 
         [Parameter(Mandatory=$false,Position=4)]
-        [ValidateScript(
-            {
-                $_ -match [System.Text.RegularExpressions.Regex]::New('\W|\w|\W\w')
-            }
-        )]
+        [ValidateScript({
+            $_ -match [System.Text.RegularExpressions.Regex]::New('\W|\w|\W\w')
+        })]
         [String]
         $UninstallSwitch,
 
         [Parameter(Mandatory=$false,Position=5)]
-        [ValidateScript(
-            {
-                $_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200
-            }
-        )]
+        [ValidateScript({
+            $_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200
+        })]
         [uri]
         $UpdateURI,
         
@@ -225,7 +226,7 @@ function Set-InstallerLanguages {
 
                     # Prompt for silent install switch(es) on loop until valid
                     if (-not($SilentSwitch)) {
-                        [String]$silent_switch_prompt="[OPTIONAL] Provide SILENT INSTALL switch(es) for language ${l}"
+                        [String]$silent_switch_prompt="[OPTIONAL] Provide SILENT INSTALL string for language ${l}"
                         $silent_install_switches=$null
                         do {
                             Clear-Host;
@@ -357,7 +358,7 @@ function Set-InstallerLanguages {
             
                     # Prompt for silent install switch(es) on loop until valid
                     if (-not($SilentSwitch)) {
-                        [String]$silent_switch_prompt="[OPTIONAL] Provide SILENT INSTALL switch(es) for language ${l}"
+                        [String]$silent_switch_prompt="[OPTIONAL] Provide SILENT INSTALL string for language ${l}"
                         $silent_install_switches=$null
                         do {
                             Clear-Host;
@@ -489,7 +490,7 @@ function Set-InstallerLanguages {
             
                     # Prompt for silent install switch(es) on loop until valid
                     if (-not($SilentSwitch)) {
-                        [String]$silent_switch_prompt="[OPTIONAL] Provide SILENT INSTALL switch(es) for language ${l}"
+                        [String]$silent_switch_prompt="[OPTIONAL] Provide SILENT INSTALL string for language ${l}"
                         $silent_install_switches=$null
                         do {
                             Clear-Host;
@@ -618,7 +619,7 @@ function Set-InstallerLanguages {
                 
                     # Prompt for silent install switch(es) on loop until valid
                     if (-not($SilentSwitch)) {
-                        [String]$silent_switch_prompt="[OPTIONAL] Provide SILENT INSTALL switch(es) for language ${l}"
+                        [String]$silent_switch_prompt="[OPTIONAL] Provide SILENT INSTALL string for language ${l}"
                         $silent_install_switches=$null
                         do {
                             Clear-Host;
