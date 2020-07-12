@@ -1,104 +1,246 @@
-<#
-RePass Cloud Set-ApplicationParticulars.ps1
-Copyright 2020 RePass Cloud Pty Ltd
+$currentDir = [System.IO.Path]::GetDirectoryName($myInvocation.MyCommand.Definition)
+$repo_root_dir = Split-Path -Path (Split-Path -Path $currentDir -Parent) -Parent
 
-This product includes software developed at
-RePass Cloud (https://repasscloud.com/).
-
-Version: 1.0.1.4
-#>
-
-# Usage:
-#    $var = Set-ApplicationParticulars -Publisher 'Google' `
-#      -AppName 'Chrome' `
-#      -Version 83.0.4103.116 `
-#      -AppCopyright 'Copyright 2020 Google LLC. All rights reserved' `
-#      -License 'Proprietary freeware, based on open source components' `
-#      -LicenseURI https://www.google.com/intl/en/chrome/terms/ `
-#      -Tags 'cats','dogs' `
-#      -Description 'Chrome is a fast, simple, and secure web browser, built for the modern web.' `
-#      -Homepagehttps://www.google.com/chrome/browser/ `
-#      -Arch x86_x64 `
-#      -Languages 'en-us'
-#    $var
-#
-#    [Array]$var
-#      0 - manifest array
-#      1 - Publisher
-#      2 - AppName
-#      3 - Version
-#      4 - AppCopyright
-#      5 - License
-#      6 - Arch
-#      7 - Languages
-#      8 - Depends
-#
-#
-#
-
+Get-ChildItem -Path "${repo_root_dir}\lib\scripts" -Filter "Get-RedirectedURL.ps1" | ForEach-Object { . $_.FullName }
+Get-ChildItem -Path "${repo_root_dir}\lib\scripts" -Filter "Get-URLStatusCode.ps1" | ForEach-Object { . $_.FullName }
 
 function Set-ApplicationParticulars {
+<#
+.SYNOPSIS
+  <Overview of script>
+
+.DESCRIPTION
+  <Brief description of script>
+  
+.PARAMETER Publisher
+    <Brief description of parameter input required. Repeat this attribute if required>
+
+.PARAMETER AppName
+    <Brief description of parameter input required. Repeat this attribute if required>
+
+.PARAMETER Version
+    <Brief description of parameter input required. Repeat this attribute if required>
+
+.PARAMETER AppCopyright
+    <Brief description of parameter input required. Repeat this attribute if required>
+
+.PARAMETER License
+    <Brief description of parameter input required. Repeat this attribute if required>
+
+.PARAMETER LicenseURI
+    <Brief description of parameter input required. Repeat this attribute if required>
+
+.PARAMETER Tags
+    <Brief description of parameter input required. Repeat this attribute if required>
+
+.PARAMETER Description
+    <Brief description of parameter input required. Repeat this attribute if required>
+
+.PARAMETER Homepage
+    <Brief description of parameter input required. Repeat this attribute if required>
+
+.PARAMETER Arch
+    <Brief description of parameter input required. Repeat this attribute if required>
+
+.PARAMETER Languages
+    <Brief description of parameter input required. Repeat this attribute if required>
+
+.PARAMETER Depends
+    <Brief description of parameter input required. Repeat this attribute if required>
+
+.INPUTS
+  None
+
+.OUTPUTS
+  Array variable made up of the following components at each index:
+    0 - [String]Manifest
+    1 - [String]Publisher
+    2 - [String]AppName
+    3 - [String]Version
+    4 - [String]AppCopyright
+    5 - [String]License
+    6 - [Array]Arch
+    7 - [Array]Languages
+    8 - [Array]Depends
+
+.NOTES
+  Version:        1.0.2.9
+  Author:         Copyright © 2020 RePass Cloud Pty Ltd (https://repasscloud.com/). All rights reserved.
+  License:        Apache-2.0
+  Creation Date:  2020-07-12
+  Purpose/Change: Initial script development
+  
+.EXAMPLE
+  Set-ApplicationParticulars -Publisher 'Google' `
+    -AppName 'Chrome' `
+    -Version 83.0.4103.116 `
+    -AppCopyright 'Copyright © 2020 Google LLC. All rights reserved.' `
+    -License 'Proprietary freeware, based on open source components' `
+    -LicenseURI https://www.google.com/intl/en/chrome/terms/ `
+    -Tags 'google','chrome','web','internet','browser' `
+    -Description 'Chrome is a fast, simple, and secure web browser, built for the modern web.' `
+    -Homepage https://www.google.com/chrome/browser/ `
+    -Arch x86_64 `
+    -Languages 'en-us'
+
+#>
+
     [CmdletBinding()]
     param (
-        [Parameter(Mandatory=$true,Position=0)]
-        [ValidateScript( {$_ -match [System.Text.RegularExpressions.Regex]::New('[A-Za-z0-9]')} )]
-        [String]
+        [Parameter(
+            Mandatory=$true,
+            ValueFromPipelineByPropertyName=$true,
+            HelpMessage='Publisher of application by commonly adopted name.',
+            Position=0)]
+        [ValidateScript({
+            if ($_ -match [System.Text.RegularExpressions.Regex]::New('[A-Za-z0-9]')) {
+                $_
+            }
+            else {
+                Throw "'$_' does NOT use an approved Publisher name."
+            }
+        })]
+        [String[]]
         $Publisher,
         
-        [Parameter(Mandatory=$true,Position=1)]
-        [ValidateScript( {$_ -match [System.Text.RegularExpressions.Regex]::New('[A-Za-z0-9]')} )]
+        [Parameter(
+            Mandatory=$true,
+            ValueFromPipelineByPropertyName=$true,
+            HelpMessage='Publisher of application by commonly adopted name.',
+            Position=1)]
+        [ValidateScript({
+            if ($_ -match [System.Text.RegularExpressions.Regex]::New('[A-Za-z0-9]')) {
+                $_
+            }
+            else {
+                Throw "'$_' does NOT use an approved Application name."
+            }
+        })]
         [String]
         $AppName,
         
-        [Parameter(Mandatory=$true,Position=2)]
+        [Parameter(
+            Mandatory=$true,
+            ValueFromPipelineByPropertyName=$true,
+            HelpMessage='Application version number using SemVer standards.',
+            Position=2)]
         [System.Version]
         $Version,
 
-        [Parameter(Mandatory=$true,Position=3)]
-        [ValidateScript( {$_ -match [System.Text.RegularExpressions.Regex]::New('[A-Za-z0-9]')} )]
+        [Parameter(
+            Mandatory=$true,
+            ValueFromPipelineByPropertyName=$true,
+            HelpMessage='Publisher of application by commonly adopted name.',
+            Position=3)]
+        [ValidateScript({
+            if ($_ -match [System.Text.RegularExpressions.Regex]::New('[A-Za-z0-9]')) {
+                $_
+            }
+            else {
+                Throw "'$_' does NOT use an approved Copyright notice."
+            }
+        })]
         [String]
         $AppCopyright,
 
-        [Parameter(Mandatory=$true,Position=4)]
-        [ValidateScript(
-            {
-                [Array]$LicenseList=@('0BSD','BSD-1-Clause','BSD-2-Clause','BSD-3-Clause','AFL-3.0','APL-1.0','Apache-1.1','Apache-2.0','APSL-2.0','Artistic-1.0','Artistic-2.0','AAL','BSL-1.0','BSD-3-Clause-LBNL','BSD-2-Clause-Patent','CECILL-2.1','CDDL-1.0','CPAL-1.0','CPL-1.0','CATOSL-1.1','CAL-1.0','CUA-OPL-1.0','EPL-1.0','EPL-2.0','eCos-2.0','ECL-1.0','ECL-2.0','EFL-2.0','Entessa','EUDatagrid','EUPL-1.2','Fair','Frameworx-1.0','AGPL-3.0','GPL-2.0','GPL-3.0','LGPL-2.1','LGPL-3.0','HPND','IPL-1.0','Intel','IPA','ISC','Jabber','LPPL-1.3c','BSD-3-Clause-LBNL','LiliQ-P','LiliQ-R','LiliQ-R+','LPL-1.0','LPL-1.02','MS-PL','MS-RL','MirOS','MIT','CVW','Motosoto','MPL-1.0','MPL-1.1','MPL-2.0','MulanPSL-2.0','Multics','NASA-1.3','Naumen','NGPL','Nokia','NPOSL-3.0','NTP','OCLC-2.0','OGTSL','OSL-1.0','OSL-2.1','OSL-3.0','OLDAP-2.8','OPL-2.1','PHP-3.0','PHP-3.01','PostgreSQL','Python-2.0','CNRI-Python','QPL-1.0','RPSL-1.0','RPL-1.1','RPL-1.5','RSCPL','OFL-1.1','SimPL-2.0','Sleepycat','SISSL','SPL-1.0','Watcom-1.0','UPL','NCSA','UCL-1.0','Unlicense','VSL-1.0','W3C','WXwindows','Xnet','ZPL-2.0','Zlib','Other','Proprietary')
-                $_ -in $LicenseList
+        [Parameter(
+            Mandatory=$true,
+            ValueFromPipelineByPropertyName=$true,
+            HelpMessage='License type of application from standard OSI or Proprietary licenses.',
+            Position=4)]
+        [ValidateScript({
+            [Array]$LicenseList=@('0BSD','BSD-1-Clause','BSD-2-Clause','BSD-3-Clause','AFL-3.0','APL-1.0','Apache-1.1','Apache-2.0','APSL-2.0','Artistic-1.0','Artistic-2.0','AAL','BSL-1.0','BSD-3-Clause-LBNL','BSD-2-Clause-Patent','CECILL-2.1','CDDL-1.0','CPAL-1.0','CPL-1.0','CATOSL-1.1','CAL-1.0','CUA-OPL-1.0','EPL-1.0','EPL-2.0','eCos-2.0','ECL-1.0','ECL-2.0','EFL-2.0','Entessa','EUDatagrid','EUPL-1.2','Fair','Frameworx-1.0','AGPL-3.0','GPL-2.0','GPL-3.0','LGPL-2.1','LGPL-3.0','HPND','IPL-1.0','Intel','IPA','ISC','Jabber','LPPL-1.3c','BSD-3-Clause-LBNL','LiliQ-P','LiliQ-R','LiliQ-R+','LPL-1.0','LPL-1.02','MS-PL','MS-RL','MirOS','MIT','CVW','Motosoto','MPL-1.0','MPL-1.1','MPL-2.0','MulanPSL-2.0','Multics','NASA-1.3','Naumen','NGPL','Nokia','NPOSL-3.0','NTP','OCLC-2.0','OGTSL','OSL-1.0','OSL-2.1','OSL-3.0','OLDAP-2.8','OPL-2.1','PHP-3.0','PHP-3.01','PostgreSQL','Python-2.0','CNRI-Python','QPL-1.0','RPSL-1.0','RPL-1.1','RPL-1.5','RSCPL','OFL-1.1','SimPL-2.0','Sleepycat','SISSL','SPL-1.0','Watcom-1.0','UPL','NCSA','UCL-1.0','Unlicense','VSL-1.0','W3C','WXwindows','Xnet','ZPL-2.0','Zlib','Other','Proprietary','Proprietary freeware, based on open source components')
+            if ($_ -in $LicenseList) {
+                $_
             }
-        )]
+            else {
+                Throw "'$_' does NOT use an approved License type."
+            }
+        })]
         [String]
         $License,
 
-        [Parameter(Mandatory=$true,Position=5)]
-        [ValidateScript( {$_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200} )]
+        [Parameter(
+            Mandatory=$true,
+            ValueFromPipelineByPropertyName=$true,
+            HelpMessage='Publisher of application by commonly adopted name.',
+            Position=5)]
+        [ValidateScript({
+            if ($_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200) {
+                $_
+            }
+            else {
+                Throw "'$_' does NOT provide a valid URL."
+            }
+        })]
         [uri]
         $LicenseURI,
 
-        [Parameter(Mandatory=$true,Position=6)]
+        [Parameter(
+            Mandatory=$true,
+            ValueFromPipelineByPropertyName=$true,
+            HelpMessage='Tags associated to application. Provided in [Array] format.',
+            Position=6)]
         [Array]
         $Tags,
 
-        [Parameter(Mandatory=$true,Position=7)]
+        [Parameter(
+            Mandatory=$true,
+            ValueFromPipelineByPropertyName=$true,
+            HelpMessage='Abbreviated single-line description of application.',
+            Position=7)]
         [String]
         $Description,
 
-        [Parameter(Mandatory=$true,Position=8)]
-        [ValidateScript( {$_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200} )]
+        [Parameter(
+            Mandatory=$true,
+            ValueFromPipelineByPropertyName=$true,
+            HelpMessage='Homepage of application by Publisher.',
+            Position=8)]
+        [ValidateScript({
+            if ($_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200) {
+                $_
+            }
+            else{
+                Throw "'$_' does NOT provide a valid URL."
+            }
+        })]
         [uri]
         $Homepage,
 
-        [Parameter(Mandatory=$true,Position=9)]
+        [Parameter(
+            Mandatory=$true,
+            ValueFromPipelineByPropertyName=$true,
+            HelpMessage='Publisher of application by commonly adopted name.',
+            Position=9)]
         [ValidateScript( {$_ -in @('x64','x86','x86_64')} )]  #~>this code needs to be updated per version, or added to a compile script somehow?
         [Array]
         $Arch,
 
-        [Parameter(Mandatory=$false,Position=10)]
-        [ValidateScript( {$_ -in ((Import-Csv -Path 'C:\tmp\software-matrix\lib\public\LCID.csv' -Delimiter ',').'BCP 47 Code')} )]  #this path needs to be changed
+        [Parameter(
+            Mandatory=$false,
+            ValueFromPipelineByPropertyName=$true,
+            HelpMessage='Publisher of application by commonly adopted name.',
+            Position=10)]
+        [ValidateScript({
+            if ($_ -in ((Import-Csv -Path 'C:\tmp\software-matrix\lib\public\LCID.csv' -Delimiter ',').'BCP 47 Code')) {
+                $_
+            }
+            else{
+                Throw "'$_' does NOT provide a L10n Language selection."
+            }
+        })]  #this path needs to be changed
         [Array]
         $Languages=@('en-US'),  #default to en-US
 
-        [Parameter(Mandatory=$false,Position=11)]
-        [ValidateScript( {$_ -match [System.Text.RegularExpressions.Regex]::New('[A-Za-z0-9]\.[A-Za-z0-9]')} )]
+        [Parameter(
+            Mandatory=$false,
+            ValueFromPipelineByPropertyName=$true,
+            HelpMessage='Publisher of application by commonly adopted name.',
+            Position=11)]
+        [ValidateScript({
+            $_ -match [System.Text.RegularExpressions.Regex]::New('[A-Za-z0-9]\.[A-Za-z0-9]')
+        })]
         [Array]
         $Depends=@()
     )
@@ -141,5 +283,3 @@ function Set-ApplicationParticulars {
         [System.GC]::Collect()
     }
 }
-
-
