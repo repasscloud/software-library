@@ -3,6 +3,7 @@ $repo_root_dir = Split-Path -Path (Split-Path -Path $currentDir -Parent) -Parent
 
 Get-ChildItem -Path "${repo_root_dir}\lib\scripts" -Filter "Get-RedirectedURL.ps1" | ForEach-Object { . $_.FullName }
 Get-ChildItem -Path "${repo_root_dir}\lib\scripts" -Filter "Get-URLStatusCode.ps1" | ForEach-Object { . $_.FullName }
+Get-ChildItem -Path "${repo_root_dir}\lib\scripts" -Filter "Set-InstallerLanguages.ps1" | ForEach-Object { . $_.FullName }
 
 function Set-ApplicationParticulars {
 <#
@@ -53,22 +54,27 @@ function Set-ApplicationParticulars {
 
 .OUTPUTS
   Array variable made up of the following components at each index:
-    0 - [String]Manifest
-    1 - [String]Publisher
-    2 - [String]AppName
-    3 - [String]Version
-    4 - [String]AppCopyright
-    5 - [String]License
-    6 - [Array]Arch
-    7 - [Array]Languages
-    8 - [Array]Depends
+    0 - [void]
+    1 - [void]
+    2 - [void]
+    3 - [String] Data to inject into application manifest
+    4 - [String] Application copyright notice
+    5 - [System.Version] Application version
+    6 - [String] Publisher of application
+    7 - [String] Name of application
+    8 - [String] Copyright notice of application
+    9 - [String] License type of application
+   10 - [String] Architecture of application
+   11 - [void]
+   12 - [System.Collections.ArrayList] List of languages application available to be installed for
+   13 - Complete output as single variable with no discernation for types or result info
 
 .NOTES
-  Version:        1.0.2.9
+  Version:        1.1.3.16
   Author:         Copyright © 2020 RePass Cloud Pty Ltd (https://repasscloud.com/). All rights reserved.
   License:        Apache-2.0
   Creation Date:  2020-07-12
-  Purpose/Change: Initial script development
+  Purpose/Change: Return variable includes multidimensional indexable array.
   
 .EXAMPLE
   Set-ApplicationParticulars -Publisher 'Google' `
@@ -81,7 +87,7 @@ function Set-ApplicationParticulars {
     -Description 'Chrome is a fast, simple, and secure web browser, built for the modern web.' `
     -Homepage https://www.google.com/chrome/browser/ `
     -Arch x86_64 `
-    -Languages 'en-us'
+    -Languages @('en-US','en-AU')
 
 #>
 
@@ -100,7 +106,7 @@ function Set-ApplicationParticulars {
                 Throw "'$_' does NOT use an approved Publisher name."
             }
         })]
-        [String[]]
+        [String]
         $Publisher,
         
         [Parameter(
@@ -262,21 +268,31 @@ function Set-ApplicationParticulars {
       "Languages": [$($result=$null; foreach($i in $Languages){$result+='"' + $i + '",'}; $result.Substring(0,$result.Length-1))],
       "Depends": [$(if (-not($null -like $Depends)){$result=$null;foreach($i in $Depends){$result+='"' + $i + '",'};$result.Substring(0,$result.Length-1);}else{'""'})],
 "@
+        # Create blank array for data to be returned
+        [Array]$function_return_array=@()
 
-        # Create return data array
+        # Create ArrayList of languages
+        [System.Collections.ArrayList]$langList=@()
+        foreach($i in $Languages) {
+            $langList.Add($i)
+        }
+
+        # Add data to return array
         $function_return_array += $json_data_return
         $function_return_array += $AppCopyright
         $function_return_array += $Version
         $function_return_array += $Publisher
         $function_return_array += $AppName
-        $function_return_array += $Version
         $function_return_array += $AppCopyright
         $function_return_array += $License
         $function_return_array += $Arch
-        $function_return_array += $Languages
         $function_return_array += $Depends
+        $function_return_array += $langList
         
-        return $function_return_array
+        # Multidimensional array that gets returned, including return array
+        [System.Collections.ArrayList]$multi_dimensional_array = @($json_data_return,$AppCopyright,$Version,$Publisher,$AppName,$AppCopyright,$License,$Arch,$Depends,$langList,$function_return_array)
+
+        return $multi_dimensional_array
     }
     
     end {
