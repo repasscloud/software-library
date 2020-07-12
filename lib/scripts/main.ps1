@@ -87,7 +87,9 @@ $ves=Set-InstallerLanguages -Lang $Lang `
   -Arch $Arch `
   -MsiExe MSI `
   -UpdateURI https://www.google.com/ `
-  -UpdateRegex '(+.*/S)' -InstallURI_x64 'https://dl.google.com/tag/s/dl/chrome/install/googlechromestandaloneenterprise64.msi'
+  -UpdateRegex '(+.*/S)' `
+  -InstallURI_x64 'https://dl.google.com/tag/s/dl/chrome/install/googlechromestandaloneenterprise64.msi' `
+  -InstallURI_x86
 [String]$json_output += [String]$ves + $OFS
 #endregion Application languages for installers
 
