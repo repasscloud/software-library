@@ -8,6 +8,7 @@ on:
   push:
     branches:
       - patch/20
+      - app/*
   pull_request:
     branches: [ master ]
 
