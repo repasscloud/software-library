@@ -11,7 +11,7 @@
 | Branch | Status |
 |--------|--------|
 | Master | [![Build status](https://ci.appveyor.com/api/projects/status/xbwb6sru7an9pfbg/branch/master?svg=true)](https://ci.appveyor.com/project/danijeljw/software-library/branch/master) |
-| master | ![autoupdate_app](https://github.com/repasscloud/software-library/workflows/CI/badge.svg?branch=master) |
+| Master | ![CI-Master](https://github.com/repasscloud/software-library/workflows/CI-Master/badge.svg?branch=master) |
 
 
 ```json
