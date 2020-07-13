@@ -1,0 +1,38 @@
+{
+  "Category": "browser",
+  "Manifest": "4.2.4.6",
+  "Nuspec": false,
+  "NuspecURI": "",
+  "Copyright": "Copyright © 2020 RePassCloud.com\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",
+  "Id": {
+Copyright © 1998–2020 Mozilla Foundation.
+    "Intallers": {
+      "x64": {
+        "en-US": {
+          "Url": "https://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win64&lang=en-US",
+          "FollowUrl": "https://download-installer.cdn.mozilla.net/pub/firefox/releases/78.0.2/win64/en-US/Firefox%20Setup%2078.0.2.msi",
+          "Sha256": "EEC10F50E910D7DC21B2EBEC40DB251EC4B5368F174EB8F3777BA24C06AB8671",
+          "Sha512": "01A700C00A28D1B3C77E28217F740F1A3016EC08B1F0BDDD18819AEDF5747A835D09D87539665D120B5DFFB98C6FC312CB0A63FEF5A6E5CC6293986D33A0A7A3",
+          "InstallerType": "MSI",
+          "InstallSwitches": "/qn",
+          "UninstallString": "-ms",
+          "UpdateURI": "https://www.google.com/",
+          "UpdateRegex": "(+.*/S)"
+        }
+      },
+      "x86": {
+        "en-US": {
+          "Url": "https://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win&lang=en-US",
+          "FollowUrl": "https://download-installer.cdn.mozilla.net/pub/firefox/releases/78.0.2/win32/en-US/Firefox%20Setup%2078.0.2.msi",
+          "Sha256": "5E2299E26BDC2615C8811D796A845FA8BB027020121029F475788CD152024458",
+          "Sha512": "18010FEE9CA8BCDCF8D29311D131140A6D8FBB9CDC78D82642570A3B383C0A6A90FB2CB74D872C7C53431D03AAD572A85D1791E28AE8A2E90079380990415603",
+          "InstallerType": "MSI",
+          "InstallSwitches": "/qn",
+          "UninstallString": "-ms",
+          "UpdateURI": "https://www.google.com/",
+          "UpdateRegex": "(+.*/S)"
+        }
+      }
+    }
+  }
+}
