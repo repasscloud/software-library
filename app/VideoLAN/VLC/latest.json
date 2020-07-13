@@ -1,0 +1,49 @@
+{
+  "Category": "entertainment",
+  "Manifest": "4.2.4.6",
+  "Nuspec": true,
+  "NuspecURI": "https://raw.githubusercontent.com/chocolatey-community/chocolatey-coreteampackages/master/automatic/vlc/vlc.nuspec",
+  "Copyright": "Copyright © 2020 RePassCloud.com\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",
+  "Id": {
+    "Version": "3.0.11",
+    "Name": "VLC",
+    "Publisher": "VideoLAN",
+    "AppCopyright": "Copyright (c) 2001-2020 VideoLAN",
+    "License": "GPL-2.0",
+    "LicenseURL": "http://www.videolan.org/legal.html",
+    "Tags": ["vlc","multimedia","audio","video","mp3","dvd","avi","media player"],
+    "Description": "VLC is a free and open source cross-platform multimedia player and framework that plays most multimedia files as well as DVD, Audio CD, VCD, and various streaming protocols.",
+    "Homepage": "https://www.videolan.org/",
+    "Arch": ["x86_64"],
+    "Languages": ["en-US"],
+    "Depends": [""],
+    "Intallers": {
+      "x64": {
+        "en-US": {
+          "Url": "https://download.videolan.org/pub/videolan/vlc/last/win64/vlc-3.0.11-win64.msi",
+          "FollowUrl": "https://download.videolan.org/pub/videolan/vlc/last/win64/vlc-3.0.11-win64.msi",
+          "Sha256": "2A6579E149A6420178DB198E536EA25C385AC7D996BB7958B9BEED2BAFFF4664",
+          "Sha512": "7561ADDDE6C73C82ABAF489D2BBBDA74B73904ACC90AAADF82F8AEC96FB61D35110EC85142EC4BDD210E9530497EBC1ECCDD7B8A4FC160DF9DB08CE6F3BABFA6",
+          "InstallerType": "MSI",
+          "InstallSwitches": "/qn /L=1033",
+          "UninstallString": "/x {0A1870BC-51B4-459D-B681-3B2033298122} /qn",
+          "UpdateURI": "https://www.videolan.org/",
+          "UpdateRegex": "<div class=\\\\"c-release-version\\\\">([\\d.]+)</div>"
+        }
+      },
+      "x86": {
+        "en-US": {
+          "Url": "https://download.videolan.org/pub/videolan/vlc/last/win32/vlc-3.0.11-win32.msi",
+          "FollowUrl": "https://download.videolan.org/pub/videolan/vlc/last/win32/vlc-3.0.11-win32.msi",
+          "Sha256": "923F2F859BFCCCB4FF46AC27BC52920B57D2DFE33FFE3875A239D73A1DE96B70",
+          "Sha512": "F978B45CFDB4835F7DD9EEAD009018DBF8AA49D14C522404CAE831884157C2C0BF8479D542AFD109A45F68B55D96754D0298DBE05F15804AAAC501509FC33866",
+          "InstallerType": "MSI",
+          "InstallSwitches": "/qn /L=1033",
+          "UninstallString": "/x {162A5CE4-04E4-4879-9CFB-4C7A2171D85A} /qn",
+          "UpdateURI": "https://www.videolan.org/",
+          "UpdateRegex": "<div class=\\\\"c-release-version\\\\">([\\d.]+)</div>"
+        }
+      }
+    }
+  }
+}
