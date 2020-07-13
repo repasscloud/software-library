@@ -53,7 +53,7 @@ $wc.Dispose()
 
 #region Nuspec & Copyright & Id
 # Add Nuspec value to [String]$json_output
-[String]$ns_val=Set-NuspecValue
+[String]$ns_val=Set-NuspecValue -NuspecURI 'https://raw.githubusercontent.com/chocolatey-community/chocolatey-coreteampackages/master/automatic/vlc/vlc.nuspec'
 [String]$global:TempFile+=$ns_val + $OFS
 
 # Add Copyright value to [String]$json_output
@@ -96,19 +96,21 @@ Set-ApplicationParticulars `
 #[Array]$Lang=$global:_langList
 
 
-Set-InstallerLanguages `
+$ves=Set-InstallerLanguages `
   -Arch $global:_Arch `  `
   -Lang $global:_langList `
-  -SilentSwitch '/L=1033 /S' `
-  -UninstallSwitch "Start-Process -FilePath msiexec -ArguementList '/x {0A1870BC-51B4-459D-B681-3B2033298122} /qn' -Wait" `
-  -InstallURI_x64 'https://download.videolan.org/pub/videolan/vlc/last/win64/vlc-3.0.11-win64.msi' `
-  -InstallURI_x86 'https://download.videolan.org/pub/videolan/vlc/last/win32/vlc-3.0.11-win32.msi' `
   -MsiExe_x64 MSI `
   -MsiExe_x86 MSI `
+  -SilentInstallString_x64 '/qn /L=1033' `
+  -SilentInstallString_x86 '/qn /L=1033' `
+  -SilentUninstallString_x64 '/x {0A1870BC-51B4-459D-B681-3B2033298122} /qn' `
+  -SilentUninstallString_x86 '/x {162A5CE4-04E4-4879-9CFB-4C7A2171D85A} /qn' `
   -UpdateURI_x64 https://www.videolan.org/ `
   -UpdateURI_x86 https://www.videolan.org/ `
   -UpdateRegex_x64 '<div class=\"c-release-version\">([\\d.]+)</div>' `
   -UpdateRegex_x86 '<div class=\"c-release-version\">([\\d.]+)</div>'
+  -InstallURI_x64 'https://download.videolan.org/pub/videolan/vlc/last/win64/vlc-3.0.11-win64.msi' `
+  -InstallURI_x86 'https://download.videolan.org/pub/videolan/vlc/last/win32/vlc-3.0.11-win32.msi' `
 [String]$global:TempFile+=[String]$ves + $OFS
 #endregion Application languages for installers
 
