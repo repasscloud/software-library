@@ -188,22 +188,21 @@ function Set-InstallerLanguages {
 
         [Parameter(Mandatory=$false,Position=14)]
         [ValidateScript({
-            $_ -match [System.Text.RegularExpressions.Regex]::New('\W\w') -or $null
+            $_ -match [System.Text.RegularExpressions.Regex]::New('\W\w') -or $_ -match [System.Text.RegularExpressions.Regex]::New('')
         })]
         [String]
         $UpdateRegex,
 
         [Parameter(Mandatory=$false,Position=15)]
         [ValidateScript({
-            $_ -match [System.Text.RegularExpressions.Regex]::New('\W\w') -or $null
+            $_ -match [System.Text.RegularExpressions.Regex]::New('\W\w') -or $_ -match [System.Text.RegularExpressions.Regex]::New('')
         })]
         [String]
         $UpdateRegex_x64,
 
         [Parameter(Mandatory=$false,Position=16)]
         [ValidateScript({
-            $_ -match [System.Text.RegularExpressions.Regex]::New('\W\w') -or $null
-            #$_ -match [System.Text.RegularExpressions.Regex]::New('\W\w') -or $_ -match [System.Text.RegularExpressions.Regex]::New('')
+            $_ -match [System.Text.RegularExpressions.Regex]::New('\W\w') -or $_ -match [System.Text.RegularExpressions.Regex]::New('')
         })]
         [String]
         $UpdateRegex_x86,
@@ -342,11 +341,7 @@ function Set-InstallerLanguages {
                             [String]$update_regex_lookup=Read-Host -Prompt $update_regex_prompt
                         } until ($update_regex_lookup -match [System.Text.RegularExpressions.Regex]::New('\W\w') -or $update_regex_lookup -match [System.Text.RegularExpressions.Regex]::New(''))
                     } else {
-                        if($UpdateRegex -eq 'none') {
-                            [String]$update_regex_lookup=''
-                        } else {
-                            [String]$update_regex_lookup=$UpdateRegex
-                        }
+                        [String]$update_regex_lookup=$UpdateRegex
                     }
 
                     # Prompt for URL64 on loop until valid
@@ -481,11 +476,7 @@ function Set-InstallerLanguages {
                             [String]$update_regex_lookup=Read-Host -Prompt $update_regex_prompt
                         } until ($update_regex_lookup -match [System.Text.RegularExpressions.Regex]::New('\W\w') -or $update_regex_lookup -match [System.Text.RegularExpressions.Regex]::New(''))
                     } else {
-                        if($UpdateRegex -eq 'none') {
-                            [String]$update_regex_lookup=''
-                        } else {
-                            [String]$update_regex_lookup=$UpdateRegex
-                        }
+                        [String]$update_regex_lookup=$UpdateRegex
                     }
             
                     # Prompt for URL32 on loop until valid
@@ -621,11 +612,7 @@ function Set-InstallerLanguages {
                             [String]$64update_regex_lookup=Read-Host -Prompt $64update_regex_prompt
                         } until ($64update_regex_lookup -match [System.Text.RegularExpressions.Regex]::New('\W\w') -or $64update_regex_lookup -match [System.Text.RegularExpressions.Regex]::New(''))
                     } else {
-                        if($UpdateRegex_x64 -eq 'none') {
-                            [String]$64update_regex_lookup=''
-                        } else {
-                            [String]$64update_regex_lookup=$UpdateRegex_x64
-                        }
+                        [String]$64update_regex_lookup=$UpdateRegex_x64
                     }
             
                     # Prompt for URL64 on loop until valid
@@ -762,11 +749,7 @@ function Set-InstallerLanguages {
                             [String]$32update_regex_lookup=Read-Host -Prompt $32update_regex_prompt
                         } until ($32update_regex_lookup -match [System.Text.RegularExpressions.Regex]::New('\W\w') -or $32update_regex_lookup -match [System.Text.RegularExpressions.Regex]::New(''))
                     } else {
-                        if($UpdateRegex_x86 -eq 'none') {
-                            [String]$32update_regex_lookup=''
-                        } else {
-                            [String]$32update_regex_lookup=$UpdateRegex_x86
-                        }
+                        [String]$32update_regex_lookup=$UpdateRegex_x86
                     }
             
                     # Prompt for URL32 on loop until valid
