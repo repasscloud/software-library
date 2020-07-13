@@ -6,7 +6,7 @@
 ![patch/20](https://github.com/repasscloud/software-library/workflows/CI/badge.svg?branch=patch%2F20)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/repasscloud/software-library)](https://github.com/repasscloud/software-library/releases/latest)
 ![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/repasscloud/software-library/latest)
-![License](https://img.shields.io/github/license/repass-cloud/software-library.svg)
+![License](https://img.shields.io/github/license/repasscloud/software-library.svg)
 
 
 ```json
