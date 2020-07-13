@@ -36,7 +36,7 @@ Get-ChildItem -Path "${repo_root_dir}\lib\scripts" -Filter "Set-ApplicationCateg
 
 #region Category
 # Set application category
-$appCat = Set-ApplicationCategory -Category 'productivity'
+$appCat = Set-ApplicationCategory -Category 'browser'
 [String]$global:TempFile+=$appCat
 #endregion Category
 
@@ -112,7 +112,6 @@ Set-InstallerLanguages `
   -UpdateRegex_x64 '(+.*/S)' `
   -UpdateRegex_x86 '(+.*/S)'
 [String]$global:TempFile+=[String]$ves + $OFS
-#[String]$json_output += [String]$ves + $OFS
 #endregion Application languages for installers
 
 
@@ -149,5 +148,3 @@ git checkout 'patch/20'
 git branch -d $gitBranch
 git pull
 #endregion Write Manifest and Push
-
-
