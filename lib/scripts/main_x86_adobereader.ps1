@@ -100,7 +100,7 @@ Set-InstallerLanguages `
   -Lang $global:_langList `
   -SilentSwitch '/sAll /msi /norestart /quiet ALLUSERS=1 EULA_ACCEPT=YES' `
   -UninstallSwitch "Start-Process -FilePath msiexec -ArgumentList '/x {23170F69-40C1-2702-1900-000001000000} /qn' -Wait" `
-  -UpdateURI https://adobe.com/reader/ `
+  -UpdateURI https://adobe.com/ `
   -UpdateRegex '(+.*/S)' `
   -InstallURI_x64 'https://www.7-zip.org/a/7z1900-x64.msi' `
   -InstallURI_x86 'https://www.7-zip.org/a/7z1900.msi' `
