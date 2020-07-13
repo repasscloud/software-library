@@ -61,7 +61,7 @@ $wc.Dispose()
 
 
 #region Application particulars
-$var=Set-ApplicationParticulars -Publisher 'Mozilla' `
+$var=Set-ApplicationParticulars -Publisher '7Zip' `
     -AppName '7Zip' `
     -Version 19.00 `
     -AppCopyright '7-Zip Copyright © 1999-2016 Igor Pavlov' `
@@ -84,7 +84,7 @@ $ves=Set-InstallerLanguages `
   -Arch $Arch `
   -Lang $Lang `
   -SilentSwitch '/qn /norestart' `
-  -UninstallSwitch 'MsiExec.exe /I{23170F69-40C1-2702-1900-000001000000}' `
+  -UninstallSwitch "Start-Process -FilePath msiexec -ArgumentList '/x {23170F69-40C1-2702-1900-000001000000} /qn' -Wait" `
   -InstallURI_x64 'https://www.7-zip.org/a/7z1900-x64.msi' `
   -InstallURI_x86 'https://www.7-zip.org/a/7z1900.msi' `
   -MsiExe_x64 MSI `
