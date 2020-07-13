@@ -78,8 +78,8 @@ $var=Set-ApplicationParticulars -Publisher 'Mozilla' `
 
 
 #region Application languages for installers
-[String]$Arch=$var[9]
-[Array]$Lang=$var[11]
+[String]$Arch=$var[8]
+[Array]$Lang=$var[10]
 $ves=Set-InstallerLanguages `
   -Arch $Arch `
   -Lang $Lang `
