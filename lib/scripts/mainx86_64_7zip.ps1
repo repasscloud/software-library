@@ -1,3 +1,7 @@
+git add .
+git commit -m 'stash for testing'
+git push -u github 'patch/20'
+
 # Set TLS 1.2
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
 
