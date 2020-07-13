@@ -51,6 +51,14 @@ matrix:
 
 # scripts that run after cloning repository
 install:
+  - ps: |
+      Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.208 -Force
+      Install-Module -Name PowerShellGet -Force
+      Install-Module -Name PSSQLite -Force
+      Import-Module PSSQLite
+      "Git version: $(git.exe --version)"
+      "PSVersion:   $($PSVersionTable.PSVersion), build: $($PSVersionTable.BuildVersion), clr version: $($PSVersionTable.ClrVersion)"
+      "Host name:   $($Host.Name)"
   # by default, all script lines are interpreted as batch
   - echo This is batch
   # to run script as a PowerShell command prepend it with ps:
@@ -76,16 +84,7 @@ assembly_info:
 platform: x64
 
 
-install:
-  - ps: |
-      Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.208 -Force
-      Install-Module -Name PowerShellGet -Force
-      Install-Module -Name PSSQLite -Force
-      Import-Module PSSQLite
-      "Git version: $(git.exe --version)"
-      "PSVersion:   $($PSVersionTable.PSVersion), build: $($PSVersionTable.BuildVersion), clr version: $($PSVersionTable.ClrVersion)"
-      "Host name:   $($Host.Name)"
-      
+     
 #build_script:
 #  - ps: ./build.ps1
 
