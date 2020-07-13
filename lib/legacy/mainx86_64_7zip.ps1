@@ -79,7 +79,7 @@ Set-ApplicationParticulars `
   -Homepage 'http://www.7-zip.org/' `
   -Arch x86_64 `
   -Languages @('en-US','en-GB')
-[String]$global:TempFile+='    "Intallers": {' + $OFS
+[String]$global:TempFile+='    "Installers": {' + $OFS
 #endregion Application particulars
 
 

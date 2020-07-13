@@ -78,7 +78,7 @@ Set-ApplicationParticulars `
   -Homepage 'https://www.videolan.org/' `
   -Arch x86_64 `
   -Languages @('en-US')
-[String]$global:TempFile+='    "Intallers": {' + $OFS
+[String]$global:TempFile+='    "Installers": {' + $OFS
 #endregion Application particulars
 
 

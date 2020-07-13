@@ -78,7 +78,7 @@ Set-ApplicationParticulars `
   -Homepage 'https://www.adobe.com/products/reader.html' `
   -Arch x86 `
   -Languages @('en-US')
-[String]$global:TempFile+='    "Intallers": {' + $OFS
+[String]$global:TempFile+='    "Installers": {' + $OFS
 #endregion Application particulars
 
 
