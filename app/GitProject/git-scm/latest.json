@@ -1,0 +1,41 @@
+{
+    "Category": "productivity",
+    "Manifest": "4.2.5.7",
+    "Nuspec": false,
+    "Copyright": "Copyright © 2020 RePassCloud.com\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",
+    "Id": {
+        "Version": "2.27.0",
+        "Name": "git-scm",
+        "Publisher": "GitProject",
+        "AppCopyright": "Copyright (c) Linus Torvalds 2005-2020",
+        "License": "GPLv2",
+        "LicenseURL": "https://github.com/git/git/blob/master/COPYING",
+        "Tags": ["git"],
+        "Description": "Git for Windows focuses on offering a lightweight, native set of tools that bring the full feature set of the Git SCM to Windows while providing appropriate user interfaces for experienced Git users and novices alike.",
+        "Homepage": "https://git-scm.com/",
+        "Languages": ["en-US"],
+        "Depends": "",
+        "Arch": ["x64","x86"],
+        "Installers": {
+            "en-US": {
+                "x64": {
+                    "Url": "https://github.com/git-for-windows/git/releases/download/v2.27.0.windows.1/Git-2.27.0-64-bit.exe",
+                    "FollowUrl": "https://github.com/git-for-windows/git/releases/download/v2.27.0.windows.1/Git-2.27.0-64-bit.exe",
+                    "Sha256": "5974DB8C52B32F5E575EE021E8B47948892CE0E760095EEF98C31E3BBD5167B6",
+                    "Sha512": "3973E5FCC5DBC91D36F906D80AB23F49A2212D00DB033FC046C83D12FFB7C9C94B9BF659F41FBB0264551D61988ED58E35BF6A4E525F403EB9F7298BB8336B26",
+                    "InstallerType": "exe",
+                    "Switches": "/VERYSILENT /SUPPRESSMSGBOXES /NORESTART /NOCANCEL"
+                },
+                "x86": {
+                    "Url": "https://github.com/git-for-windows/git/releases/download/v2.27.0.windows.1/Git-2.27.0-32-bit.exe",
+                    "FollowUrl": "https://github.com/git-for-windows/git/releases/download/v2.27.0.windows.1/Git-2.27.0-32-bit.exe",
+                    "Sha256": "876EC8B8FC283DDBACAB424379EEB7263E4515C497A208419C4E893DA87499F8",
+                    "Sha512": "4E0EDA98C61F99892C3F3145E042B4A39FC1E1EB875902AC6F336BB250D6060CEA6C506780C1AA3B630B5186807E0C3467F7D8ADD09E79A51CBF165184D70592",
+                    "InstallerType": "exe",
+                    "Switches": "/VERYSILENT /SUPPRESSMSGBOXES /NORESTART /NOCANCEL"
+                }
+            }
+        }
+    }
+}
+
