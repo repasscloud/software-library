@@ -188,21 +188,22 @@ function Set-InstallerLanguages {
 
         [Parameter(Mandatory=$false,Position=14)]
         [ValidateScript({
-            $_ -match [System.Text.RegularExpressions.Regex]::New('\W\w') -or $_ -match [System.Text.RegularExpressions.Regex]::New('')
+            $_ -match [System.Text.RegularExpressions.Regex]::New('\W\w') -or $null
         })]
         [String]
         $UpdateRegex,
 
         [Parameter(Mandatory=$false,Position=15)]
         [ValidateScript({
-            $_ -match [System.Text.RegularExpressions.Regex]::New('\W\w') -or $_ -match [System.Text.RegularExpressions.Regex]::New('')
+            $_ -match [System.Text.RegularExpressions.Regex]::New('\W\w') -or $null
         })]
         [String]
         $UpdateRegex_x64,
 
         [Parameter(Mandatory=$false,Position=16)]
         [ValidateScript({
-            $_ -match [System.Text.RegularExpressions.Regex]::New('\W\w') -or $_ -match [System.Text.RegularExpressions.Regex]::New('')
+            $_ -match [System.Text.RegularExpressions.Regex]::New('\W\w') -or $null
+            #$_ -match [System.Text.RegularExpressions.Regex]::New('\W\w') -or $_ -match [System.Text.RegularExpressions.Regex]::New('')
         })]
         [String]
         $UpdateRegex_x86,
