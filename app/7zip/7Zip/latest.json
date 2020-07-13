@@ -1,0 +1,38 @@
+{
+  "Category": "productivity",
+  "Manifest": "4.2.4.6",
+  "Nuspec": false,
+  "NuspecURI": "",
+  "Copyright": "Copyright © 2020 RePassCloud.com\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",
+  "Id": {
+7-Zip Copyright © 1999-2016 Igor Pavlov
+    "Intallers": {
+      "x64": {
+        "en-US": {
+          "Url": "https://www.7-zip.org/a/7z1900-x64.msi",
+          "FollowUrl": "https://www.7-zip.org/a/7z1900-x64.msi",
+          "Sha256": "A7803233EEDB6A4B59B3024CCF9292A6FFFB94507DC998AA67C5B745D197A5DC",
+          "Sha512": "7837A8677A01EED9C3309923F7084BC864063BA214EE169882C5B04A7A8B198ED052C15E981860D9D7952C98F459A4FAB87A72FD78E7D0303004DCB86F4324C8",
+          "InstallerType": "MSI",
+          "InstallSwitches": "/qn /norestart",
+          "UninstallString": "Start-Process -FilePath msiexec -ArgumentList '/x {23170F69-40C1-2702-1900-000001000000} /qn' -Wait",
+          "UpdateURI": "https://www.google.com/",
+          "UpdateRegex": "(+.*/S)"
+        }
+      },
+      "x86": {
+        "en-US": {
+          "Url": "https://www.7-zip.org/a/7z1900.msi",
+          "FollowUrl": "https://www.7-zip.org/a/7z1900.msi",
+          "Sha256": "B49D55A52BC0EAB14947C8982C413D9BE141C337DA1368A24AA0484CBB5E89CD",
+          "Sha512": "F73B04E2D9F29D4393FDE572DCF3C3F0F6FA27E747E5DF292294AB7536AE24C239BF917689D71EB10CC49F6B9A4ACE26D7C122EE887D93CC935F268C404E9067",
+          "InstallerType": "MSI",
+          "InstallSwitches": "/qn /norestart",
+          "UninstallString": "Start-Process -FilePath msiexec -ArgumentList '/x {23170F69-40C1-2702-1900-000001000000} /qn' -Wait",
+          "UpdateURI": "https://www.google.com/",
+          "UpdateRegex": "(+.*/S)"
+        }
+      }
+    }
+  }
+}
