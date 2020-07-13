@@ -1,64 +1,113 @@
+function Set-InstallerLanguages {
+
 <#
-RePass Cloud Set-InstallerLanguages.ps1
-Copyright 2020 RePass Cloud Pty Ltd
+.SYNOPSIS
+  <Overview of script>
 
-This product includes software developed at
-RePass Cloud (https://repasscloud.com/).
+.DESCRIPTION
+  <Brief description of script>
+  
+.PARAMETER Arch
+  <Brief description of parameter input required. Repeat this attribute if required>
 
-Version: 2.1.2.81
+.PARAMETER Lang
+  <Brief description of parameter input required. Repeat this attribute if required>
+
+.PARAMETER MsiExe
+  <Brief description of parameter input required. Repeat this attribute if required>
+
+.PARAMETER MsiExe_x64
+  <Brief description of parameter input required. Repeat this attribute if required>
+
+.PARAMETER MsiExe_x86
+  <Brief description of parameter input required. Repeat this attribute if required>
+
+.PARAMETER SilentInstallString
+  <Brief description of parameter input required. Repeat this attribute if required>
+
+.PARAMETER SilentInstallString_x64
+  <Brief description of parameter input required. Repeat this attribute if required>
+
+.PARAMETER SilentInstallString_x86
+  <Brief description of parameter input required. Repeat this attribute if required>
+
+.PARAMETER SilentUninstallString
+  <Brief description of parameter input required. Repeat this attribute if required>
+
+.PARAMETER SilentUninstallString_x64
+  <Brief description of parameter input required. Repeat this attribute if required>
+
+.PARAMETER SilentUninstallString_x86
+  <Brief description of parameter input required. Repeat this attribute if required>
+
+.PARAMETER UpdateURI
+  <Brief description of parameter input required. Repeat this attribute if required>
+
+.PARAMETER UpdateURI_x64
+  <Brief description of parameter input required. Repeat this attribute if required>
+
+.PARAMETER UpdateURI_x86
+  <Brief description of parameter input required. Repeat this attribute if required>
+
+.PARAMETER UpdateRegex
+  <Brief description of parameter input required. Repeat this attribute if required>
+
+.PARAMETER UpdateRegex_x64
+  <Brief description of parameter input required. Repeat this attribute if required>
+
+.PARAMETER InstallURI
+  <Brief description of parameter input required. Repeat this attribute if required>
+
+.PARAMETER InstallURI_x64
+  <Brief description of parameter input required. Repeat this attribute if required>
+
+.PARAMETER InstallURI_x86
+  <Brief description of parameter input required. Repeat this attribute if required>
+
+.INPUTS
+  None
+
+.OUTPUTS
+  TBA
+
+.NOTES
+  Version:        2.2.3.83
+  Author:         Copyright © 2020 RePass Cloud Pty Ltd (https://repasscloud.com/). All rights reserved.
+  License:        Apache-2.0
+  Creation Date:  2020-07-13
+  Purpose/Change: Return variable includes multidimensional indexable array.
+  
+.EXAMPLE
+  Set-ApplicationParticulars -Publisher 'Google' `
+    -AppName 'Chrome' `
+    -Version 83.0.4103.116 `
+    -AppCopyright 'Copyright © 2020 Google LLC. All rights reserved.' `
+    -License 'Proprietary freeware, based on open source components' `
+    -LicenseURI https://www.google.com/intl/en/chrome/terms/ `
+    -Tags 'google','chrome','web','internet','browser' `
+    -Description 'Chrome is a fast, simple, and secure web browser, built for the modern web.' `
+    -Homepage https://www.google.com/chrome/browser/ `
+    -Arch x86_64 `
+    -Languages @('en-US','en-AU')
+
 #>
 
-# Stems from issue #24
-# Returns the Status Code of a web URL that is passed in as an arg
-# Should always return a 200 result to be successful
-# List of URL status codes can be found here: https://www.w3.org/Protocols/HTTP/HTRESP.html
 
-# Usage:
-#
-#    $jsonLangData = Set-InstallerLanguages -Arch x64 `
-#      -Lang en-US `
-#      -MsiExe MSI `
-#      -SilentSwitch '/S' `
-#      -UninstallSwitch 'this cat says hello' `
-#      -UpdateURI https://notepad-plus-plus.org/ `
-#      -UpdateRegex '(\s)' `
-#      -InstallURIx64 'https://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win64&lang=en-US'
-#    $jsonLangData
-#
-#    $jsonLangData = Set-InstallerLanguages -Arch x64
-#    $jsonLangData
-#
-#    $jsonLangData = Set-InstallerLanguages -Arch x86_64 `
-#      -Lang en-US,en-GB
-#    $jsonLangData
-
-
-function Set-InstallerLanguages {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory=$true,Position=0)]
-        #[ValidateSet('x64','x86','x86_64','arm','arm64')]
-        [ValidateScript(
-            {
+        [ValidateScript({
                 $_ -in @('x64','x86','x86_64','arm','arm64')
-            }
-        )]
+        })]
         [String]
         $Arch,
 
         [Parameter(Mandatory=$false,Position=1)]
-        [ArgumentCompleter(
-            {
-                (Import-Csv -Path 'C:\tmp\software-matrix\lib\public\LCID.csv' -Delimiter ',').'BCP 47 Code'
-            }
-        )]  #this path needs to be changed
-        [ValidateScript(
-            {
+        [ValidateScript({
                 $_ -in (((Import-Csv -Path 'C:\tmp\software-matrix\lib\public\LCID.csv' -Delimiter ',').'BCP 47 Code'))
-            }
-        )]  #this path needs to be changed
-        [Array]  #array to capture more than one
-        $Lang=@('en-US'),  #default to en-US
+        })]  #this path needs to be changed
+        [Array]
+        $Lang=@('en-US'),
 
         [Parameter(Mandatory=$false,Position=2)]
         [ValidateSet('MSI','EXE')]
@@ -66,100 +115,119 @@ function Set-InstallerLanguages {
         $MsiExe,
 
         [Parameter(Mandatory=$false,Position=3)]
-        [ValidateScript(
-            {
-                $_ -match [System.Text.RegularExpressions.Regex]::New('\W|\w|\W\w') -or $_ -match [System.Text.RegularExpressions.Regex]::New('')
-            }
-        )]
+        [ValidateSet('MSI','EXE')]
         [String]
-        $SilentSwitch,
+        $MsiExe_x64,
 
         [Parameter(Mandatory=$false,Position=4)]
-        [ValidateScript({
-            $_ -match [System.Text.RegularExpressions.Regex]::New('\W|\w|\W\w')
-        })]
+        [ValidateSet('MSI','EXE')]
         [String]
-        $UninstallSwitch,
+        $MsiExe_x86,
 
         [Parameter(Mandatory=$false,Position=5)]
+        [ValidateScript({
+            $_ -match [System.Text.RegularExpressions.Regex]::New('\W|\w|\W\w') -or $_ -match [System.Text.RegularExpressions.Regex]::New('')
+        })]
+        [String]
+        $SilentInstallString,
+
+        [Parameter(Mandatory=$false,Position=6)]
+        [ValidateScript({
+            $_ -match [System.Text.RegularExpressions.Regex]::New('\W|\w|\W\w') -or $_ -match [System.Text.RegularExpressions.Regex]::New('')
+        })]
+        [String]
+        $SilentInstallString_x64,
+
+        [Parameter(Mandatory=$false,Position=7)]
+        [ValidateScript({
+            $_ -match [System.Text.RegularExpressions.Regex]::New('\W|\w|\W\w') -or $_ -match [System.Text.RegularExpressions.Regex]::New('')
+        })]
+        [String]
+        $SilentInstallString_x86,
+
+        [Parameter(Mandatory=$false,Position=8)]
+        [ValidateScript({
+            $_ -match [System.Text.RegularExpressions.Regex]::New('\W|\w|\W\w') -or $_ -match [System.Text.RegularExpressions.Regex]::New('')
+        })]
+        [String]
+        $SilentUninstallString,
+
+        [Parameter(Mandatory=$false,Position=9)]
+        [ValidateScript({
+            $_ -match [System.Text.RegularExpressions.Regex]::New('\W|\w|\W\w') -or $_ -match [System.Text.RegularExpressions.Regex]::New('')
+        })]
+        [String]
+        $SilentUninstallString_x64,
+
+        [Parameter(Mandatory=$false,Position=10)]
+        [ValidateScript({
+            $_ -match [System.Text.RegularExpressions.Regex]::New('\W|\w|\W\w') -or $_ -match [System.Text.RegularExpressions.Regex]::New('')
+        })]
+        [String]
+        $SilentUninstallString_x86,
+
+        [Parameter(Mandatory=$false,Position=11)]
         [ValidateScript({
             $_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200
         })]
         [uri]
         $UpdateURI,
-        
-        [Parameter(Mandatory=$false,Position=6)]
-        [ValidateScript(
-            {
-                $_ -match [System.Text.RegularExpressions.Regex]::New('\W\w') -or $_ -match [System.Text.RegularExpressions.Regex]::New('')
-            }
-        )]
+
+        [Parameter(Mandatory=$false,Position=12)]
+        [ValidateScript({
+            $_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200
+        })]
+        [uri]
+        $UpdateURI_x64,
+
+        [Parameter(Mandatory=$false,Position=13)]
+        [ValidateScript({
+            $_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200
+        })]
+        [uri]
+        $UpdateURI_x86,
+
+        [Parameter(Mandatory=$false,Position=14)]
+        [ValidateScript({
+            $_ -match [System.Text.RegularExpressions.Regex]::New('\W\w') -or $_ -match [System.Text.RegularExpressions.Regex]::New('')
+        })]
         [String]
         $UpdateRegex,
 
-        [Parameter(Mandatory=$false,Position=7)]
-        [ValidateScript(
-            {
-                $_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200
-            }
-        )]
-        [uri]
-        $InstallURI_x64,
-
-        [Parameter(Mandatory=$false,Position=8)]
-        [ValidateScript(
-            {
-                $_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200
-            }
-        )]
-        [uri]
-        $InstallURI_x86,
-
-        [Parameter(Mandatory=$false,Position=9)]
-        [ValidateSet('MSI','EXE')]
-        [String]
-        $MsiExe_x64,
-        
-        [Parameter(Mandatory=$false,Position=10)]
-        [ValidateSet('MSI','EXE')]
-        [String]
-        $MsiExe_x86,
-
-        [Parameter(Mandatory=$false,Position=11)]
-        [ValidateScript(
-            {
-                $_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200
-            }
-        )]
-        [uri]
-        $UpdateURI_x64,
-        
-        [Parameter(Mandatory=$false,Position=12)]
-        [ValidateScript(
-            {
-                $_ -match [System.Text.RegularExpressions.Regex]::New('\W\w') -or $_ -match [System.Text.RegularExpressions.Regex]::New('')
-            }
-        )]
+        [Parameter(Mandatory=$false,Position=15)]
+        [ValidateScript({
+            $_ -match [System.Text.RegularExpressions.Regex]::New('\W\w') -or $_ -match [System.Text.RegularExpressions.Regex]::New('')
+        })]
         [String]
         $UpdateRegex_x64,
 
-        [Parameter(Mandatory=$false,Position=13)]
-        [ValidateScript(
-            {
-                $_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200
-            }
-        )]
-        [uri]
-        $UpdateURI_x86,
-        
-        [Parameter(Mandatory=$false,Position=14)]
-        [ValidateScript(
-            {
-                $_ -match [System.Text.RegularExpressions.Regex]::New('\W\w') -or $_ -match [System.Text.RegularExpressions.Regex]::New('')
-            }
-        )]
+        [Parameter(Mandatory=$false,Position=16)]
+        [ValidateScript({
+            $_ -match [System.Text.RegularExpressions.Regex]::New('\W\w') -or $_ -match [System.Text.RegularExpressions.Regex]::New('')
+        })]
         [String]
-        $UpdateRegex_x86
+        $UpdateRegex_x86,
+
+        [Parameter(Mandatory=$false,Position=17)]
+        [ValidateScript({
+            $_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200
+        })]
+        [uri]
+        $InstallURI,
+
+        [Parameter(Mandatory=$false,Position=18)]
+        [ValidateScript({
+            $_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200
+        })]
+        [uri]
+        $InstallURI_x64,
+
+        [Parameter(Mandatory=$false,Position=19)]
+        [ValidateScript({
+            $_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200
+        })]
+        [uri]
+        $InstallURI_x86
     )
     
 
@@ -230,7 +298,7 @@ function Set-InstallerLanguages {
                     }
 
                     # Prompt for silent install switch(es) on loop until valid
-                    if (-not($SilentSwitch)) {
+                    if (-not($SilentInstallString)) {
                         [String]$silent_switch_prompt="[OPTIONAL] Provide SILENT INSTALL string for language ${l}"
                         $silent_install_switches=$null
                         do {
@@ -238,11 +306,11 @@ function Set-InstallerLanguages {
                             [String]$silent_install_switches=Read-Host -Prompt $silent_switch_prompt
                         } until ($silent_install_switches -match [System.Text.RegularExpressions.Regex]::New('\W|\w|\W\w') -or $silent_install_switches -match [System.Text.RegularExpressions.Regex]::New(''))
                     } else {
-                        $silent_install_switches=$SilentSwitch
+                        [String]$silent_install_switches=$SilentInstallString
                     }
 
                     # Prompt for silent uninstall string on loop until valid ~> must be provided
-                    if (-not($UninstallSwitch)) {
+                    if (-not($SilentUninstallString)) {
                         [String]$silent_uninstall_prompt="Provide UNINSTALL string for language ${l}"
                         $silent_uninstall_string=$null
                         do {
@@ -250,7 +318,7 @@ function Set-InstallerLanguages {
                             [String]$silent_uninstall_string=Read-Host -Prompt $silent_uninstall_prompt
                         } until ($silent_uninstall_string -match [System.Text.RegularExpressions.Regex]::New('\W|\w|\W\w'))
                     } else {
-                        $silent_uninstall_string=$UninstallSwitch
+                        [String]$silent_uninstall_string=$SilentUninstallString
                     }
 
                     # Prompt for update URI
@@ -262,7 +330,7 @@ function Set-InstallerLanguages {
                             [uri]$update_URI_lookup=Read-Host -Prompt $update_URI_prompt
                         } until ($update_URI_lookup -match [System.Text.RegularExpressions.Regex]::New('\W\w') -and (Get-UrlStatusCode -Url $update_URI_lookup) -like 200)
                     } else {
-                        $update_URI_lookup=$UpdateURI
+                        [String]$update_URI_lookup=$UpdateURI
                     }
 
                     # Prompt for update regex
@@ -274,11 +342,11 @@ function Set-InstallerLanguages {
                             [String]$update_regex_lookup=Read-Host -Prompt $update_regex_prompt
                         } until ($update_regex_lookup -match [System.Text.RegularExpressions.Regex]::New('\W\w') -or $update_regex_lookup -match [System.Text.RegularExpressions.Regex]::New(''))
                     } else {
-                        $update_regex_lookup=$UpdateRegex
+                        [String]$update_regex_lookup=$UpdateRegex
                     }
 
                     # Prompt for URL64 on loop until valid
-                    if (-not($InstallURI_x64)) {
+                    if (-not($InstallURI)) {
                         [String]$url64_prompt="Enter the 64-bit URL to the installer for language ${l}"
                         $url64=$null
                         do {
@@ -287,7 +355,7 @@ function Set-InstallerLanguages {
                         } until ($url64.Length -gt 0 -and (Get-UrlStatusCode -Url $url64) -like 200)  #URL must be valid and exist, tests to confirm is valid
                         Clear-Host;
                     } else {
-                        $url64=$InstallURI_x64
+                        [String]$url64=$InstallURI
                     }
 
                     # Main Region
@@ -365,7 +433,7 @@ function Set-InstallerLanguages {
                     }
             
                     # Prompt for silent install switch(es) on loop until valid
-                    if (-not($SilentSwitch)) {
+                    if (-not($SilentInstallString)) {
                         [String]$silent_switch_prompt="[OPTIONAL] Provide SILENT INSTALL string for language ${l}"
                         $silent_install_switches=$null
                         do {
@@ -373,11 +441,11 @@ function Set-InstallerLanguages {
                             [String]$silent_install_switches=Read-Host -Prompt $silent_switch_prompt
                         } until ($silent_install_switches -match [System.Text.RegularExpressions.Regex]::New('\W|\w|\W\w') -or $silent_install_switches -match [System.Text.RegularExpressions.Regex]::New(''))
                     } else {
-                        $silent_install_switches=$SilentSwitch
+                        [String]$silent_install_switches=$SilentInstallString
                     }
             
                     # Prompt for silent uninstall string on loop until valid ~> must be provided
-                    if (-not($UninstallSwitch)) {
+                    if (-not($SilentUninstallString)) {
                         [String]$silent_uninstall_prompt="Provide UNINSTALL string for language ${l}"
                         $silent_uninstall_string=$null
                         do {
@@ -385,7 +453,7 @@ function Set-InstallerLanguages {
                             [String]$silent_uninstall_string=Read-Host -Prompt $silent_uninstall_prompt
                         } until ($silent_uninstall_string -match [System.Text.RegularExpressions.Regex]::New('\W|\w|\W\w'))
                     } else {
-                        $silent_uninstall_string=$UninstallSwitch
+                        [String]$silent_uninstall_string=$SilentUninstallString
                     }
             
                     # Prompt for update URI
@@ -397,7 +465,7 @@ function Set-InstallerLanguages {
                             [uri]$update_URI_lookup=Read-Host -Prompt $update_URI_prompt
                         } until ($update_URI_lookup -match [System.Text.RegularExpressions.Regex]::New('\W\w') -and (Get-UrlStatusCode -Url $update_URI_lookup) -like 200)
                     } else {
-                        $update_URI_lookup=$UpdateURI
+                        [String]$update_URI_lookup=$UpdateURI
                     }
             
                     # Prompt for update regex
@@ -409,11 +477,11 @@ function Set-InstallerLanguages {
                             [String]$update_regex_lookup=Read-Host -Prompt $update_regex_prompt
                         } until ($update_regex_lookup -match [System.Text.RegularExpressions.Regex]::New('\W\w') -or $update_regex_lookup -match [System.Text.RegularExpressions.Regex]::New(''))
                     } else {
-                        $update_regex_lookup=$UpdateRegex
+                        [String]$update_regex_lookup=$UpdateRegex
                     }
             
                     # Prompt for URL32 on loop until valid
-                    if (-not($InstallURI_x86)) {
+                    if (-not($InstallURI)) {
                         [String]$url32_prompt="Enter the 32-bit URL to the installer for language ${l}"
                         $url32=$null
                         do {
@@ -422,7 +490,7 @@ function Set-InstallerLanguages {
                         } until ($url32.Length -gt 0 -and (Get-UrlStatusCode -Url $url32) -like 200)  #URL must be valid and exist, tests to confirm is valid
                         Clear-Host;
                     } else {
-                        $url32=$InstallURI_x86
+                        [String]$url32=$InstallURI
                     }
             
                     # Main Region
@@ -501,7 +569,7 @@ function Set-InstallerLanguages {
                     }
             
                     # Prompt for silent install switch(es) on loop until valid
-                    if (-not($SilentSwitch)) {
+                    if (-not($SilentInstallString_x64)) {
                         [String]$silent_switch_prompt="[OPTIONAL] Provide SILENT INSTALL string for language ${l}"
                         $silent_install_switches=$null
                         do {
@@ -509,11 +577,11 @@ function Set-InstallerLanguages {
                             [String]$silent_install_switches=Read-Host -Prompt $silent_switch_prompt
                         } until ($silent_install_switches -match [System.Text.RegularExpressions.Regex]::New('\W|\w|\W\w') -or $silent_install_switches -match [System.Text.RegularExpressions.Regex]::New(''))
                     } else {
-                        $silent_install_switches=$SilentSwitch
+                        [String]$silent_install_switches=$SilentInstallString_x64
                     }
             
                     # Prompt for silent uninstall string on loop until valid ~> must be provided
-                    if (-not($UninstallSwitch)) {
+                    if (-not($SilentUninstallString_x64)) {
                         [String]$silent_uninstall_prompt="Provide UNINSTALL string for language ${l}"
                         $silent_uninstall_string=$null
                         do {
@@ -521,7 +589,7 @@ function Set-InstallerLanguages {
                             [String]$silent_uninstall_string=Read-Host -Prompt $silent_uninstall_prompt
                         } until ($silent_uninstall_string -match [System.Text.RegularExpressions.Regex]::New('\W|\w|\W\w'))
                     } else {
-                        $silent_uninstall_string=$UninstallSwitch
+                        [String]$silent_uninstall_string=$SilentUninstallString_x64
                     }
             
                     # Prompt for update URI
@@ -533,7 +601,7 @@ function Set-InstallerLanguages {
                             [uri]$64update_URI_lookup=Read-Host -Prompt $64update_URI_prompt
                         } until ($64update_URI_lookup -match [System.Text.RegularExpressions.Regex]::New('\W\w') -and (Get-UrlStatusCode -Url $64update_URI_lookup) -like 200)
                     } else {
-                        $64update_URI_lookup=$UpdateURI_x64
+                        [String]$64update_URI_lookup=$UpdateURI_x64
                     }
             
                     # Prompt for update regex
@@ -545,7 +613,7 @@ function Set-InstallerLanguages {
                             [String]$64update_regex_lookup=Read-Host -Prompt $64update_regex_prompt
                         } until ($64update_regex_lookup -match [System.Text.RegularExpressions.Regex]::New('\W\w') -or $64update_regex_lookup -match [System.Text.RegularExpressions.Regex]::New(''))
                     } else {
-                        $64update_regex_lookup=$UpdateRegex_x64
+                        [String]$64update_regex_lookup=$UpdateRegex_x64
                     }
             
                     # Prompt for URL64 on loop until valid
@@ -558,7 +626,7 @@ function Set-InstallerLanguages {
                         } until ($url64.Length -gt 0 -and (Get-UrlStatusCode -Url $url64) -like 200)  #URL must be valid and exist, tests to confirm is valid
                         Clear-Host;
                     } else {
-                        $url64=$InstallURI_x64
+                        [String]$url64=$InstallURI_x64
                     }
             
 
@@ -638,7 +706,7 @@ function Set-InstallerLanguages {
                     }
             
                     # Prompt for silent install switch(es) on loop until valid
-                    if (-not($SilentSwitch)) {
+                    if (-not($SilentInstallString_x86)) {
                         [String]$silent_switch_prompt="[OPTIONAL] Provide SILENT INSTALL string for language ${l}"
                         $silent_install_switches=$null
                         do {
@@ -646,11 +714,11 @@ function Set-InstallerLanguages {
                             [String]$silent_install_switches=Read-Host -Prompt $silent_switch_prompt
                         } until ($silent_install_switches -match [System.Text.RegularExpressions.Regex]::New('\W|\w|\W\w') -or $silent_install_switches -match [System.Text.RegularExpressions.Regex]::New(''))
                     } else {
-                        $silent_install_switches=$SilentSwitch
+                        [String]$silent_install_switches=$SilentInstallString_x86
                     }
             
                     # Prompt for silent uninstall string on loop until valid ~> must be provided
-                    if (-not($UninstallSwitch)) {
+                    if (-not($SilentUninstallString_x86)) {
                         [String]$silent_uninstall_prompt="Provide UNINSTALL string for language ${l}"
                         $silent_uninstall_string=$null
                         do {
@@ -658,7 +726,7 @@ function Set-InstallerLanguages {
                             [String]$silent_uninstall_string=Read-Host -Prompt $silent_uninstall_prompt
                         } until ($silent_uninstall_string -match [System.Text.RegularExpressions.Regex]::New('\W|\w|\W\w'))
                     } else {
-                        $silent_uninstall_string=$UninstallSwitch
+                        [String]$silent_uninstall_string=$SilentUninstallString_x86
                     }
             
                     # Prompt for update URI
@@ -670,7 +738,7 @@ function Set-InstallerLanguages {
                             [uri]$32update_URI_lookup=Read-Host -Prompt $32update_URI_prompt
                         } until ($32update_URI_lookup -match [System.Text.RegularExpressions.Regex]::New('\W\w') -and (Get-UrlStatusCode -Url $32update_URI_lookup) -like 200)
                     } else {
-                        $32update_URI_lookup=$UpdateURI_x86
+                        [String]$32update_URI_lookup=$UpdateURI_x86
                     }
             
                     # Prompt for update regex
@@ -682,7 +750,7 @@ function Set-InstallerLanguages {
                             [String]$32update_regex_lookup=Read-Host -Prompt $32update_regex_prompt
                         } until ($32update_regex_lookup -match [System.Text.RegularExpressions.Regex]::New('\W\w') -or $32update_regex_lookup -match [System.Text.RegularExpressions.Regex]::New(''))
                     } else {
-                        $32update_regex_lookup=$UpdateRegex_x86
+                        [String]$32update_regex_lookup=$UpdateRegex_x86
                     }
             
                     # Prompt for URL32 on loop until valid
@@ -695,7 +763,7 @@ function Set-InstallerLanguages {
                         } until ($url32.Length -gt 0 -and (Get-UrlStatusCode -Url $url32) -like 200)  #URL must be valid and exist, tests to confirm is valid
                         Clear-Host;
                     } else {
-                        $url32=$InstallURI_x86
+                        [String]$url32=$InstallURI_x86
                     }
             
 
@@ -747,8 +815,6 @@ function Set-InstallerLanguages {
                     $l_json += ($json_UpdateURI + $OFS)
                     $l_json += ($json_UpdateRegex + $OFS)
                     $l_json += ($json_LanguageClose)
-            
-
                 }
             }
         }
@@ -756,6 +822,7 @@ function Set-InstallerLanguages {
     
     end {
         return $l_json
+        [System.GC]::Collect()
     }
 }
 
