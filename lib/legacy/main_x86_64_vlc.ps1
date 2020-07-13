@@ -108,7 +108,7 @@ $ves=Set-InstallerLanguages `
   -UpdateURI_x64 https://www.videolan.org/ `
   -UpdateURI_x86 https://www.videolan.org/ `
   -UpdateRegex_x64 '<div class=\"c-release-version\">([\\d.]+)</div>' `
-  -UpdateRegex_x86 '<div class=\"c-release-version\">([\\d.]+)</div>'
+  -UpdateRegex_x86 '<div class=\"c-release-version\">([\\d.]+)</div>' `
   -InstallURI_x64 'https://download.videolan.org/pub/videolan/vlc/last/win64/vlc-3.0.11-win64.msi' `
   -InstallURI_x86 'https://download.videolan.org/pub/videolan/vlc/last/win32/vlc-3.0.11-win32.msi'
 [String]$global:TempFile+=[String]$ves + $OFS
