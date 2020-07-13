@@ -84,7 +84,7 @@ $ves=Set-InstallerLanguages `
   -Arch $Arch `
   -Lang $Lang `
   -SilentSwitch '/qn /norestart' `
-  -UninstallSwitch '-ms' `
+  -UninstallSwitch 'MsiExec.exe /I{23170F69-40C1-2702-1900-000001000000}' `
   -InstallURI_x64 'https://www.7-zip.org/a/7z1900-x64.msi' `
   -InstallURI_x86 'https://www.7-zip.org/a/7z1900.msi' `
   -MsiExe_x64 MSI `
