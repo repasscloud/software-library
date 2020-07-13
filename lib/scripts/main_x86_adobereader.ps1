@@ -142,7 +142,7 @@ if (-not(Test-Path -Path $filepath)) {
     $_ | Set-Content -Path $(Join-Path -Path $filepath -ChildPath $latestjson) -Force -Confirm:$false
 }
 
-git add "app/$($global:_Publisher).*"
+git add "app/$($global:_Publisher)*"
 git commit -m "[autoupdate] :: ${gitBranch}"
 git push
 git checkout 'patch/20'
