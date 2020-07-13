@@ -617,7 +617,7 @@ function Set-InstallerLanguages {
             
                     # Prompt for URL64 on loop until valid
                     if (-not($InstallURI_x64)) {
-                        [String]$url64_prompt="Enter the 64-bit URL to the installer for language ${l}"
+                        [String]$url64_prompt="xxEnter the 64-bit URL to the installer for language ${l}"
                         $url64=$null
                         do {
                             Clear-Host;
