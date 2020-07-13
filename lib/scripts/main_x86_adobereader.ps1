@@ -104,6 +104,7 @@ Set-InstallerLanguages `
   -UpdateRegex '(+.*/S)' `
   -InstallURI_x64 'https://www.7-zip.org/a/7z1900-x64.msi' `
   -InstallURI_x86 'https://www.7-zip.org/a/7z1900.msi' `
+  -MsiExe EXE `
   -MsiExe_x64 MSI `
   -MsiExe_x86 MSI `
   -UpdateURI_x64 https://www.google.com/ `
