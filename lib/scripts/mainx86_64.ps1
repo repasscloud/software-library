@@ -106,8 +106,8 @@ $ves=Set-InstallerLanguages `
 [String]$json_output += [String]$CloseJson
 #endregion Close Json
 
-
-
+git checkout -b "app/$($var[5].ToString().ToLower()).$($var[6].ToString().ToLower())/$($var[4].ToString().ToLower())"
+git push --set-upstream github "app/$($var[5].ToString().ToLower()).$($var[6].ToString().ToLower())/$($var[4].ToString().ToLower())"
 
 #region Write Manifest and Push
 $filepath=$manifest_root_dir + '\' + $var[5].ToString() + '\' + $var[6].ToString()
@@ -122,8 +122,12 @@ $json_output | ForEach-Object {
     $_ | Set-Content -Path $(Join-Path -Path $filepath -ChildPath $latestjson) -Force -Confirm:$false
 }
 
-
-
+git add "app/$($var[5].ToString().ToLower())/*"
+git commit -m "[autoupdate] :: $($var[5].ToString().ToLower()).$($var[6].ToString().ToLower())/$($var[4].ToString().ToLower())"
+git push
+git checkout 'patch/20'
+git branch -d "app/$($var[5].ToString().ToLower()).$($var[6].ToString().ToLower())/$($var[4].ToString().ToLower())"
+git pull
 #endregion Write Manifest and Push
 
 $json_output | Set-Content -Path C:\tmp\jjjj-dual.json -Force -Confirm:$false
