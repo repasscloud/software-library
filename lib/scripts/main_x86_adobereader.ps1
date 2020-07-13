@@ -125,7 +125,7 @@ Set-InstallerLanguages `
 [String]$global:TempFile+=[String]$CloseJson
 #endregion Close Json
 
-[String]$gitBranch="app/$($global:_Publisher).$($global:_AppName)/$($global:_Version)"
+[String]$gitBranch="app/$($global:_Publisher).$($global:_AppName)/$($global:_Version)".Replace(' ','_')
 git checkout -b $gitBranch
 git push --set-upstream github $gitBranch
 
