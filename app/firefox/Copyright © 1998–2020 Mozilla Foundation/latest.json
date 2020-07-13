@@ -1,0 +1,60 @@
+{
+  "Category": "browser",
+  "Manifest": "4.2.4.6",
+  "Nuspec": false,
+  "NuspecURI": "",
+  "Copyright": "Copyright © 2020 RePassCloud.com\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",
+  "Id": {
+Copyright © 1998–2020 Mozilla Foundation.
+    "Intallers": {
+      "x64": {
+        "en-US": {
+          "Url": "https://dl.google.com/tag/s/dl/chrome/install/googlechromestandaloneenterprise64.msi",
+          "FollowUrl": "https://dl.google.com/tag/s/dl/chrome/install/googlechromestandaloneenterprise64.msi",
+          "Sha256": "1A87FD95D180B0F4256380F343C3F8462CBFC857F779F853C774D9B1C1FD446E",
+          "Sha512": "04D3BC29020CFE02D458DBF130A5BD0A1D2812CC40011721D185C9E31BE780BE968A3FD054465AC07A29E9FD000DE994B606C2FF8C804E182E7370177F178B37",
+          "InstallerType": "MSI",
+          "InstallSwitches": "/qn",
+          "UninstallString": "/uninstall_string_here",
+          "UpdateURI": "https://www.google.com/",
+          "UpdateRegex": "(+.*/S)"
+        },
+        "en-GB": {
+          "Url": "https://dl.google.com/tag/s/dl/chrome/install/googlechromestandaloneenterprise64.msi",
+          "FollowUrl": "https://dl.google.com/tag/s/dl/chrome/install/googlechromestandaloneenterprise64.msi",
+          "Sha256": "1A87FD95D180B0F4256380F343C3F8462CBFC857F779F853C774D9B1C1FD446E",
+          "Sha512": "04D3BC29020CFE02D458DBF130A5BD0A1D2812CC40011721D185C9E31BE780BE968A3FD054465AC07A29E9FD000DE994B606C2FF8C804E182E7370177F178B37",
+          "InstallerType": "MSI",
+          "InstallSwitches": "/qn",
+          "UninstallString": "/uninstall_string_here",
+          "UpdateURI": "https://www.google.com/",
+          "UpdateRegex": "(+.*/S)"
+        }
+      },
+      "x86": {
+        "en-US": {
+          "Url": "https://dl.google.com/tag/s/dl/chrome/install/googlechromestandaloneenterprise.msi",
+          "FollowUrl": "https://dl.google.com/tag/s/dl/chrome/install/googlechromestandaloneenterprise.msi",
+          "Sha256": "4A8E8EEFD860025A9387350A0C8812020EE001FC9170CC27E0F03CBB0BFA26F0",
+          "Sha512": "6EF45DA8905FE6249F91376317668F86D3FE6F7B89686D4D86CE16680C3246D697C350A612BC00CBF14697233CF1A6E229C495CB811ED420897563F03A4BC001",
+          "InstallerType": "MSI",
+          "InstallSwitches": "/qn",
+          "UninstallString": "/uninstall_string_here",
+          "UpdateURI": "https://www.google.com/",
+          "UpdateRegex": "(+.*/S)"
+        },
+        "en-GB": {
+          "Url": "https://dl.google.com/tag/s/dl/chrome/install/googlechromestandaloneenterprise.msi",
+          "FollowUrl": "https://dl.google.com/tag/s/dl/chrome/install/googlechromestandaloneenterprise.msi",
+          "Sha256": "4A8E8EEFD860025A9387350A0C8812020EE001FC9170CC27E0F03CBB0BFA26F0",
+          "Sha512": "6EF45DA8905FE6249F91376317668F86D3FE6F7B89686D4D86CE16680C3246D697C350A612BC00CBF14697233CF1A6E229C495CB811ED420897563F03A4BC001",
+          "InstallerType": "MSI",
+          "InstallSwitches": "/qn",
+          "UninstallString": "/uninstall_string_here",
+          "UpdateURI": "https://www.google.com/",
+          "UpdateRegex": "(+.*/S)"
+        }
+      }
+    }
+  }
+}
