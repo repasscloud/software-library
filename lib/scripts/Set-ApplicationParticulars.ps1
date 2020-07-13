@@ -70,10 +70,10 @@ function Set-ApplicationParticulars {
    13 - Complete output as single variable with no discernation for types or result info
 
 .NOTES
-  Version:        1.1.3.16
+  Version:        1.2.4.22
   Author:         Copyright © 2020 RePass Cloud Pty Ltd (https://repasscloud.com/). All rights reserved.
   License:        Apache-2.0
-  Creation Date:  2020-07-12
+  Creation Date:  2020-07-13
   Purpose/Change: Return variable includes multidimensional indexable array.
   
 .EXAMPLE
@@ -289,10 +289,21 @@ function Set-ApplicationParticulars {
         $function_return_array += $Depends
         $function_return_array += $langList
         
-        # Multidimensional array that gets returned, including return array
-        [System.Collections.ArrayList]$multi_dimensional_array = @($json_data_return,$AppCopyright,$Version,$Publisher,$AppName,$AppCopyright,$License,$Arch,$Depends,$langList,$function_return_array)
+        # Inject all the data to test the change to a global variable
+        [String]$global:TempFile+=$json_data_return
+        [String]$global:TempFile+=$OFS
 
-        return $multi_dimensional_array
+        # Multidimensional array that gets returned, including return array
+        #[System.Collections.ArrayList]$multi_dimensional_array = @($json_data_return,$AppCopyright,$Version,$Publisher,$AppName,$AppCopyright,$License,$Arch,$Depends,$langList,$function_return_array)
+            [String]$global:_AppCopyright=$AppCopyright
+            [String]$global:_Version=$Version
+            [String]$global:_Publisher=$Publisher
+            [String]$global:_AppName=$AppName
+            [String]$global:_AppCopyright=$AppCopyright
+            [String]$global:_License=$License
+            [String]$global:_Arch=$Arch
+            [String]$global:_Depends=$Depends
+            [Array]$global:_langList=$langList
     }
     
     end {
