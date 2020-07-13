@@ -5,7 +5,7 @@ Copyright 2020 RePass Cloud Pty Ltd
 This product includes software developed at
 RePass Cloud (https://repasscloud.com/).
 
-Version: 2.1.0.73
+Version: 2.1.2.81
 #>
 
 # Stems from issue #24
@@ -319,7 +319,7 @@ function Set-InstallerLanguages {
                         #$json_ArchClose
                         # the ArchClose is removed because it gets added on $json_LanguageClose selection
                     } else {
-                        $json_LanguageClose='        },'  #returning the comma, this _is_ required here
+                        $json_LanguageClose='        },' + $OFS  #returning the comma, this _is_ required here
                         $l_count -= 1  #deduct 1 from the language count, so the last line will automatically revent to the first and close off the JSON list
                     }
 
@@ -338,6 +338,11 @@ function Set-InstallerLanguages {
                 }
             }
             'x86' {
+
+                # Add x86 once to the section
+                $json_ArchOpen='      "x86": {'
+                $l_json += ($json_ArchOpen + $OFS)
+                
                 foreach ($l in $Lang) {
             
                     # Prompt for executable type on loop until valid
@@ -434,7 +439,6 @@ function Set-InstallerLanguages {
             
             
                     # Set the all the JSON data lines
-                    $json_ArchOpen='      "x86": {'
                     $json_LanguageOpen='        "' + $l + '": {'
                     $json_URL='          "Url": "' + $url32 + '",'
                     $json_followURL='          "FollowUrl": "' + $followURL + '",'
@@ -450,12 +454,11 @@ function Set-InstallerLanguages {
                         #$json_ArchClose
                         # the ArchClose is removed because it gets added on $json_LanguageClose selection
                     } else {
-                        $json_LanguageClose='        }'
+                        $json_LanguageClose='        },' + $OFS  #returning the comma, this _is_ required here
                         $l_count -= 1  #deduct 1 from the language count, so the last line will automatically revent to the first and close off the JSON list
                     }
             
                     # Put all the results together
-                    $l_json += ($json_ArchOpen + $OFS)
                     $l_json += ($json_LanguageOpen + $OFS)
                     $l_json += ($json_URL + $OFS)
                     $l_json += ($json_followURL + $OFS)
@@ -470,6 +473,12 @@ function Set-InstallerLanguages {
                 }
             }
             'x86_64' {
+
+                # Add x64 once to the section
+                $json_ArchOpen='      "x64": {'
+                $l_json += ($json_ArchOpen + $OFS)
+                [Int16]$l_count=$Lang.Count  #total number of languages being created into the manifest
+
                 foreach ($l in $Lang) {
 
                     # Prompt for executable type on loop until valid
@@ -567,7 +576,6 @@ function Set-InstallerLanguages {
             
             
                     # Set the all the JSON data lines
-                    $json_ArchOpen='      "x64": {'
                     $json_LanguageOpen='        "' + $l + '": {'
                     $json_URL='          "Url": "' + $url64 + '",'
                     $json_followURL='          "FollowUrl": "' + $followURL + '",'
@@ -579,16 +587,15 @@ function Set-InstallerLanguages {
                     $json_UpdateURI='          "UpdateURI": "'+ $64update_URI_lookup + '",'
                     $json_UpdateRegex='          "UpdateRegex": "'+ $64update_regex_lookup.Replace('"','\"') + '"'
                     if ($l_count -lt 2) {
-                        $json_LanguageClose='        }' + $OFS + '      }'
+                        $json_LanguageClose='        }' + $OFS + '      },' + $OFS
                         #$json_ArchClose
                         # the ArchClose is removed because it gets added on $json_LanguageClose selection
                     } else {
-                        $json_LanguageClose='        }'
+                        $json_LanguageClose='        },' + $OFS
                         $l_count -= 1  #deduct 1 from the language count, so the last line will automatically revent to the first and close off the JSON list
                     }
             
                     # Put all the results together
-                    $l_json += ($json_ArchOpen + $OFS)
                     $l_json += ($json_LanguageOpen + $OFS)
                     $l_json += ($json_URL + $OFS)
                     $l_json += ($json_followURL + $OFS)
@@ -601,6 +608,16 @@ function Set-InstallerLanguages {
                     $l_json += ($json_UpdateRegex + $OFS)
                     $l_json += ($json_LanguageClose)
             
+
+                }
+
+                # Add x86 once to the section
+                $json_ArchOpen='      "x86": {'
+                $l_json += ($json_ArchOpen + $OFS)
+                [Int16]$l_count=$Lang.Count  #total number of languages being created into the manifest
+
+                foreach ($l in $Lang) {
+
                     # Prompt for executable type on loop until valid
                     if (-not($MsiExe_x86 -like 'MSI' -or $MsiExe_x86 -like 'EXE')) {
                         $executable_type=$null
@@ -619,7 +636,7 @@ function Set-InstallerLanguages {
                             'EXE' { [String]$32exec_type='EXE' }
                         }
                     }
-                
+            
                     # Prompt for silent install switch(es) on loop until valid
                     if (-not($SilentSwitch)) {
                         [String]$silent_switch_prompt="[OPTIONAL] Provide SILENT INSTALL string for language ${l}"
@@ -631,7 +648,7 @@ function Set-InstallerLanguages {
                     } else {
                         $silent_install_switches=$SilentSwitch
                     }
-                
+            
                     # Prompt for silent uninstall string on loop until valid ~> must be provided
                     if (-not($UninstallSwitch)) {
                         [String]$silent_uninstall_prompt="Provide UNINSTALL string for language ${l}"
@@ -643,7 +660,7 @@ function Set-InstallerLanguages {
                     } else {
                         $silent_uninstall_string=$UninstallSwitch
                     }
-                
+            
                     # Prompt for update URI
                     if (-not($UpdateURI_x86)) {
                         [String]$32update_URI_prompt="Provide UPDATE URI for reference for language ${l}"
@@ -655,7 +672,7 @@ function Set-InstallerLanguages {
                     } else {
                         $32update_URI_lookup=$UpdateURI_x86
                     }
-                
+            
                     # Prompt for update regex
                     if (-not($UpdateRegex_x86)) {
                         [String]$32update_regex_prompt="[OPTIONAL] Provide UPDATE URI regex string for language ${l}"
@@ -667,7 +684,7 @@ function Set-InstallerLanguages {
                     } else {
                         $32update_regex_lookup=$UpdateRegex_x86
                     }
-                
+            
                     # Prompt for URL32 on loop until valid
                     if (-not($InstallURI_x86)) {
                         [String]$url32_prompt="Enter the 32-bit URL to the installer for language ${l}"
@@ -680,7 +697,7 @@ function Set-InstallerLanguages {
                     } else {
                         $url32=$InstallURI_x86
                     }
-                
+            
 
                     # Main Region
                     $followURL=Get-RedirectedUrl -Url $url32  #find the URL to download
@@ -693,10 +710,9 @@ function Set-InstallerLanguages {
                     Write-Host "Getting SHA-512 checksum...${OFS}" -ForeGroundColor Yellow
                     $sha512=(Get-FileHash -Path $hashfile32 -Algorithm SHA512).Hash
                     Start-Sleep -Seconds 1
-                
-                
+            
+            
                     # Set the all the JSON data lines
-                    $json_ArchOpen='      "x86": {'
                     $json_LanguageOpen='        "' + $l + '": {'
                     $json_URL='          "Url": "' + $url32 + '",'
                     $json_followURL='          "FollowUrl": "' + $followURL + '",'
@@ -709,15 +725,17 @@ function Set-InstallerLanguages {
                     $json_UpdateRegex='          "UpdateRegex": "'+ $32update_regex_lookup.Replace('"','\"') + '"'
                     if ($l_count -lt 2) {
                         $json_LanguageClose='        }' + $OFS + '      }'
+                        #$json_LanguageClose='        }' + $OFS + '      },' + $OFS
+                        #~> the $OFS is removed, because it's a blank line not required with the next line entry starting blank
+                        #~> the comma needs to be removed, because it's a closing statement, this only applies to $x86_64
                         #$json_ArchClose
-                        # the ArchClose is removed because it gets added on $json_LanguageClose selection
+                        #~> the ArchClose is removed because it gets added on $json_LanguageClose selection
                     } else {
-                        $json_LanguageClose='        }'
+                        $json_LanguageClose='        },' + $OFS
                         $l_count -= 1  #deduct 1 from the language count, so the last line will automatically revent to the first and close off the JSON list
                     }
-                
+            
                     # Put all the results together
-                    $l_json += ($json_ArchOpen + $OFS)
                     $l_json += ($json_LanguageOpen + $OFS)
                     $l_json += ($json_URL + $OFS)
                     $l_json += ($json_followURL + $OFS)
@@ -729,6 +747,8 @@ function Set-InstallerLanguages {
                     $l_json += ($json_UpdateURI + $OFS)
                     $l_json += ($json_UpdateRegex + $OFS)
                     $l_json += ($json_LanguageClose)
+            
+
                 }
             }
         }
