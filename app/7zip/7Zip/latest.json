@@ -27,8 +27,8 @@
           "InstallerType": "MSI",
           "InstallSwitches": "/qn /norestart",
           "UninstallString": "Start-Process -FilePath msiexec -ArgumentList '/x {23170F69-40C1-2702-1900-000001000000} /qn' -Wait",
-          "UpdateURI": "https://www.google.com/",
-          "UpdateRegex": "(+.*/S)"
+          "UpdateURI": "https://www.7-zip.org/download.html",
+          "UpdateRegex": ""
         },
         "en-GB": {
           "Url": "https://www.7-zip.org/a/7z1900-x64.msi",
@@ -38,8 +38,8 @@
           "InstallerType": "MSI",
           "InstallSwitches": "/qn /norestart",
           "UninstallString": "Start-Process -FilePath msiexec -ArgumentList '/x {23170F69-40C1-2702-1900-000001000000} /qn' -Wait",
-          "UpdateURI": "https://www.google.com/",
-          "UpdateRegex": "(+.*/S)"
+          "UpdateURI": "https://www.7-zip.org/download.html",
+          "UpdateRegex": ""
         }
       },
       "x86": {
@@ -51,8 +51,8 @@
           "InstallerType": "MSI",
           "InstallSwitches": "/qn /norestart",
           "UninstallString": "Start-Process -FilePath msiexec -ArgumentList '/x {23170F69-40C1-2702-1900-000001000000} /qn' -Wait",
-          "UpdateURI": "https://www.google.com/",
-          "UpdateRegex": "(+.*/S)"
+          "UpdateURI": "https://www.7-zip.org/download.html",
+          "UpdateRegex": ""
         },
         "en-GB": {
           "Url": "https://www.7-zip.org/a/7z1900.msi",
@@ -62,8 +62,8 @@
           "InstallerType": "MSI",
           "InstallSwitches": "/qn /norestart",
           "UninstallString": "Start-Process -FilePath msiexec -ArgumentList '/x {23170F69-40C1-2702-1900-000001000000} /qn' -Wait",
-          "UpdateURI": "https://www.google.com/",
-          "UpdateRegex": "(+.*/S)"
+          "UpdateURI": "https://www.7-zip.org/download.html",
+          "UpdateRegex": ""
         }
       }
     }
