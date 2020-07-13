@@ -28,7 +28,7 @@
           "InstallSwitches": "/qn /L=1033",
           "UninstallString": "/x {0A1870BC-51B4-459D-B681-3B2033298122} /qn",
           "UpdateURI": "https://www.videolan.org/",
-          "UpdateRegex": "<div class=\\\\"c-release-version\\\\">([\\d.]+)</div>"
+          "UpdateRegex": ""
         }
       },
       "x86": {
@@ -41,7 +41,7 @@
           "InstallSwitches": "/qn /L=1033",
           "UninstallString": "/x {162A5CE4-04E4-4879-9CFB-4C7A2171D85A} /qn",
           "UpdateURI": "https://www.videolan.org/",
-          "UpdateRegex": "<div class=\\\\"c-release-version\\\\">([\\d.]+)</div>"
+          "UpdateRegex": ""
         }
       }
     }
