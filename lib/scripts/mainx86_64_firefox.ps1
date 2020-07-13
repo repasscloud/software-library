@@ -71,7 +71,7 @@ $var=Set-ApplicationParticulars -Publisher 'Mozilla' `
     -Description 'Bringing together all kinds of awesomeness to make browsing better for you.' `
     -Homepage 'https://www.mozilla.org/en-US/firefox/new/' `
     -Arch x86_64 `
-    -Languages @('en-US','en-GB')
+    -Languages @('en-US')
 [String]$json_output += [String]$var[2] + $OFS + '    "Intallers": {' + $OFS
 
 #endregion Application particulars
@@ -84,9 +84,9 @@ $ves=Set-InstallerLanguages `
   -Arch $Arch `
   -Lang $Lang `
   -SilentSwitch '/qn' `
-  -UninstallSwitch '/uninstall_string_here' `
-  -InstallURI_x64 'https://dl.google.com/tag/s/dl/chrome/install/googlechromestandaloneenterprise64.msi' `
-  -InstallURI_x86 'https://dl.google.com/tag/s/dl/chrome/install/googlechromestandaloneenterprise.msi' `
+  -UninstallSwitch '-ms' `
+  -InstallURI_x64 'https://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win64&lang=en-US' `
+  -InstallURI_x86 'https://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win&lang=en-US' `
   -MsiExe_x64 MSI `
   -MsiExe_x86 MSI `
   -UpdateURI_x64 https://www.google.com/ `
