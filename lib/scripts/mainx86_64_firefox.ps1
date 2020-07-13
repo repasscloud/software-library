@@ -106,12 +106,12 @@ $ves=Set-InstallerLanguages `
 [String]$json_output += [String]$CloseJson
 #endregion Close Json
 
-git checkout -b "app/$($var[5].ToString().ToLower()).$($var[6].ToString().ToLower())/$($var[4].ToString().ToLower())"
-git push --set-upstream github "app/$($var[5].ToString().ToLower()).$($var[6].ToString().ToLower())/$($var[4].ToString().ToLower())"
+git checkout -b "app/$($var[4].ToString().ToLower()).$($var[5].ToString().ToLower())/$($var[3].ToString().ToLower())"
+git push --set-upstream github "app/$($var[4].ToString().ToLower()).$($var[5].ToString().ToLower())/$($var[3].ToString().ToLower())"
 
 #region Write Manifest and Push
-$filepath=$manifest_root_dir + '\' + $var[5].ToString() + '\' + $var[6].ToString()
-$filename=$var[4].ToString().ToLower() + '.json'
+$filepath=$manifest_root_dir + '\' + $var[4].ToString() + '\' + $var[5].ToString()
+$filename=$var[3].ToString().ToLower() + '.json'
 $latestjson='latest.json'
 if (-not(Test-Path -Path $filepath)) {
     New-Item -Path $filepath -ItemType Directory -Force -Confirm:$false
@@ -122,11 +122,11 @@ $json_output | ForEach-Object {
     $_ | Set-Content -Path $(Join-Path -Path $filepath -ChildPath $latestjson) -Force -Confirm:$false
 }
 
-git add "app/$($var[5].ToString().ToLower())/*"
-git commit -m "[autoupdate] :: $($var[5].ToString().ToLower()).$($var[6].ToString().ToLower())/$($var[4].ToString().ToLower())"
+git add "app/$($var[4].ToString().ToLower())/*"
+git commit -m "[autoupdate] :: $($var[4].ToString().ToLower()).$($var[5].ToString().ToLower())/$($var[3].ToString().ToLower())"
 git push
 git checkout 'patch/20'
-git branch -d "app/$($var[5].ToString().ToLower()).$($var[6].ToString().ToLower())/$($var[4].ToString().ToLower())"
+git branch -d "app/$($var[4].ToString().ToLower()).$($var[5].ToString().ToLower())/$($var[3].ToString().ToLower())"
 git pull
 #endregion Write Manifest and Push
 
