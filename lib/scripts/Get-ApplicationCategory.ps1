@@ -29,6 +29,7 @@ function Get-ApplicationCategory {
 
 #>
 [CmdletBinding()]
+[OutputType([String])]
     param (
         [Parameter(
             Mandatory=$false,
