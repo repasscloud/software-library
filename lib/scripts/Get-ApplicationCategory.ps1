@@ -1,4 +1,4 @@
-function Set-ApplicationCategory {
+function Get-ApplicationCategory {
 <#
 .SYNOPSIS
   Sets category for Application.
@@ -28,8 +28,8 @@ function Set-ApplicationCategory {
     -Version 83.0.4103.116
 
 #>
-
 [CmdletBinding()]
+[OutputType([String])]
     param (
         [Parameter(
             Mandatory=$false,
@@ -92,7 +92,7 @@ Application Category
                 $wcssa.Close()
                 $wcssa.Dispose()
                 #[void][System.Console]::WriteLine($menu)  #~> issue #38 via Codacy
-                Write-Host $menu
+                Show-HostOutput -ScreenOutput $menu  #~> issue #41 via Codacy
                 [int]$choice=Read-Host -Prompt 'Enter choice'
             } until ($choice -in 1..($counter-1))
         }
@@ -110,8 +110,7 @@ Application Category
             9 { [String]$json_return_value += '  "Category": "security",' + $OFS }
             10 { [String]$json_return_value += '  "Category": "microsoft",' + $OFS }
         }
-
-        return $json_return_value
+        return [String]$json_return_value
     }
 
     end {

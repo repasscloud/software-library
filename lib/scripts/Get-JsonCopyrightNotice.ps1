@@ -1,4 +1,4 @@
-function Set-JsonCopyrightNotice {
+function Get-JsonCopyrightNotice {
     param(
         [Parameter(Mandatory=$false, Position=0)]
         [uri]
