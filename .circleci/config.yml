@@ -34,7 +34,7 @@ jobs:
       - run:
           name: "pscore version table"
           command: |
-            pwsh $PSVersionTable
+            pwsh.exe -Command {$PSVersionTable}
 
 workflows:
   build-deploy:
