@@ -93,6 +93,7 @@ function Set-InstallerLanguages {
 #>
 
     [CmdletBinding()]
+    [OutputType([String])]  #~> issue #37
     param (
         [Parameter(Mandatory=$true,Position=0)]
         [ValidateScript({
