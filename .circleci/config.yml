@@ -1,13 +1,47 @@
-# Use the latest 2.1 version of CircleCI pipeline process engine. See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
-# Use a package of configuration called an orb.
+
 orbs:
-  # Declare a dependency on the welcome-orb
-  welcome: circleci/welcome-orb@0.4.1
-# Orchestrate or schedule a set of jobs
+  win: circleci/windows@2.4.0
+
+jobs:
+  circleci-tests:
+    description: "ci/circleci-tests only for pre-deployment"
+    executor:
+      name: win/default
+      shell: powershell.exe
+    working_directory: C:\circle_ci_build_dir
+    steps:
+      - checkout
+      - run: systeminfo
+      - run: 
+          name: "System Info"
+          command: systeminfo
+      - run:
+          name: "Check docker"
+          shell: powershell.exe
+          command: |
+            docker info
+            docker run hello-world:nanoserver-1809
+      - run:
+          name: "Install VLC"
+          shell: powershell.exe
+          command: |
+            choco install vlc
+            Get-WmiObject -Class Win32_Product | Where-Object {$_.Name -like "*Video*"} | Select-Object Name,Version
+      - run:
+          name: "install powershell core"
+          command: dotnet tool install --global PowerShell
+      - run:
+          name: "pscore version table"
+          command: |
+            pwsh.exe -Command {$PSVersionTable}
+
 workflows:
-  # Name the workflow "welcome"
-  welcome:
-    # Run the welcome/run job in its own container
+  build-deploy:
     jobs:
-      - welcome/run
+      - circleci-tests: # << the job to conditionally run based on the filter-by-branch-name.
+          filters:
+            branches:
+              only:
+                - master
+                - "ci/circleci-tests"
