@@ -360,13 +360,13 @@ function Export-InstallerLanguages {
 
                     # Main Region
                     $followURL=Get-RedirectedUrl -Url $url64  #find the URL to download
-                    Write-Host "Downloading application package...${OFS}" -ForeGroundColor Yellow
+                    Show-HostOutput "Downloading application package...${OFS}" -ForeGroundColor Yellow
                     $WebClient=New-Object System.Net.WebClient
                     $WebClient.DownloadFile($followURL, $Hashfile64)
-                    Write-Host "Getting SHA-256 checksum...${OFS}" -ForeGroundColor Yellow
+                    Show-HostOutput "Getting SHA-256 checksum...${OFS}" -ForeGroundColor Yellow
                     $sha256=(Get-FileHash -Path $hashfile64 -Algorithm SHA256).Hash
                     Start-Sleep -Seconds 1
-                    Write-Host "Getting SHA-512 checksum...${OFS}" -ForeGroundColor Yellow
+                    Show-HostOutput "Getting SHA-512 checksum...${OFS}" -ForeGroundColor Yellow
                     $sha512=(Get-FileHash -Path $hashfile64 -Algorithm SHA512).Hash
                     Start-Sleep -Seconds 1
 
