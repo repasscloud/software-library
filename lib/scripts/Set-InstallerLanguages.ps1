@@ -820,7 +820,7 @@ function Set-InstallerLanguages {
     }
     
     end {
-        return $l_json
+        return [String]$l_json
         [System.GC]::Collect()
     }
 }
