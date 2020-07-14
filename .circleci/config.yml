@@ -5,17 +5,17 @@ orbs:
 
 jobs:
   build:
-    working_directory: C:\tmp  #~> set the working directory
-    environment:  #~> set the environmental variables to be used
-      FOO: bar  #~> set a varibale to "FOO" with value of "bar"
-    branches:  #~> select which branches
-      only:  #~> can be "only" or "ignore"
-        - master  #builds run the build job only on master branch
+    executor:
+      name: win/default
+      shell: powershell.exe
+    working_directory: C:\circle_ci_build_dir
+    environment:
+      FOO: bar
+    branches:
+      only:
+        - master
         - ci/circleci-tests
-    executor:  #~> what is running the show
-      name: win/default  #~> set to windows
-      shell: powershell.exe  #set the default shell from ""
-    size: "medium" #~> can be "medium", "large", "xlarge", "2xlarge"
+    size: medium
     steps:
       - checkout
       - run: 
