@@ -92,7 +92,7 @@ Application Category
                 $wcssa.Close()
                 $wcssa.Dispose()
                 #[void][System.Console]::WriteLine($menu)  #~> issue #38 via Codacy
-                Write-Host $menu
+                Show-HostOutput -ScreenOutput $menu  #~> issue #41 via Codacy
                 [int]$choice=Read-Host -Prompt 'Enter choice'
             } until ($choice -in 1..($counter-1))
         }

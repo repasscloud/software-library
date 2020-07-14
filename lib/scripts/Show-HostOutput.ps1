@@ -7,7 +7,7 @@ RePass Cloud (https://repasscloud.com/).
 
 Version: 1.0.0.0
 
-This shim function was created to satisfy Issue #41
+This shim function was created to satisfy Issue #41 via Codacy
 #>
 
 function Show-HostOutput {
