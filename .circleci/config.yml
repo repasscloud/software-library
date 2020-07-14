@@ -4,16 +4,12 @@ orbs:
   win: circleci/windows@2.4.0
 
 jobs:
-  build:
+  ci/circleci-tests:
+    description: "ci/circleci-tests only for pre-deployment"
     executor:
       name: win/default
       shell: powershell.exe
     working_directory: C:\circle_ci_build_dir
-    branches:
-      only:
-        - master
-        - ci/circleci-tests
-    size: medium
     steps:
       - checkout
       - run: systeminfo
@@ -39,3 +35,13 @@ jobs:
           name: "pscore version table"
           command: |
             pwsh $PSVersionTable
+
+workflows:
+  build-deploy:
+    jobs:
+      - ci/circleci-tests: # << the job to conditionally run based on the filter-by-branch-name.
+          filters:
+            branches:
+              only:
+                - master
+                - ci/circleci-tests
