@@ -9,8 +9,6 @@ jobs:
       name: win/default
       shell: powershell.exe
     working_directory: C:\circle_ci_build_dir
-    environment:
-      FOO: bar
     branches:
       only:
         - master
@@ -18,6 +16,7 @@ jobs:
     size: medium
     steps:
       - checkout
+      - run: systeminfo
       - run: 
           name: "System Info"
           command: systeminfo
@@ -28,24 +27,15 @@ jobs:
             docker info
             docker run hello-world:nanoserver-1809
       - run:
-          name: "Powershell hello world"
-          command: $(echo hello | Out-Host; $?) -and $(echo world | Out-Host; $?)
+          name: "Install VLC"
           shell: powershell.exe
-      - run:
-          name: "/bin/bash hello world"
-          command: echo hello && echo world
-          shell: bash.exe
-      - run:
-          name: "cmd hello world"
-          command: echo hello & echo world
-          shell: cmd.exe
-      - run:
-          name: "Get working directory"
-          command: $pwd
-          shell: powershell.exe
+          command: |
+            choco install vlc
+            Get-WmiObject -Class Win32_Product | Where-Object {$_.Name -like "*Video*"} | Select-Object Name,Version
       - run:
           name: "install powershell core"
           command: dotnet tool install --global PowerShell
       - run:
           name: "pscore version table"
-          command: pwsh $PSVersionTable
+          command: |
+            pwsh $PSVersionTable
