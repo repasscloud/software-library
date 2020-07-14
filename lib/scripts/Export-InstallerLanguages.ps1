@@ -1,4 +1,4 @@
-function Set-InstallerLanguages {
+function Export-InstallerLanguages {
 
 <#
 .SYNOPSIS

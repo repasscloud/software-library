@@ -1,5 +1,5 @@
 # Set Nuspec value
-function Set-NuspecValue {
+function Export-NuspecValue {
     param(
         [Parameter(Mandatory=$false,Position=0)]
         [ValidateScript({

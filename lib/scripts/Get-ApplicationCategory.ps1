@@ -1,4 +1,4 @@
-function Set-ApplicationCategory {
+function Get-ApplicationCategory {
 <#
 .SYNOPSIS
   Sets category for Application.
@@ -28,7 +28,6 @@ function Set-ApplicationCategory {
     -Version 83.0.4103.116
 
 #>
-
 [CmdletBinding()]
     param (
         [Parameter(
@@ -110,8 +109,7 @@ Application Category
             9 { [String]$json_return_value += '  "Category": "security",' + $OFS }
             10 { [String]$json_return_value += '  "Category": "microsoft",' + $OFS }
         }
-
-        return $json_return_value
+        return [String]$json_return_value
     }
 
     end {

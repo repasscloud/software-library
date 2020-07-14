@@ -3,10 +3,10 @@ $repo_root_dir = Split-Path -Path (Split-Path -Path $currentDir -Parent) -Parent
 
 Get-ChildItem -Path "${repo_root_dir}\lib\scripts" -Filter "Get-RedirectedURL.ps1" | ForEach-Object { . $_.FullName }
 Get-ChildItem -Path "${repo_root_dir}\lib\scripts" -Filter "Get-URLStatusCode.ps1" | ForEach-Object { . $_.FullName }
-Get-ChildItem -Path "${repo_root_dir}\lib\scripts" -Filter "Set-InstallerLanguages.ps1" | ForEach-Object { . $_.FullName }
+Get-ChildItem -Path "${repo_root_dir}\lib\scripts" -Filter "Export-InstallerLanguages.ps1" | ForEach-Object { . $_.FullName }
 Get-ChildItem -Path "${repo_root_dir}\lib\scripts" -Filter "Show-HostOutput.ps1" | ForEach-Object { . $_.FullName } #~> Issue #41
 
-function Set-ApplicationParticulars {
+function Get-ApplicationParticulars {
 <#
 .SYNOPSIS
   <Overview of script>
@@ -91,7 +91,6 @@ function Set-ApplicationParticulars {
     -Languages @('en-US','en-AU')
 
 #>
-
     [CmdletBinding()]
     param (
         [Parameter(
