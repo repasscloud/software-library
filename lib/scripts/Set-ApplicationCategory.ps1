@@ -91,7 +91,8 @@ Application Category
                 $menu += "`r`n"
                 $wcssa.Close()
                 $wcssa.Dispose()
-                [void][System.Console]::WriteLine($menu)
+                #[void][System.Console]::WriteLine($menu)  #~> issue #38 via Codacy
+                Write-Host $menu
                 [int]$choice=Read-Host -Prompt 'Enter choice'
             } until ($choice -in 1..($counter-1))
         }
