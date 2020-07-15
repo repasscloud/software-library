@@ -25,8 +25,8 @@ function Invoke-CreateCManiCore {
         [ValidateSet('browser','business','entertainment','graphic_design','photo','social','productivity','games','security','microsoft')]
         [ValidateScript(
             {
-                [Array]$catList = @('browser','business','entertainment','graphic_design','photo','social','productivity','games','security','microsoft')
-                if ( $_ -in $catList ) {
+                [Array]$CategoryArray=@('browser','business','entertainment','graphic_design','photo','social','productivity','games','security','microsoft')
+                if ( $_ -in $CategoryArray ) {
                     $_
                 }
                 else {
