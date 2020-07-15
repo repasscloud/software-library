@@ -10,7 +10,6 @@ $appCat = Get-ApplicationCategory -Category 'browser'
 [String]$global:TempFile+=$appCat
 #endregion Category
 
-
 function Invoke-CreateCManiCore {
     [CmdletBinding()]
     [OutputType([String])]
