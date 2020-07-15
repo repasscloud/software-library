@@ -1,11 +1,3 @@
-$currentDir = [System.IO.Path]::GetDirectoryName($myInvocation.MyCommand.Definition)
-$repo_root_dir = Split-Path -Path (Split-Path -Path $currentDir -Parent) -Parent
-
-Get-ChildItem -Path "${repo_root_dir}\lib\scripts" -Filter "Get-RedirectedURL.ps1" | ForEach-Object { . $_.FullName }
-Get-ChildItem -Path "${repo_root_dir}\lib\scripts" -Filter "Get-URLStatusCode.ps1" | ForEach-Object { . $_.FullName }
-Get-ChildItem -Path "${repo_root_dir}\lib\scripts" -Filter "Export-InstallerLanguages.ps1" | ForEach-Object { . $_.FullName }
-Get-ChildItem -Path "${repo_root_dir}\lib\scripts" -Filter "Show-HostOutput.ps1" | ForEach-Object { . $_.FullName } #~> Issue #41
-
 function Get-ApplicationParticulars {
 <#
 .SYNOPSIS
@@ -92,6 +84,7 @@ function Get-ApplicationParticulars {
 
 #>
     [CmdletBinding()]
+    [OutputType()]
     param (
         [Parameter(
             Mandatory=$true,
@@ -305,7 +298,7 @@ function Get-ApplicationParticulars {
             [String]$global:_Depends=$Depends
             [Array]$global:_langList=$langList
     }
-    
+
     end {
         [System.GC]::Collect()
     }

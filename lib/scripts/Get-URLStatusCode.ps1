@@ -1,3 +1,4 @@
+function Get-UrlStatusCode {
 <#
 RePass Cloud Get-URLStatusCode.ps1
 Copyright 2020 RePass Cloud Pty Ltd
@@ -18,8 +19,6 @@ Version: 2.0.0.1
 #    $query = Get-URLStatusCode -Url https://www.com/
 #    $query
 
-
-function Get-UrlStatusCode {
     #Source: https://stackoverflow.com/a/20262872
     param(
         [Parameter(Mandatory=$true, Position=0)]

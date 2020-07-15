@@ -1,0 +1,5 @@
+# RePass Cloud Export-InstallerLanguages
+# Copyright 2020 RePass Cloud Pty Ltd
+#
+# This product includes software developed at
+# RePass Cloud Pty Ltd (https://www.repasscloud.com/).
