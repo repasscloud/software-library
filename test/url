@@ -1,0 +1,88 @@
+google.chrome
+65.87
+http://get.videolan.org/vlc/3.0.11/win32/vlc-3.0.11-win32.exe
+https://dl.google.com/tag/s/dl/chrome/install/googlechromestandaloneenterprise64.msi
+
+
+Downloading urlx64.  This will take a while...
+Downloading urlx32.  This will take a while...
+
+/L=1033 /S
+
+
+{
+    "Category": "productivity",
+    "Manifest": "4.1.3.4",
+    "Release": "1",
+    "Id": {
+        "Version": "1900",
+        "Name": "7Zip",
+        "Publisher": "7Zip",
+        "Copyright": "7-Zip Copyright © 1999-2016 Igor Pavlov",
+        "License": "LGPLv2.1+",
+        "LicenseURL": "https://www.7-zip.org/license.txt",
+        "Tags": ["zip","7zip"],
+        "Description": "7-Zip is a file archiver with a high compression ratio.",
+        "Homepage": "https://www.7-zip.org",
+        "Depends": "",
+        "Arch": ["x64","x86"],
+        "Installers": {
+            "x64": {
+                "Url": "https://www.7-zip.org/a/7z1900-x64.msi",
+                "FollowUrl": "https://www.7-zip.org/a/7z1900-x64.msi",
+                "Sha256": "A7803233EEDB6A4B59B3024CCF9292A6FFFB94507DC998AA67C5B745D197A5DC",
+                "InstallerType": "msi",
+                "Switches": "/quiet /norestart"
+            },
+            "x86": {
+                "Url": "https://www.7-zip.org/a/7z1900.msi",
+                "FollowUrl": "https://www.7-zip.org/a/7z1900.msi",
+                "Sha256": "B49D55A52BC0EAB14947C8982C413D9BE141C337DA1368A24AA0484CBB5E89CD",
+                "InstallerType": "msi",
+                "Switches": "/qn /norestart"
+            }
+        }
+    }
+}
+vlc foss cross-platform multimedia audio video mp3 dvd avi media player admin
+
+https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v7.8.6/npp.7.8.6.Installer.x64.exe
+https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v7.8.6/npp.7.8.6.Installer.x64.exe
+{
+    "Category": "productivity",
+    "Manifest": "4.1.3.4",
+    "Release": "1",
+    "Id": {
+        "Version": "7.8.6",
+        "Name": "NotePad-Plus-Plus",
+        "Publisher": "npp",
+        "Copyright": "7-Zip Copyright © 1999-2016 Igor Pavlov",
+        "License": "GPLv2",
+        "LicenseURL": "https://raw.githubusercontent.com/notepad-plus-plus/notepad-plus-plus/master/LICENSE",
+        "Tags": ["notepad","c++","powershell","editor","ide","c#","Makefile","Python","SQL","TeX","XML","YAML","CoffeeScript","CMake","Ada","ActionScript","HTML","CSS","LaTeX","R"],
+        "Description": "Notepad++ is a text and source code editor for use with Microsoft Windows. It supports tabbed editing, which allows working with multiple open files in a single window. The project's name comes from the C increment operator.",
+        "Homepage": "https://notepad-plus-plus.org/",
+        "Depends": "",
+        "Arch": ["x64","x86"],
+        "Installers": {
+            "x64": {
+                "Url": "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v7.8.6/npp.7.8.6.Installer.x64.exe",
+                "FollowUrl": "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v7.8.6/npp.7.8.6.Installer.x64.exe",
+                "Sha256": "03B3A8E2D0395B2DCAF7CD30CB47106EBAC678CBCD72E81BB5EE0E618927D3DD",
+                "InstallerType": "exe",
+                "Switches": "/S"
+            },
+            "x86": {
+                "Url": "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v7.8.6/npp.7.8.6.Installer.exe",
+                "FollowUrl": "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v7.8.6/npp.7.8.6.Installer.exe",
+                "Sha256": "26CA36509EA21535A39F812A1EABDBDC8BACC617E517700229E3A662DB00FF95",
+                "InstallerType": "exe",
+                "Switches": "/S"
+            }
+        }
+    }
+}
+
+
+
+

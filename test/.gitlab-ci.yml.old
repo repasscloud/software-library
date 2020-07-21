@@ -1,0 +1,33 @@
+stages:
+  - build
+  - test
+#  - deploy
+  
+build:
+  stage: build
+  tags:
+    - windows-1809
+  script:
+    - docker build -t win-penv ADK/
+
+test:
+  stage: test
+  tags:
+    - windows-1809
+  script:
+    - powershell -Command "New-Item -Path C:\ -ItemType Directory -Name penv -Force"
+    - powershell -File .\ADK\Setup-ADK.ps1
+#   - powershell -Command "Copy-Item ./bin ./public"
+# artifacts:
+#   paths:
+#   - public/
+#   expire_in: 5 days
+  only:
+    - master
+
+#deploy:
+#  stage: deploy
+#  tags:
+#    - windows-1809
+#  script:
+#    - docker build -t win-penv ADK/

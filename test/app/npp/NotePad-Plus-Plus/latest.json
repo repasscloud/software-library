@@ -1,0 +1,41 @@
+{
+    "Category": "productivity",
+    "Manifest": "4.2.5.7",
+    "Nuspec": false,
+    "Copyright": "Copyright © 2020 RePassCloud.com\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",
+    "Id": {
+        "Version": "7.8.8",
+        "Name": "NotePad-Plus-Plus",
+        "Publisher": "npp",
+        "AppCopyright": "Copyright (c) 2020 Don HO <don.h@free.fr>",
+        "License": "GPLv2",
+        "LicenseURL": "https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/LICENSE",
+        "Tags": [],
+        "Description": "Notepad++ is a text and source code editor for use with Microsoft Windows. It supports tabbed editing, which allows working with multiple open files in a single window. The project's name comes from the C increment operator.",
+        "Homepage": "https://notepad-plus-plus.org/",
+        "Languages": ["en-US"],
+        "Depends": "",
+        "Arch": ["x64","x86"],
+        "Installers": {
+            "en-US": {
+                "x64": {
+                    "Url": "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v7.8.8/npp.7.8.8.Installer.x64.exe",
+                    "FollowUrl": "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v7.8.8/npp.7.8.8.Installer.x64.exe",
+                    "Sha256": "196F6F338E7E153F46204F6EC209F6AA8DC79ED05E75AB8AB5D74B6FD5DB08CD",
+                    "Sha512": "F6DB279C552C8546B89D968281CD1794EF1BF84FE6C22F0EB3BF9E07A9EDC69CDE2361CB983F9DBAE3631E814C1CD08CB4892AF883202A6B3BD381AECF4FBADE",
+                    "InstallerType": "exe",
+                    "Switches": "/S"
+                },
+                "x86": {
+                    "Url": "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v7.8.8/npp.7.8.8.Installer.exe",
+                    "FollowUrl": "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v7.8.8/npp.7.8.8.Installer.exe",
+                    "Sha256": "811E586A3E3D85F7533B33A77E04D357DFFD87C0A15B0937E4B5218B8B9A42A6",
+                    "Sha512": "610E329EE717CB9BC848965188953BB2A90EA57958D207C8498202A219FE7E38AE842BDE6471A7FBEE5B62DB38E62AAB3E0374CA085830FA9247A5056D1C20EE",
+                    "InstallerType": "exe",
+                    "Switches": "/S"
+                }
+            }
+        }
+    }
+}
+
