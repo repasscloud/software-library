@@ -6,13 +6,13 @@ $Lang=@('en-US','en-AU')
 $x64InstallURI=@('US-rpc-x64','AU-rpc-x64')
 $x86InstallURI=@('US-rpc-x86','US-rpc-x86')
 
-$d=[Ordered]@{}
+$d=[System.Collections.Specialized.OrderedDictionary]@{}
 $d.Category="browser"
 $d.Manifest="4.2.4.6"
 $d.Nuspec=$true
 $d.NuspecURI="https://raw.githubusercontent.com/chocolatey-community/chocolatey-coreteampackages/master/automatic/firefox/firefox.nuspec"
 $d.Copyright=$License
-$d.Id=@{}
+$d.Id=[System.Collections.Specialized.OrderedDictionary]@{}
 $d.Id.Version="78.0.2"
 $d.Id.Name="Firefox"
 $d.Id.Publisher="Mozilla"
@@ -23,15 +23,15 @@ $d.Id.Homepage="https://www.mozilla.org/en-US/firefox/new/"
 $d.Id.Arch=$Arch
 $d.Id.Languages=$Lang
 $d.Id.Depends=@()
-$d.Id.Installers=@{}
+$d.Id.Installers=[System.Collections.Specialized.OrderedDictionary]@{}
 
 
 
 foreach ($i in $Arch) {
-    $d.Id.Installers.$i=@{}
+    $d.Id.Installers.$i=[System.Collections.Specialized.OrderedDictionary]@{}
 
     foreach ($f in $Lang) {
-        $d.Id.Installers.$i.$f=@{}
+        $d.Id.Installers.$i.$f=[System.Collections.Specialized.OrderedDictionary]@{}
     }
 }
 
