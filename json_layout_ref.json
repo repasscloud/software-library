@@ -13,10 +13,10 @@
         "LicenseURI": "6m",
         "Homepage": "7m",
         "Description": "8m",
-        "Arch": "9m",
-        "Languages": "10f",
-        "Tags": [11m],
-        "Depends": "12f",
+        "Arch": ["9m"],
+        "Languages": ["10f"],
+        "Tags": ["11m"],
+        "Depends": ["12f"],
         "Installers": {
             "x64": {
                 "en-US": {
