@@ -28,7 +28,6 @@ function Get-UrlStatusCode {
                 ValueFromRemainingArguments=$false,
                 HelpMessage='Provide URL to return HTTP Status Code.',
                 Position=0)]
-            [ValidateNotNullOrEmpty]
             [Alias('uri')]
             [Uri]$Url
         )
