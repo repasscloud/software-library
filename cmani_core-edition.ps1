@@ -532,7 +532,7 @@ function Invoke-CreateCManiCore {
         Get-ChildItem -Path $dir_Scripts -Filter "*.ps1" -Recurse | ForEach-Object { . $_.FullName }
 
         # Create temporary file
-        [String]$file_tmp=Join-Path -Path $dir_tmp -ChildPath $([System.GUID]::NewGuid().GUID + '.json')
+        [String]$file_tmp=[System.IO.Path]::Combine($dir_tmp,$([System.GUID]::NewGUID().Guid)+'.json')
     }
     
     process {
