@@ -17,51 +17,58 @@
 
 ```json
 {
-    "Category": "",
-    "Manifest": "4.2.4.6",
-    "Nuspec": false,
-    "Copyright": "",
+    "Category": "0m",
+    "Manifest": "4.3.7.9",
+    "Nuspec": "13m",
+    "NuspecURI": "14f",
+    "Copyright": "this is auto",
     "Id": {
-      "Version": "",
-      "Name": "",
-      "Publisher": "",
-      "AppCopyright": "",
-      "License": "",
-      "LicenseURL": "",
-      "Tags": [],
-      "Description": "",
-      "Homepage": "",
-      "Arch": [],
-      "Languages": [],
-      "Depends": [],
-      "Installers": {
-        "x64": {
-          "en-US": {
-            "Url": "",
-            "FollowUrl": "",
-            "Sha256": "",
-            "Sha512": "",
-            "InstallerType": "",
-            "InstallSwitches": "",
-            "UninstallString": "",
-            "UpdateURI": "",
-            "UpdateRegex": ""
-          }
-        },
-        "x86": {
-          "en-US": {
-            "Url": "",
-            "FollowUrl": "",
-            "Sha256": "",
-            "Sha512": "",
-            "InstallerType": "",
-            "InstallSwitches": "",
-            "UninstallString": "",
-            "UpdateURI": "",
-            "UpdateRegex": ""
-          }
+        "Version": "3m",
+        "Name": "2m",
+        "Publisher": "1m",
+        "Copyright": "4m",
+        "License": "5m",
+        "LicenseURI": "6m",
+        "Homepage": "7m",
+        "Description": "8m",
+        "Arch": ["9m"],
+        "Languages": ["10f"],
+        "Tags": ["11m"],
+        "Depends": ["12f"],
+        "Installers": {
+            "x64": {
+                "en-US": {
+                    "MsiExe": "15f",
+                    "InstallURI": "17f",
+                    "FollowURI": "this is auto",
+                    "Sha256": "this is auto",
+                    "Sha512": "this is auto",
+                    "InstallExe": "19f",
+                    "InstallArgs": "21f",
+                    "FindUninstall": "23f",
+                    "UninstallExe": "25f",
+                    "UninstallArgs": "27f",
+                    "UpdateURI": "29f",
+                    "UpdateRegex": "31f"
+                }
+            },
+            "x86": {
+                "en-US": {
+                    "MsiExe": "16f",
+                    "InstallURI": "18f",
+                    "FollowURI": "this is auto",
+                    "Sha256": "this is auto",
+                    "Sha512": "this is auto",
+                    "InstallExe": "20f",
+                    "InstallArgs": "22f",
+                    "FindUninstall": "24f",
+                    "UninstallExe": "26f",
+                    "UninstallArgs": "28f",
+                    "UpdateURI": "30f",
+                    "UpdateRegex": "32f"
+                }
+            }
         }
-      }
     }
-  }
+}
 ```
