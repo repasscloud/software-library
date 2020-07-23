@@ -1,0 +1,55 @@
+{
+    "Category": "0",
+    "Manifest": "this is auto",
+    "Nuspec": "13",
+    "NuspecURI": "14",
+    "Copyright": "this is auto",
+    "Id": {
+        "Version": "3",
+        "Name": "2",
+        "Publisher": "1",
+        "Copyright": "4",
+        "License": "5",
+        "LicenseURI": "6",
+        "Homepage": "7",
+        "Description": "8",
+        "Arch": "9",
+        "Languages": "10",
+        "Tags": [11],
+        "Depends": "12",
+        "Installers": {
+            "x64": {
+                "en-US": {
+                    "MsiExe": "15",
+                    "InstallURI": "17",
+                    "FollowURI": "this is auto",
+                    "Sha256": "this is auto",
+                    "Sha512": "this is auto",
+                    "InstallExe": "19",
+                    "InstallArgs": "21",
+                    "FindUninstall": "23",
+                    "UninstallExe": "25",
+                    "UninstallArgs": "27",
+                    "UpdateURI": "29",
+                    "UpdateRegex": "31"
+                }
+            },
+            "x86": {
+                "en-US": {
+                    "MsiExe": "16",
+                    "InstallURI": "18",
+                    "FollowURI": "this is auto",
+                    "Sha256": "this is auto",
+                    "Sha512": "this is auto",
+                    "InstallExe": "20",
+                    "InstallArgs": "22",
+                    "FindUninstall": "24",
+                    "UninstallExe": "26",
+                    "UninstallArgs": "28",
+                    "UpdateURI": "30",
+                    "UpdateRegex": "32"
+                }
+            }
+        }
+    }
+}
