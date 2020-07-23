@@ -1,0 +1,52 @@
+{
+    "Category": "",
+    "Manifest": "",
+    "Nuspec": "",
+    "NuspecURI": "",
+    "Copyright": "",
+    "Id": {
+        "Version": "",
+        "Name": "",
+        "Publisher": "",
+        "Copyright": "",
+        "Description": "",
+        "Homepage": "",
+        "Languages": "",
+        "Tags": [],
+        "Depends": "",
+        "Installers": {
+            "x64": {
+                "en-US": {
+                    "MsiExe": "",
+                    "InstallURI": "",
+                    "FollowURI": "",
+                    "Sha256": "",
+                    "Sha512": "",
+                    "InstallExe": "",
+                    "InstallArgs": "",
+                    "FindUninstall": "",
+                    "UninstallExe": "",
+                    "UninstallArgs": "",
+                    "UpdateURI": "",
+                    "UpdateRegex": ""
+                }
+            },
+            "x86": {
+                "en-US": {
+                    "MsiExe": "",
+                    "InstallURI": "",
+                    "FollowURI": "",
+                    "Sha256": "",
+                    "Sha512": "",
+                    "InstallExe": "",
+                    "InstallArgs": "",
+                    "FindUninstall": "",
+                    "UninstallExe": "",
+                    "UninstallArgs": "",
+                    "UpdateURI": "",
+                    "UpdateRegex": ""
+                }
+            }
+        }
+    }
+}
