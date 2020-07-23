@@ -203,7 +203,21 @@ function Invoke-CreateCManiCore {
         [ValidateNotNull]
         [ValidateScript(
             {
-                if ($_ -in ((Import-Csv -Path 'C:\tmp\software-matrix\lib\public\LCID.csv' -Delimiter ',').'BCP 47 Code')) {  #~> update this path
+                # Set Temp directory variable to $dir_tmp by OS selection, with backwards compatibility for Windows PS5.1
+                if ($IsWindows -or $Env:OS) {
+                    [String]$dir_tmp=$Env:TEMP
+                } else {
+                    if ($IsLinux) {
+                        Write-Host "Linux"
+                    }
+                    elseif ($IsMacOS) {
+                        [String]$dir_tmp=$Env:TMPDIR
+                    }
+                }
+                $url='https://raw.githubusercontent.com/repasscloud/software-library/master/lib/public/LCID.csv'
+                $output=[System.IO.Path]::Combine($dir_tmp,$([System.GUID]::NewGUID().Guid)+'.txt')
+                (New-Object System.Net.WebClient).DownloadFile($url, $output)
+                if ($_ -in ((Import-Csv -Path $output -Delimiter ',').'BCP 47 Code')) {  #~> issue 53
                     $_
                 }
                 else{
@@ -500,7 +514,19 @@ function Invoke-CreateCManiCore {
         [String]$dir_Scripts=Join-Path -Path $dir_CurrentWorking -ChildPath 'lib/scripts'
         [String]$dir_Templates=Join-Path -Path $dir_CurrentWorking -ChildPath 'lib/templates'
         [String]$dir_Manifests=Join-Path -Path $dir_CurrentWorking -ChildPath 'app'
-        [String]$dir_tmp=$env:TMPDIR
+        
+        # Set Temp directory variable to $dir_tmp by OS selection, with backwards compatibility for Windows PS5.1
+        if ($IsWindows -or $ENV:OS) {
+            [String]$dir_tmp=$Env:TEMP
+        } else {
+            if ($IsLinux) {
+                Write-Host "Linux"
+            }
+            elseif ($IsMacOS) {
+                [String]$dir_tmp=$Env:TMPDIR
+            }
+        }
+        
 
         # Import all functions
         Get-ChildItem -Path $dir_Scripts -Filter "*.ps1" -Recurse | ForEach-Object { . $_.FullName }
