@@ -1,7 +1,5 @@
 #Requires -PSEdition Core
 
-#Requires -PSEdition Core
-
 function Invoke-CreateCManiCore {
     [CmdletBinding()]
     [OutputType([String])]
@@ -63,7 +61,7 @@ function Invoke-CreateCManiCore {
             ValueFromRemainingArguments=$false,
             HelpMessage='Copyright notice, including "©" or "Copyright" text.',
             Position=4)]
-        [ValidateCount(8,120)]
+        [ValidateCount(8,563)]
         [ValidateScript(
             {
                 if ( $_ -match 'Copyright' -or $_ -match [char]0x00A9 ) {
@@ -121,11 +119,21 @@ function Invoke-CreateCManiCore {
             ValueFromPipeline=$true,
             ValueFromPipelineByPropertyName=$true,
             ValueFromRemainingArguments=$false,
-            HelpMessage='Tags associated to application. Provided in [Array] format.',
+            HelpMessage='Homepage of product',
             Position=7)]
-        [Alias('tag')]
-        [Array]$Tags,
-
+        [ValidateScript(
+            {
+                if ($_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200) {
+                    $_
+                }
+                else {
+                    Throw "'$_' does NOT provide a valid URL."
+                }
+            }
+        )]
+        [Alias('web')]
+        [uri]$Homepage,
+        
         [Parameter(Mandatory=$true,
             ValueFromPipeline=$true,
             ValueFromPipelineByPropertyName=$true,
@@ -139,27 +147,8 @@ function Invoke-CreateCManiCore {
             ValueFromPipeline=$true,
             ValueFromPipelineByPropertyName=$true,
             ValueFromRemainingArguments=$false,
-            HelpMessage='Homepage of product',
-            Position=9)]
-        [ValidateScript(
-            {
-                if ($_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200) {
-                    $_
-                }
-                else {
-                    Throw "'$_' does NOT provide a valid URL."
-                }
-            }
-        )]
-        [Alias('web')]
-        [uri]$Homepage,
-
-        [Parameter(Mandatory=$true,
-            ValueFromPipeline=$true,
-            ValueFromPipelineByPropertyName=$true,
-            ValueFromRemainingArguments=$false,
             HelpMessage='Architectures associated to application. Provided in [Array] format.',
-            Position=10)]
+            Position=9)]
         [ValidateSet('x64','x86')]
         [ValidateScript(
             {
@@ -180,7 +169,7 @@ function Invoke-CreateCManiCore {
             ValueFromPipelineByPropertyName=$true,
             ValueFromRemainingArguments=$false,
             HelpMessage='Supported languages of application in [Array] format.',
-            Position=11)]
+            Position=10)]
         [ValidateScript(
             {
                 # Set Temp directory variable to $dir_tmp by OS selection, with backwards compatibility for Windows PS5.1
@@ -207,13 +196,51 @@ function Invoke-CreateCManiCore {
         )]
         [Alias('lang')]
         [Array]$Languages='en-US',
+    
+        [Parameter(Mandatory=$true,
+            ValueFromPipeline=$true,
+            ValueFromPipelineByPropertyName=$true,
+            ValueFromRemainingArguments=$false,
+            HelpMessage='Tags associated to application. Provided in [Array] format.',
+            Position=11)]
+        [Alias('tag')]
+        [Array]$Tags,
 
         [Parameter(Mandatory=$false,
             ValueFromPipeline=$true,
             ValueFromPipelineByPropertyName=$true,
             ValueFromRemainingArguments=$false,
-            HelpMessage='Chocolatey Nuspec file URI.',
+            HelpMessage='Depends that require to be met first in [Array] format.',
             Position=12)]
+        [ValidateScript(
+            {
+                if ($_ -match '(\w+\.\w+)' -and $_ -notmatch ' ') {
+                    $_
+                }
+                else {
+                    Throw "'$_' does NOT provide a valid URL." #~> this is not a URL?
+                }
+            }
+        )]
+        [Alias('needs')]
+        [Array]$Depends=@(),
+
+        [Parameter(Mandatory=$true,
+            ValueFromPipeline=$true,
+            ValueFromPipelineByPropertyName=$true,
+            ValueFromRemainingArguments=$false,
+            HelpMessage='Has a Nuspec file from Chocolatey? True/False.',
+            Position=13)]
+        [ValidateSet($true,$false)]
+        [Alias('chocofile')]
+        [Bool]$HasNuspec,
+        
+        [Parameter(Mandatory=$false,
+            ValueFromPipeline=$true,
+            ValueFromPipelineByPropertyName=$true,
+            ValueFromRemainingArguments=$false,
+            HelpMessage='Chocolatey Nuspec file URI.',
+            Position=14)]
         [ValidateScript(
             {
                 if ($_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200) {
@@ -231,27 +258,8 @@ function Invoke-CreateCManiCore {
             ValueFromPipeline=$true,
             ValueFromPipelineByPropertyName=$true,
             ValueFromRemainingArguments=$false,
-            HelpMessage='Depends that require to be met first in [Array] format.',
-            Position=13)]
-        [ValidateScript(
-            {
-                if ($_ -match '(\w+\.\w+)' -and $_ -notmatch ' ') {
-                    $_
-                }
-                else {
-                    Throw "'$_' does NOT provide a valid URL." #~> this is not a URL?
-                }
-            }
-        )]
-        [Alias('needs')]
-        [Array]$Depends=@(),
-
-        [Parameter(Mandatory=$false,
-            ValueFromPipeline=$true,
-            ValueFromPipelineByPropertyName=$true,
-            ValueFromRemainingArguments=$false,
             HelpMessage='Select either "MSI" or "EXE"',
-            Position=14)]
+            Position=15)]
         [ValidateSet('msi','exe')]
         [ValidateScript(
             {
@@ -265,14 +273,14 @@ function Invoke-CreateCManiCore {
             }
         )]
         [Alias('exe64')]
-        [String]$MsiExe_x64,
+        [Array]$MsiExe_x64,
 
-        [Parameter(Mandatory=$false,
+        [Parameter(Mandatory=$true,
             ValueFromPipeline=$true,
             ValueFromPipelineByPropertyName=$true,
             ValueFromRemainingArguments=$false,
             HelpMessage='Select either "MSI" or "EXE"',
-            Position=15)]
+            Position=16)]
         [ValidateSet('msi','exe')]
         [ValidateScript(
             {
@@ -286,16 +294,7 @@ function Invoke-CreateCManiCore {
             }
         )]
         [Alias('exe86')]
-        [String]$MsiExe_x86,
-
-        [Parameter(Mandatory=$false,
-            ValueFromPipeline=$true,
-            ValueFromPipelineByPropertyName=$true,
-            ValueFromRemainingArguments=$false,
-            HelpMessage='__cannot_be_blank__',  #~> this needs to be updated
-            Position=16)]
-        [Alias('inst64')]
-        [Array]$InstallArgs_x64,
+        [Array]$MsiExe_x86,
 
         [Parameter(Mandatory=$false,
             ValueFromPipeline=$true,
@@ -303,8 +302,20 @@ function Invoke-CreateCManiCore {
             ValueFromRemainingArguments=$false,
             HelpMessage='__cannot_be_blank__',  #~> this needs to be updated
             Position=17)]
-        [Alias('inst86')]
-        [Array]$InstallArgs_x86,
+        [ValidateScript(
+            {
+                foreach ($i in $_) {
+                    if ($_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200) {
+                        $_
+                    }
+                    else {
+                        Throw "'$_' does NOT provide a valid URL."
+                    }
+                }
+            }
+        )]
+        [Alias('webinst64')]
+        [Array]$InstallURI_x64,
 
         [Parameter(Mandatory=$false,
             ValueFromPipeline=$true,
@@ -312,6 +323,81 @@ function Invoke-CreateCManiCore {
             ValueFromRemainingArguments=$false,
             HelpMessage='__cannot_be_blank__',  #~> this needs to be updated
             Position=18)]
+        [ValidateScript(
+            {
+                foreach ($i in $_) {
+                    if ($_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200) {
+                        $_
+                    }
+                    else {
+                        Throw "'$_' does NOT provide a valid URL."
+                    }
+                }
+            }
+        )]
+        [Alias('webinst86')]
+        [Array]$InstallURI_x86,
+
+        [Parameter(Mandatory=$false,
+            ValueFromPipeline=$true,
+            ValueFromPipelineByPropertyName=$true,
+            ValueFromRemainingArguments=$false,
+            HelpMessage='__cannot_be_blank__',  #~> this needs to be updated
+            Position=19)]
+        [Alias('inst64')]
+        [Array]$InstallExe_x64,
+
+        [Parameter(Mandatory=$false,
+            ValueFromPipeline=$true,
+            ValueFromPipelineByPropertyName=$true,
+            ValueFromRemainingArguments=$false,
+            HelpMessage='__cannot_be_blank__',  #~> this needs to be updated
+            Position=20)]
+        [Alias('inst86')]
+        [Array]$InstallExe_x86,
+
+        [Parameter(Mandatory=$false,
+            ValueFromPipeline=$true,
+            ValueFromPipelineByPropertyName=$true,
+            ValueFromRemainingArguments=$false,
+            HelpMessage='__cannot_be_blank__',  #~> this needs to be updated
+            Position=21)]
+        [Alias('iargs64')]
+        [Array]$InstallArgs_x64,
+
+        [Parameter(Mandatory=$false,
+            ValueFromPipeline=$true,
+            ValueFromPipelineByPropertyName=$true,
+            ValueFromRemainingArguments=$false,
+            HelpMessage='__cannot_be_blank__',  #~> this needs to be updated
+            Position=22)]
+        [Alias('iargs86')]
+        [Array]$InstallArgs_x86,
+
+        [Parameter(Mandatory=$false,
+            ValueFromPipeline=$true,
+            ValueFromPipelineByPropertyName=$true,
+            ValueFromRemainingArguments=$false,
+            HelpMessage='__cannot_be_blank__',  #~> this needs to be updated
+            Position=23)]
+        [Alias('funst64')]
+        [Array]$FindUninstall_x64,
+
+        [Parameter(Mandatory=$false,
+            ValueFromPipeline=$true,
+            ValueFromPipelineByPropertyName=$true,
+            ValueFromRemainingArguments=$false,
+            HelpMessage='__cannot_be_blank__',  #~> this needs to be updated
+            Position=24)]
+        [Alias('funst86')]
+        [Array]$FindUninstall_x86,
+
+        [Parameter(Mandatory=$false,
+            ValueFromPipeline=$true,
+            ValueFromPipelineByPropertyName=$true,
+            ValueFromRemainingArguments=$false,
+            HelpMessage='__cannot_be_blank__',  #~> this needs to be updated
+            Position=25)]
         [Alias('unstexe64')]
         [Array]$UninstallExe_x64,
 
@@ -320,7 +406,7 @@ function Invoke-CreateCManiCore {
             ValueFromPipelineByPropertyName=$true,
             ValueFromRemainingArguments=$false,
             HelpMessage='__cannot_be_blank__',  #~> this needs to be updated
-            Position=19)]
+            Position=26)]
         [Alias('unstexe86')]
         [Array]$UninstallExe_x86,
 
@@ -329,7 +415,7 @@ function Invoke-CreateCManiCore {
             ValueFromPipelineByPropertyName=$true,
             ValueFromRemainingArguments=$false,
             HelpMessage='__cannot_be_blank__',  #~> this needs to be updated
-            Position=20)]
+            Position=27)]
         [Alias('unstargs64')]
         [Array]$UninstallArgs_x64,
 
@@ -338,16 +424,16 @@ function Invoke-CreateCManiCore {
             ValueFromPipelineByPropertyName=$true,
             ValueFromRemainingArguments=$false,
             HelpMessage='__cannot_be_blank__',  #~> this needs to be updated
-            Position=21)]
+            Position=28)]
         [Alias('unstargs86')]
         [Array]$UninstallArgs_x86,
-        
+
         [Parameter(Mandatory=$false,
-        ValueFromPipeline=$true,
-        ValueFromPipelineByPropertyName=$true,
-        ValueFromRemainingArguments=$false,
-        HelpMessage='__cannot_be_blank__',  #~> this needs to be updated
-        Position=22)]
+            ValueFromPipeline=$true,
+            ValueFromPipelineByPropertyName=$true,
+            ValueFromRemainingArguments=$false,
+            HelpMessage='__cannot_be_blank__',  #~> this needs to be updated
+            Position=29)]
         [ValidateScript(
             {
                 foreach ($i in $_) {
@@ -364,11 +450,11 @@ function Invoke-CreateCManiCore {
         [Array]$UpdateURI_x64,
 
         [Parameter(Mandatory=$false,
-        ValueFromPipeline=$true,
-        ValueFromPipelineByPropertyName=$true,
-        ValueFromRemainingArguments=$false,
-        HelpMessage='__cannot_be_blank__',  #~> this needs to be updated
-        Position=23)]
+            ValueFromPipeline=$true,
+            ValueFromPipelineByPropertyName=$true,
+            ValueFromRemainingArguments=$false,
+            HelpMessage='__cannot_be_blank__',  #~> this needs to be updated
+            Position=30)]
         [ValidateScript(
             {
                 foreach ($i in $_) {
@@ -389,7 +475,7 @@ function Invoke-CreateCManiCore {
             ValueFromPipelineByPropertyName=$true,
             ValueFromRemainingArguments=$false,
             HelpMessage='__cannot_be_blank__',  #~> this needs to be updated
-            Position=24)]
+            Position=31)]
         [Alias('updreg64')]
         [Array]$UpdateRegex_x64,
 
@@ -398,7 +484,7 @@ function Invoke-CreateCManiCore {
             ValueFromPipelineByPropertyName=$true,
             ValueFromRemainingArguments=$false,
             HelpMessage='__cannot_be_blank__',  #~> this needs to be updated
-            Position=25)]
+            Position=32)]
         [Alias('updreg86')]
         [Array]$UpdateRegex_x86
     )
@@ -425,31 +511,48 @@ function Invoke-CreateCManiCore {
             [String]$dir_tmp=$Env:TEMP
         } else {
             if ($IsLinux) {
-                Write-Host "Linux"
+                Write-Host "Linux"  #~> This needs to be tested still
             }
             elseif ($IsMacOS) {
                 [String]$dir_tmp=$Env:TMPDIR
             }
         }
         
-
         # Import all functions
         Get-ChildItem -Path $dir_Scripts -Filter "*.ps1" -Recurse | ForEach-Object { . $_.FullName }
 
         # Create temporary file
-        [String]$file_tmp=[System.IO.Path]::Combine($dir_tmp,$([System.GUID]::NewGUID().Guid)+'.json')
-    }
-    
-    process {
+        #[String]$file_tmp=[System.IO.Path]::Combine($dir_tmp,$([System.GUID]::NewGUID().Guid)+'.json')
+        [String]$file_tmp=[System.IO.Path]::Combine($dir_tmp,$([System.GUID]::NewGUID().Guid))
 
+        # Set UserAgent for downloading data
+        $userAgent=[Microsoft.PowerShell.Commands.PSUserAgent]::Chrome
+
+        # Manifest Copyright Notice
+        [String]$RePassCloudManifestCopyrightNotice=@"
+Copyright $([char]0x00A9) 2020 RePassCloud.com
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+"@
+    }
+    process {
         
         # Initialise blank OrderedDictionary
         $maniDict=[System.Collections.Specialized.OrderedDictionary]@{}
         $maniDict.Category=$Category
-        $maniDict.Manifest="4.2.4.6"
-        $maniDict.Nuspec=if($null -ne $NuspecFile){[bool]$true}else{[bool]$false}
+        $maniDict.Manifest="4.3.7.9"
+        $maniDict.Nuspec=if($null -ne $HasNuspec -or $HasNuspec -eq $false){[bool]$true}else{[bool]$false}
         $maniDict.NuspecURI=if($null -ne $NuspecFile){[String]$NuspecFile}else{[String]''}
-        $maniDict.Copyright='our license goes here'
+        $maniDict.Copyright=$RePassCloudManifestCopyrightNotice
 
         # Initialise the sub OrderedDictionary
         $maniDict.Id=[System.Collections.Specialized.OrderedDictionary]@{}
@@ -457,23 +560,25 @@ function Invoke-CreateCManiCore {
         $maniDict.Id.Name=$Name
         $maniDict.Id.Publisher=$Publisher
         $maniDict.Id.Copyright=$CopyrightNotice
-        $maniDict.Id.Tags=$Tags
-        $maniDict.Id.Description=$Description
+        $maniDict.Id.License=$License
+        $maniDict.Id.LicenseURI=$LicenseURI
         $maniDict.Id.Homepage=$Homepage  #if($Homepage.EndsWith('/')){$Homepage}else{$Homepage+'/'}
+        $maniDict.Id.Description=$Description
         $maniDict.Id.Arch=$Arch
         $maniDict.Id.Languages=$Languages
+        $maniDict.Id.Tags=$Tags
         $maniDict.Id.Depends=$Depends
 
-        # Initialise the sub-sub OrderedDictionary
+        #Initialise the sub-sub OrderedDictionary
         $maniDict.Id.Installers=[System.Collections.Specialized.OrderedDictionary]@{}
 
         # Index and apply each $Arch to sub-sub OrderedDictionary
-        foreach ($i in $Arch) {
-            $maniDict.Id.Installers.$i=[System.Collections.Specialized.OrderedDictionary]@{}
+        foreach ($_arch in $Arch) {
+            $maniDict.Id.Installers.$_arch=[System.Collections.Specialized.OrderedDictionary]@{}
         
             # Index and apply each $Language to sub-sub-sub OrderedDictionary
-            foreach ($f in $Languages) {
-                $maniDict.Id.Installers.$i.$f=[System.Collections.Specialized.OrderedDictionary]@{}
+            foreach ($_lang in $Languages) {
+                $maniDict.Id.Installers.$_arch.$_lang=[System.Collections.Specialized.OrderedDictionary]@{}
             }
         }
 
@@ -481,102 +586,88 @@ function Invoke-CreateCManiCore {
         if ('x64' -in $Arch) {
 
             # Inject the data for x64
-            foreach($f in $Languages) {
-
-                # Everything concerting URI of the input
-                foreach ($uri in $InstallURI_x64) {
-                    $maniDict.Id.Installers.x64.$f.InstallURI=$uri
-                    $maniDict.Id.Installers.x64.$f.FollowURI='put-follow-uri-function-result-here'
-                    $maniDict.Id.Installers.x64.$f.Sha256='put-sha256-func-result-here'
-                    $maniDict.Id.Installers.x64.$f.Sha512='put-sha256-func-result-here'
-                }
+            foreach($_lang in $Languages) {
 
                 # Msi vs Exe
-                foreach ($e in $MsiExe_x64) {
-                    $maniDict.Id.Installers.x64.$f.MsiExe=$e
-                }
+                $maniDict.Id.Installers.x64.$_lang.MsiExe=$MsiExe_x64[$Languages.IndexOf($_lang)]
+
+                # Everything concenting URI of the input
+                $maniDict.Id.Installers.x64.$_lang.InstallURI=$InstallURI_x64[$Languages.IndexOf($_lang)]
+                [String]$pkgdl=Get-RedirectedUrl -Url $InstallURI_x64[$Languages.IndexOf($_lang)]
+                $maniDict.Id.Installers.x64.$_lang.FollowURI=$pkgdl
+                Invoke-WebRequest -Uri $u -OutFile $file_tmp -WebSession $null -UserAgent $userAgent
+                $maniDict.Id.Installers.x64.$_lang.Sha256=Get-FileHash -Path $file_tmp -Algorithm SHA256 | Select-Object -ExpandProperty Hash
+                $maniDict.Id.Installers.x64.$_lang.Sha512=Get-FileHash -Path $file_tmp -Algorithm SHA512 | Select-Object -ExpandProperty Hash
+                Remove-Item -Path $file_tmp -Force -Confirm:$false
+
+                # Install EXE
+                $maniDict.Id.Installers.x64.$_lang.InstallExe=$InstallExe_x64[$Languages.IndexOf($_lang)]
 
                 # Install Args (for Msi/Exe)
-                foreach ($argy in $InstallURI_x64) {
-                    $maniDict.Id.Installers.x64.$f.InstallArgs=$argy
+                $maniDict.Id.Installers.x64.$_lang.InstallArgs=$InstallArgs_x64[$Languages.IndexOf($_lang)]
+
+                # Find.Uninstall  #~> will be used in next update
+                if($null -ne $FindUninstall_x64) {
+                    $maniDict.Id.Installers.x64.$_lang.FindUninstall=$FindUninstall_x64[$Languages.IndexOf($_lang)]
                 }
 
                 # Uninstall Path (for Msi/Exe - because of Firefox)
-                foreach ($removeExe in $UninstallExe_x64) {
-                    $maniDict.Id.Installers.x64.$f.Uninstaller=$removeExe
-                }
-
+                $maniDict.Id.Installers.x64.$_lang.UninstallExe=$UninstallExe_x64[$Languages.IndexOf($_lang)]
+                
                 # Uninstall Args (for Msi/Exe - because of Firefox)
-                foreach ($removeArgy in $UninstallArgs_x64) {
-                    $maniDict.Id.Installers.x64.$f.UninstallArgs=$removeArgy
-                }
+                $maniDict.Id.Installers.x64.$_lang.UninstallArgs=$UninstallArgs_x64[$Languages.IndexOf($_lang)]
 
-                # Update URI (tba)
-                foreach ($webNotify in $UpdateRegex_x64) {
-                    $maniDict.Id.Installers.x64.$f.UpdateURI=$webNotify
-                }
-
+                # Update URI
+                $maniDict.Id.Installers.x64.$_lang.UpdateURI=$UpdateURI_x64[$Languages.IndexOf($_lang)]
+                
                 # Update Regex (for Update URI, tba)
-                foreach ($reggie in $UpdateRegex_x64) {
-                    $maniDict.Id.installers.x64.$f.UpdateRegex=$reggie
-                }
+                $maniDict.Id.Installers.x64.$_lang.UpdateRegex=$UpdateRegex_x64[$Languages.IndexOf($_lang)] 
             }
         }
 
         # x86 Section
         if ('x86' -in $Arch) {
-            # Inject the data for x86
-            foreach($f in $Languages) {
 
-                # Everything concerting URI of the input
-                foreach ($uri in $InstallURI_x86) {
-                    $maniDict.Id.Installers.x86.$f.InstallURI=$uri
-                    $maniDict.Id.Installers.x86.$f.FollowURI='put-follow-uri-function-result-here'
-                    $maniDict.Id.Installers.x86.$f.Sha256='put-sha256-func-result-here'
-                    $maniDict.Id.Installers.x86.$f.Sha512='put-sha256-func-result-here'
-                }
+            # Inject the data for x86
+            foreach($_lang in $Languages) {
 
                 # Msi vs Exe
-                foreach ($e in $MsiExe_x86) {
-                    $maniDict.Id.Installers.x86.$f.MsiExe=$e
-                }
+                $maniDict.Id.Installers.x86.$_lang.MsiExe=$MsiExe_x86[$Languages.IndexOf($_lang)]
+
+                # Everything concenting URI of the input
+                $maniDict.Id.Installers.x86.$_lang.InstallURI=$InstallURI_x86[$Languages.IndexOf($_lang)]
+                $maniDict.Id.Installers.x86.$_lang.FollowURI='put-follow-uri-function-result-here'
+                $maniDict.Id.Installers.x86.$_lang.Sha256='put-sha256-func-result-here'
+                $maniDict.Id.Installers.x86.$_lang.Sha512='put-sha256-func-result-here'
+
+                # Install EXE
+                $maniDict.Id.Installers.x86.$_lang.InstallExe=$InstallExe_x86[$Languages.IndexOf($_lang)]
 
                 # Install Args (for Msi/Exe)
-                foreach ($argy in $InstallURI_x86) {
-                    $maniDict.Id.Installers.x86.$f.InstallArgs=$argy
+                $maniDict.Id.Installers.x86.$_lang.InstallArgs=$InstallArgs_x86[$Languages.IndexOf($_lang)]
+
+                # Find.Uninstall  #~> will be used in next update
+                if($null -ne $FindUninstall_x86) {
+                    $maniDict.Id.Installers.x86.$_lang.FindUninstall=$FindUninstall_x86[$Languages.IndexOf($_lang)]
                 }
 
                 # Uninstall Path (for Msi/Exe - because of Firefox)
-                foreach ($removeExe in $UninstallExe_x86) {
-                    $maniDict.Id.Installers.x86.$f.Uninstaller=$removeExe
-                }
-
+                $maniDict.Id.Installers.x86.$_lang.UninstallExe=$UninstallExe_x86[$Languages.IndexOf($_lang)]
+                
                 # Uninstall Args (for Msi/Exe - because of Firefox)
-                foreach ($removeArgy in $UninstallArgs_x86) {
-                    $maniDict.Id.Installers.x86.$f.UninstallArgs=$removeArgy
-                }
+                $maniDict.Id.Installers.x86.$_lang.UninstallArgs=$UninstallArgs_x86[$Languages.IndexOf($_lang)]
 
-                # Update URI (tba)
-                foreach ($webNotify in $UpdateRegex_x86) {
-                    $maniDict.Id.Installers.x86.$f.UpdateURI=$webNotify
-                }
-
+                # Update URI
+                $maniDict.Id.Installers.x86.$_lang.UpdateURI=$UpdateURI_x86[$Languages.IndexOf($_lang)]
+                
                 # Update Regex (for Update URI, tba)
-                foreach ($reggie in $UpdateRegex_x86) {
-                    $maniDict.Id.installers.x86.$f.UpdateRegex=$reggie
-                }
+                $maniDict.Id.Installers.x86.$_lang.UpdateRegex=$UpdateRegex_x86[$Languages.IndexOf($_lang)]
             }
         }
 
+        return $maniDict | ConvertTo-Json -Depth 5
     }
-    
     end {
-        
+        [System.GC]::Collect()
     }
 }
-
-
-#region Application particulars
-
-[String]$global:TempFile+='    "Intallers": {' + $OFS
-#endregion Application particulars
