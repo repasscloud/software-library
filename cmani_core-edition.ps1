@@ -500,9 +500,8 @@ function Invoke-CreateCManiCore {
         [String]$dir_CurrentWorking=[System.Environment]::CurrentDirectory
 
         # Set location variables
-        [String]$dir_Public=Join-Path -Path $dir_CurrentWorking -ChildPath 'lib/public'
+        #[String]$dir_Public=Join-Path -Path $dir_CurrentWorking -ChildPath 'lib/public'
         [String]$dir_Scripts=Join-Path -Path $dir_CurrentWorking -ChildPath 'lib/scripts'
-        [String]$dir_Templates=Join-Path -Path $dir_CurrentWorking -ChildPath 'lib/templates'
         [String]$dir_Manifests=Join-Path -Path $dir_CurrentWorking -ChildPath 'app'
         
         # Set Temp directory variable to $dir_tmp by OS selection, with backwards compatibility for Windows PS5.1
@@ -521,7 +520,6 @@ function Invoke-CreateCManiCore {
         Get-ChildItem -Path $dir_Scripts -Filter "*.ps1" -Recurse | ForEach-Object { . $_.FullName }
 
         # Create temporary file
-        #[String]$file_tmp=[System.IO.Path]::Combine($dir_tmp,$([System.GUID]::NewGUID().Guid)+'.json')
         [String]$file_tmp=[System.IO.Path]::Combine($dir_tmp,$([System.GUID]::NewGUID().Guid))
 
         # Set UserAgent for downloading data
@@ -663,23 +661,29 @@ limitations under the License.
                 $maniDict.Id.Installers.x86.$_lang.UpdateRegex=$UpdateRegex_x86[$Languages.IndexOf($_lang)]
             }
         }
-        #$maniDict.Id.Version=$Version.ToString()
-        #$maniDict.Id.Name=$Name
-        #$maniDict.Id.Publisher=$Publisher
+
+        # Set some variables for the output and clear out any spaces in the names of the files/folders
+        [String]$Name=$Name.Replace(' ','')
+        [String]$Publisher=$Publisher.Replace(' ','')
+        [String]$ExtractPath=[System.IO.Path]::Combine($dir_Manifests,$Publisher,$Name)
+        [String]$full_extract=[System.IO.Path]::Combine($ExtractPath,$Version.ToString()+'.json')
+        [String]$latest_extract=[System.IO.Path]::Combine($ExtractPath,'latest.json')
+
+        # Write out the new application manifest and close off
+        if (-not(Test-Path -Path $ExtractPath)) {
+            New-Item -Path $ExtractPath -ItemType Directory -Force -Confirm:$false
+        }
+        $maniDict | ConvertTo-Json -Depth 5 | Out-File -FilePath $full_extract -Encoding utf8 -Force -Confirm:$false
+        $maniDict | ConvertTo-Json -Depth 5 | Out-File -FilePath $latest_extract -Encoding utf8 -Force -Confirm:$false
+
+        # Create script return object
         $obj_r=@{}
         $obj_r.Add('Name',$Name)
         $obj_r.Add('Publisher',$Publisher)
         $obj_r.Add('Version',$Version)
-        $obj_r.Add('dir_Manifests',$dir_Manifests)
-        $obj_r.Add('full_extract',$([System.IO.Path]::Combine($dir_Manifests,$Publisher,$Name,$Version+'.json')))
+        $obj_r.Add('full_extract',$full_extract)
         $obj_r.Add('maniDict',$maniDict)
-
         return $obj_r
-        
-        #$export_file=[System.IO.Path]::Combine($dir_Manifests,$($Publisher.Replace(' ','_')),$($Name.Replace(' ','_')),$($Version.Replace(' ','_')))
-        #$dir_Manifests | Out-File -FilePath $export_file -Force -Confirm:$false
-        #return $dir_Manifests
-        #return $maniDict | ConvertTo-Json -Depth 5
     }
     end {
         [System.GC]::Collect()
