@@ -41,7 +41,7 @@
           "Sha512": "7561ADDDE6C73C82ABAF489D2BBBDA74B73904ACC90AAADF82F8AEC96FB61D35110EC85142EC4BDD210E9530497EBC1ECCDD7B8A4FC160DF9DB08CE6F3BABFA6",
           "InstallExe": "vlc-3.0.11-win64.msi",
           "InstallArgs": "/qn",
-          "UninstallExe": "msiexec",
+          "UninstallExe": "C:\\Windows\\System32\\msiexec.exe",
           "UninstallArgs": "/x {0A1870BC-51B4-459D-B681-3B2033298122} /qn",
           "UpdateURI": "https://download.videolan.org/pub/videolan/vlc/last/",
           "UpdateRegex": ""
@@ -56,7 +56,7 @@
           "Sha512": "put-sha256-func-result-here",
           "InstallExe": "vlc-3.0.11-win32.msi",
           "InstallArgs": "/qn",
-          "UninstallExe": "msiexec",
+          "UninstallExe": "C:\\Windows\\System32\\msiexec.exe",
           "UninstallArgs": "/x {162A5CE4-04E4-4879-9CFB-4C7A2171D85A} /qn",
           "UpdateURI": "https://download.videolan.org/pub/videolan/vlc/last/",
           "UpdateRegex": ""

@@ -46,7 +46,7 @@
           "Sha512": "7837A8677A01EED9C3309923F7084BC864063BA214EE169882C5B04A7A8B198ED052C15E981860D9D7952C98F459A4FAB87A72FD78E7D0303004DCB86F4324C8",
           "InstallExe": "7z1900-x64.msi",
           "InstallArgs": "/qn",
-          "UninstallExe": "msiexec",
+          "UninstallExe": "C:\\Windows\\System32\\msiexec.exe",
           "UninstallArgs": "/x {23170F69-40C1-2702-1900-000001000000} /qn",
           "UpdateURI": "https://chocolatey.org/packages/7zip.install",
           "UpdateRegex": ""
@@ -59,7 +59,7 @@
           "Sha512": "7837A8677A01EED9C3309923F7084BC864063BA214EE169882C5B04A7A8B198ED052C15E981860D9D7952C98F459A4FAB87A72FD78E7D0303004DCB86F4324C8",
           "InstallExe": "7z1900-x64.msi",
           "InstallArgs": "/qn",
-          "UninstallExe": "msiexec",
+          "UninstallExe": "C:\\Windows\\System32\\msiexec.exe",
           "UninstallArgs": "/x {23170F69-40C1-2702-1900-000001000000} /qn",
           "UpdateURI": "https://chocolatey.org/packages/7zip.install",
           "UpdateRegex": null
@@ -72,7 +72,7 @@
           "Sha512": "7837A8677A01EED9C3309923F7084BC864063BA214EE169882C5B04A7A8B198ED052C15E981860D9D7952C98F459A4FAB87A72FD78E7D0303004DCB86F4324C8",
           "InstallExe": "7z1900-x64.msi",
           "InstallArgs": "/qn",
-          "UninstallExe": "msiexec",
+          "UninstallExe": "C:\\Windows\\System32\\msiexec.exe",
           "UninstallArgs": "/x {23170F69-40C1-2702-1900-000001000000} /qn",
           "UpdateURI": "https://chocolatey.org/packages/7zip.install",
           "UpdateRegex": null
@@ -85,7 +85,7 @@
           "Sha512": "7837A8677A01EED9C3309923F7084BC864063BA214EE169882C5B04A7A8B198ED052C15E981860D9D7952C98F459A4FAB87A72FD78E7D0303004DCB86F4324C8",
           "InstallExe": "7z1900-x64.msi",
           "InstallArgs": "/qn",
-          "UninstallExe": "msiexec",
+          "UninstallExe": "C:\\Windows\\System32\\msiexec.exe",
           "UninstallArgs": "/x {23170F69-40C1-2702-1900-000001000000} /qn",
           "UpdateURI": "https://chocolatey.org/packages/7zip.install",
           "UpdateRegex": null
@@ -98,7 +98,7 @@
           "Sha512": "7837A8677A01EED9C3309923F7084BC864063BA214EE169882C5B04A7A8B198ED052C15E981860D9D7952C98F459A4FAB87A72FD78E7D0303004DCB86F4324C8",
           "InstallExe": "7z1900-x64.msi",
           "InstallArgs": "/qn",
-          "UninstallExe": "msiexec",
+          "UninstallExe": "C:\\Windows\\System32\\msiexec.exe",
           "UninstallArgs": "/x {23170F69-40C1-2702-1900-000001000000} /qn",
           "UpdateURI": "https://chocolatey.org/packages/7zip.install",
           "UpdateRegex": null
@@ -111,7 +111,7 @@
           "Sha512": "7837A8677A01EED9C3309923F7084BC864063BA214EE169882C5B04A7A8B198ED052C15E981860D9D7952C98F459A4FAB87A72FD78E7D0303004DCB86F4324C8",
           "InstallExe": "7z1900-x64.msi",
           "InstallArgs": "/qn",
-          "UninstallExe": "msiexec",
+          "UninstallExe": "C:\\Windows\\System32\\msiexec.exe",
           "UninstallArgs": "/x {23170F69-40C1-2702-1900-000001000000} /qn",
           "UpdateURI": "https://chocolatey.org/packages/7zip.install",
           "UpdateRegex": null
@@ -124,7 +124,7 @@
           "Sha512": "7837A8677A01EED9C3309923F7084BC864063BA214EE169882C5B04A7A8B198ED052C15E981860D9D7952C98F459A4FAB87A72FD78E7D0303004DCB86F4324C8",
           "InstallExe": "7z1900-x64.msi",
           "InstallArgs": "/qn",
-          "UninstallExe": "msiexec",
+          "UninstallExe": "C:\\Windows\\System32\\msiexec.exe",
           "UninstallArgs": "/x {23170F69-40C1-2702-1900-000001000000} /qn",
           "UpdateURI": "https://chocolatey.org/packages/7zip.install",
           "UpdateRegex": null
@@ -137,7 +137,7 @@
           "Sha512": "7837A8677A01EED9C3309923F7084BC864063BA214EE169882C5B04A7A8B198ED052C15E981860D9D7952C98F459A4FAB87A72FD78E7D0303004DCB86F4324C8",
           "InstallExe": "7z1900-x64.msi",
           "InstallArgs": "/qn",
-          "UninstallExe": "msiexec",
+          "UninstallExe": "C:\\Windows\\System32\\msiexec.exe",
           "UninstallArgs": "/x {23170F69-40C1-2702-1900-000001000000} /qn",
           "UpdateURI": "https://chocolatey.org/packages/7zip.install",
           "UpdateRegex": null
@@ -150,7 +150,7 @@
           "Sha512": "7837A8677A01EED9C3309923F7084BC864063BA214EE169882C5B04A7A8B198ED052C15E981860D9D7952C98F459A4FAB87A72FD78E7D0303004DCB86F4324C8",
           "InstallExe": "7z1900-x64.msi",
           "InstallArgs": "/qn",
-          "UninstallExe": "msiexec",
+          "UninstallExe": "C:\\Windows\\System32\\msiexec.exe",
           "UninstallArgs": "/x {23170F69-40C1-2702-1900-000001000000} /qn",
           "UpdateURI": "https://chocolatey.org/packages/7zip.install",
           "UpdateRegex": null
@@ -163,7 +163,7 @@
           "Sha512": "7837A8677A01EED9C3309923F7084BC864063BA214EE169882C5B04A7A8B198ED052C15E981860D9D7952C98F459A4FAB87A72FD78E7D0303004DCB86F4324C8",
           "InstallExe": "7z1900-x64.msi",
           "InstallArgs": "/qn",
-          "UninstallExe": "msiexec",
+          "UninstallExe": "C:\\Windows\\System32\\msiexec.exe",
           "UninstallArgs": "/x {23170F69-40C1-2702-1900-000001000000} /qn",
           "UpdateURI": "https://chocolatey.org/packages/7zip.install",
           "UpdateRegex": null
@@ -176,7 +176,7 @@
           "Sha512": "7837A8677A01EED9C3309923F7084BC864063BA214EE169882C5B04A7A8B198ED052C15E981860D9D7952C98F459A4FAB87A72FD78E7D0303004DCB86F4324C8",
           "InstallExe": "7z1900-x64.msi",
           "InstallArgs": "/qn",
-          "UninstallExe": "msiexec",
+          "UninstallExe": "C:\\Windows\\System32\\msiexec.exe",
           "UninstallArgs": "/x {23170F69-40C1-2702-1900-000001000000} /qn",
           "UpdateURI": "https://chocolatey.org/packages/7zip.install",
           "UpdateRegex": null
@@ -191,7 +191,7 @@
           "Sha512": "put-sha256-func-result-here",
           "InstallExe": "7z1900.msi",
           "InstallArgs": "/qn",
-          "UninstallExe": "msiexec",
+          "UninstallExe": "C:\\Windows\\System32\\msiexec.exe",
           "UninstallArgs": "/x {23170F69-40C1-2701-1900-000001000000} /qn",
           "UpdateURI": "https://chocolatey.org/packages/7zip.install",
           "UpdateRegex": ""
@@ -204,7 +204,7 @@
           "Sha512": "put-sha256-func-result-here",
           "InstallExe": "7z1900.msi",
           "InstallArgs": "/qn",
-          "UninstallExe": "msiexec",
+          "UninstallExe": "C:\\Windows\\System32\\msiexec.exe",
           "UninstallArgs": "/x {23170F69-40C1-2701-1900-000001000000} /qn",
           "UpdateURI": "https://chocolatey.org/packages/7zip.install",
           "UpdateRegex": null
@@ -217,7 +217,7 @@
           "Sha512": "put-sha256-func-result-here",
           "InstallExe": "7z1900.msi",
           "InstallArgs": "/qn",
-          "UninstallExe": "msiexec",
+          "UninstallExe": "C:\\Windows\\System32\\msiexec.exe",
           "UninstallArgs": "/x {23170F69-40C1-2701-1900-000001000000} /qn",
           "UpdateURI": "https://chocolatey.org/packages/7zip.install",
           "UpdateRegex": null
@@ -230,7 +230,7 @@
           "Sha512": "put-sha256-func-result-here",
           "InstallExe": "7z1900.msi",
           "InstallArgs": "/qn",
-          "UninstallExe": "msiexec",
+          "UninstallExe": "C:\\Windows\\System32\\msiexec.exe",
           "UninstallArgs": "/x {23170F69-40C1-2701-1900-000001000000} /qn",
           "UpdateURI": "https://chocolatey.org/packages/7zip.install",
           "UpdateRegex": null
@@ -243,7 +243,7 @@
           "Sha512": "put-sha256-func-result-here",
           "InstallExe": "7z1900.msi",
           "InstallArgs": "/qn",
-          "UninstallExe": "msiexec",
+          "UninstallExe": "C:\\Windows\\System32\\msiexec.exe",
           "UninstallArgs": "/x {23170F69-40C1-2701-1900-000001000000} /qn",
           "UpdateURI": "https://chocolatey.org/packages/7zip.install",
           "UpdateRegex": null
@@ -256,7 +256,7 @@
           "Sha512": "put-sha256-func-result-here",
           "InstallExe": "7z1900.msi",
           "InstallArgs": "/qn",
-          "UninstallExe": "msiexec",
+          "UninstallExe": "C:\\Windows\\System32\\msiexec.exe",
           "UninstallArgs": "/x {23170F69-40C1-2701-1900-000001000000} /qn",
           "UpdateURI": "https://chocolatey.org/packages/7zip.install",
           "UpdateRegex": null
@@ -269,7 +269,7 @@
           "Sha512": "put-sha256-func-result-here",
           "InstallExe": "7z1900.msi",
           "InstallArgs": "/qn",
-          "UninstallExe": "msiexec",
+          "UninstallExe": "C:\\Windows\\System32\\msiexec.exe",
           "UninstallArgs": "/x {23170F69-40C1-2701-1900-000001000000} /qn",
           "UpdateURI": "https://chocolatey.org/packages/7zip.install",
           "UpdateRegex": null
@@ -282,7 +282,7 @@
           "Sha512": "put-sha256-func-result-here",
           "InstallExe": "7z1900.msi",
           "InstallArgs": "/qn",
-          "UninstallExe": "msiexec",
+          "UninstallExe": "C:\\Windows\\System32\\msiexec.exe",
           "UninstallArgs": "/x {23170F69-40C1-2701-1900-000001000000} /qn",
           "UpdateURI": "https://chocolatey.org/packages/7zip.install",
           "UpdateRegex": null
@@ -295,7 +295,7 @@
           "Sha512": "put-sha256-func-result-here",
           "InstallExe": "7z1900.msi",
           "InstallArgs": "/qn",
-          "UninstallExe": "msiexec",
+          "UninstallExe": "C:\\Windows\\System32\\msiexec.exe",
           "UninstallArgs": "/x {23170F69-40C1-2701-1900-000001000000} /qn",
           "UpdateURI": "https://chocolatey.org/packages/7zip.install",
           "UpdateRegex": null
@@ -308,7 +308,7 @@
           "Sha512": "put-sha256-func-result-here",
           "InstallExe": "7z1900.msi",
           "InstallArgs": "/qn",
-          "UninstallExe": "msiexec",
+          "UninstallExe": "C:\\Windows\\System32\\msiexec.exe",
           "UninstallArgs": "/x {23170F69-40C1-2701-1900-000001000000} /qn",
           "UpdateURI": "https://chocolatey.org/packages/7zip.install",
           "UpdateRegex": null
@@ -321,7 +321,7 @@
           "Sha512": "put-sha256-func-result-here",
           "InstallExe": "7z1900.msi",
           "InstallArgs": "/qn",
-          "UninstallExe": "msiexec",
+          "UninstallExe": "C:\\Windows\\System32\\msiexec.exe",
           "UninstallArgs": "/x {23170F69-40C1-2701-1900-000001000000} /qn",
           "UpdateURI": "https://chocolatey.org/packages/7zip.install",
           "UpdateRegex": null
