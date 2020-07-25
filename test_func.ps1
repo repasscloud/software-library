@@ -1,31 +1,32 @@
-Invoke-CreateCManiCore -Category browser `
-                       -Publisher 'Mozilla' `
-                       -Name 'Firefox  ' `
-                       -Version '78.0.2' `
-                       -CopyrightNotice "Copyright $([char]0x00A9) 1998-2020 Mozilla Foundation" `
-                       -License 'MPL-2.0' `
-                       -LicenseURI 'https://www.mozilla.org/en-US/MPL/' `
-                       -Tags @('firefox','browser','mozilla') `
-                       -Description 'Bringing together all kinds of awesomeness to make browsing better for you.' `
-                       -Homepage 'https://www.mozilla.org/en-US/firefox/new/' `
-                       -Arch @('x64','x86') `
-                       -Languages @('en-US','en-GB','en-CA') `
-                       -HasNuspec $true `
-                       -NuspecFile 'https://raw.githubusercontent.com/chocolatey-community/chocolatey-coreteampackages/master/automatic/firefox/firefox.nuspec' `
-                       -Depends @() `
-                       -InstallURI_x64 @('https://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win64&lang=en-US','https://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win64&lang=en-GB','https://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win64&lang=en-CA') `
-                       -InstallURI_x86 @('https://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win&lang=en-US','https://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win&lang=en-GB','https://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win&lang=en-CA') `
-                       -MsiExe_x64 @('msi','exe','msi') `
-                       -MsiExe_x86 @('msi','msi','msi') `
-                       -InstallExe_x64 @('firefox-x64-US.msi','firefox-x64-GB.msi','firefox-x64-CA.msi') `
-                       -InstallExe_x86 @('firefox-US.msi','firefox-GB.msi','firefox-CA.msi') `
-                       -InstallArgs_x64 @('/qn','/qn','/qn') `
-                       -InstallArgs_x86 @('/passive-US','/passive-GB','/passive-CA') `
-                       -UninstallExe_x64 @('a','b','c') `
-                       -UninstallExe_x86 @('1','2','3') `
-                       -UninstallArgs_x64 @('f','g','h') `
-                       -UninstallArgs_x86 @('v','d','w') `
-                       -UpdateURI_x64 'https://mcdonalds.com.au/' `
-                       -UpdateURI_x86 @('https://mcdonalds.com.au/','https://www.coles.com.au/','https://www.aldi.com.au') `
-                       -UpdateRegex_x64 @('(\w+.*)','(\e+.*)','(\r+.*)') `
-                       -UpdateRegex_x86 @('(\u+.*)','(\y+.*)','(\t+.*)')
+$qb=Invoke-CreateCManiCore -Category browser `
+                           -Publisher 'Mozilla' `
+                        -Name 'Firefox  ' `
+                        -Version '78.0.2' `
+                        -CopyrightNotice "Copyright $([char]0x00A9) 1998-2020 Mozilla Foundation" `
+                        -License 'MPL-2.0' `
+                        -LicenseURI 'https://www.mozilla.org/en-US/MPL/' `
+                        -Tags @('firefox','browser','mozilla') `
+                        -Description 'Bringing together all kinds of awesomeness to make browsing better for you.' `
+                        -Homepage 'https://www.mozilla.org/en-US/firefox/new/' `
+                        -Arch @('x64','x86') `
+                        -Languages @('en-US','en-GB','en-CA') `
+                        -HasNuspec $true `
+                        -NuspecFile 'https://raw.githubusercontent.com/chocolatey-community/chocolatey-coreteampackages/master/automatic/firefox/firefox.nuspec' `
+                        -Depends @() `
+                        -InstallURI_x64 @('https://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win64&lang=en-US','https://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win64&lang=en-GB','https://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win64&lang=en-CA') `
+                        -InstallURI_x86 @('https://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win&lang=en-US','https://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win&lang=en-GB','https://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win&lang=en-CA') `
+                        -MsiExe_x64 @('msi','exe','msi') `
+                        -MsiExe_x86 @('msi','msi','msi') `
+                        -InstallExe_x64 @('firefox-x64-US.msi','firefox-x64-GB.msi','firefox-x64-CA.msi') `
+                        -InstallExe_x86 @('firefox-US.msi','firefox-GB.msi','firefox-CA.msi') `
+                        -InstallArgs_x64 @('/qn','/qn','/qn') `
+                        -InstallArgs_x86 @('/passive-US','/passive-GB','/passive-CA') `
+                        -UninstallExe_x64 @('a','b','c') `
+                        -UninstallExe_x86 @('1','2','3') `
+                        -UninstallArgs_x64 @('f','g','h') `
+                        -UninstallArgs_x86 @('v','d','w') `
+                        -UpdateURI_x64 'https://mcdonalds.com.au/' `
+                        -UpdateURI_x86 @('https://mcdonalds.com.au/','https://www.coles.com.au/','https://www.aldi.com.au') `
+                        -UpdateRegex_x64 @('(\w+.*)','(\e+.*)','(\r+.*)') `
+                        -UpdateRegex_x86 @('(\u+.*)','(\y+.*)','(\t+.*)')
+$qb

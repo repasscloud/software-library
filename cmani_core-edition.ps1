@@ -490,7 +490,6 @@ function Invoke-CreateCManiCore {
     )
     
     begin {
-
         # Set TLS 1.2
         [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
 
@@ -595,7 +594,7 @@ limitations under the License.
                 $maniDict.Id.Installers.x64.$_lang.InstallURI=$InstallURI_x64[$Languages.IndexOf($_lang)]
                 [String]$pkgdl=Get-RedirectedUrl -Url $InstallURI_x64[$Languages.IndexOf($_lang)]
                 $maniDict.Id.Installers.x64.$_lang.FollowURI=$pkgdl
-                Invoke-WebRequest -Uri $u -OutFile $file_tmp -WebSession $null -UserAgent $userAgent
+                Invoke-WebRequest -Uri $pkgdl -OutFile $file_tmp -WebSession $null -UserAgent $userAgent
                 $maniDict.Id.Installers.x64.$_lang.Sha256=Get-FileHash -Path $file_tmp -Algorithm SHA256 | Select-Object -ExpandProperty Hash
                 $maniDict.Id.Installers.x64.$_lang.Sha512=Get-FileHash -Path $file_tmp -Algorithm SHA512 | Select-Object -ExpandProperty Hash
                 Remove-Item -Path $file_tmp -Force -Confirm:$false
@@ -664,8 +663,23 @@ limitations under the License.
                 $maniDict.Id.Installers.x86.$_lang.UpdateRegex=$UpdateRegex_x86[$Languages.IndexOf($_lang)]
             }
         }
+        #$maniDict.Id.Version=$Version.ToString()
+        #$maniDict.Id.Name=$Name
+        #$maniDict.Id.Publisher=$Publisher
+        $obj_r=@{}
+        $obj_r.Add('Name',$Name)
+        $obj_r.Add('Publisher',$Publisher)
+        $obj_r.Add('Version',$Version)
+        $obj_r.Add('dir_Manifests',$dir_Manifests)
+        $obj_r.Add('full_extract',$([System.IO.Path]::Combine($dir_Manifests,$Publisher,$Name,$Version+'.json')))
+        $obj_r.Add('maniDict',$maniDict)
 
-        return $maniDict | ConvertTo-Json -Depth 5
+        return $obj_r
+        
+        #$export_file=[System.IO.Path]::Combine($dir_Manifests,$($Publisher.Replace(' ','_')),$($Name.Replace(' ','_')),$($Version.Replace(' ','_')))
+        #$dir_Manifests | Out-File -FilePath $export_file -Force -Confirm:$false
+        #return $dir_Manifests
+        #return $maniDict | ConvertTo-Json -Depth 5
     }
     end {
         [System.GC]::Collect()
