@@ -1,6 +1,6 @@
 $qb=Invoke-CreateCManiCore -Category browser `
                            -Publisher 'Mozilla' `
-                        -Name 'Firefox  ' `
+                        -Name 'Firefox' `
                         -Version '78.0.2' `
                         -CopyrightNotice "Copyright $([char]0x00A9) 1998-2020 Mozilla Foundation" `
                         -License 'MPL-2.0' `
@@ -20,13 +20,13 @@ $qb=Invoke-CreateCManiCore -Category browser `
                         -InstallExe_x64 @('firefox-x64-US.msi','firefox-x64-GB.msi','firefox-x64-CA.msi') `
                         -InstallExe_x86 @('firefox-US.msi','firefox-GB.msi','firefox-CA.msi') `
                         -InstallArgs_x64 @('/qn','/qn','/qn') `
-                        -InstallArgs_x86 @('/passive-US','/passive-GB','/passive-CA') `
-                        -UninstallExe_x64 @('a','b','c') `
+                        -InstallArgs_x86 @('/qn','/qn','/qn') `
+                        -UninstallExe_x64 @('C:\Program Files\Mozilla Firefox\uninstall\helper.exe','C:\Program Files\Mozilla Firefox\uninstall\helper.exe','C:\Program Files\Mozilla Firefox\uninstall\helper.exe') `
                         -UninstallExe_x86 @('1','2','3') `
-                        -UninstallArgs_x64 @('f','g','h') `
+                        -UninstallArgs_x64 @('/S','/S','/S') `
                         -UninstallArgs_x86 @('v','d','w') `
-                        -UpdateURI_x64 'https://mcdonalds.com.au/' `
-                        -UpdateURI_x86 @('https://mcdonalds.com.au/','https://www.coles.com.au/','https://www.aldi.com.au') `
-                        -UpdateRegex_x64 @('(\w+.*)','(\e+.*)','(\r+.*)') `
-                        -UpdateRegex_x86 @('(\u+.*)','(\y+.*)','(\t+.*)')
+                        -UpdateURI_x64 'https://www.mozilla.org/en-US/firefox/releasenotes/' `
+                        -UpdateURI_x86 @('https://www.mozilla.org/en-US/firefox/releasenotes/','https://www.mozilla.org/en-US/firefox/releasenotes/','https://www.mozilla.org/en-US/firefox/releasenotes/') `
+                        -UpdateRegex_x64 @('<div class=\"c-release-version\">([\\d.]+)</div>','<div class=\"c-release-version\">([\\d.]+)</div>','<div class=\"c-release-version\">([\\d.]+)</div>') `
+                        -UpdateRegex_x86 @('<div class=\"c-release-version\">([\\d.]+)</div>','<div class=\"c-release-version\">([\\d.]+)</div>','<div class=\"c-release-version\">([\\d.]+)</div>')
 $qb
