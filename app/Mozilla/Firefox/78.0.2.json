@@ -1,47 +1,114 @@
 {
   "Category": "browser",
-  "Manifest": "4.2.4.6",
+  "Manifest": "4.3.7.9",
   "Nuspec": true,
   "NuspecURI": "https://raw.githubusercontent.com/chocolatey-community/chocolatey-coreteampackages/master/automatic/firefox/firefox.nuspec",
-  "Copyright": "Copyright � 2020 RePassCloud.com\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",
+  "Copyright": "Copyright © 2020 RePassCloud.com\r\nLicensed under the Apache License, Version 2.0 (the \"License\");\r\nyou may not use this file except in compliance with the License.\r\nYou may obtain a copy of the License at\r\n\r\nhttp://www.apache.org/licenses/LICENSE-2.0\r\n\r\nUnless required by applicable law or agreed to in writing, software\r\ndistributed under the License is distributed on an \"AS IS\" BASIS,\r\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\r\nSee the License for the specific language governing permissions and\r\nlimitations under the License.",
   "Id": {
     "Version": "78.0.2",
     "Name": "Firefox",
     "Publisher": "Mozilla",
-    "AppCopyright": "Copyright � 1998�2020 Mozilla Foundation",
+    "Copyright": "Copyright © 1998-2020 Mozilla Foundation",
     "License": "MPL-2.0",
-    "LicenseURL": "https://www.mozilla.org/en-US/MPL/",
-    "Tags": ["browser","mozilla","firefox"],
-    "Description": "Bringing together all kinds of awesomeness to make browsing better for you..",
+    "LicenseURI": "https://www.mozilla.org/en-US/MPL/",
     "Homepage": "https://www.mozilla.org/en-US/firefox/new/",
-    "Arch": ["x86_64"],
-    "Languages": ["en-US"],
-    "Depends": [""],
-    "Intallers": {
+    "Description": "Bringing together all kinds of awesomeness to make browsing better for you.",
+    "Arch": [
+      "x64",
+      "x86"
+    ],
+    "Languages": [
+      "en-US",
+      "en-GB",
+      "en-CA"
+    ],
+    "Tags": [
+      "firefox",
+      "browser",
+      "mozilla"
+    ],
+    "Depends": [],
+    "Installers": {
       "x64": {
         "en-US": {
-          "Url": "https://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win64&lang=en-US",
-          "FollowUrl": "https://download-installer.cdn.mozilla.net/pub/firefox/releases/78.0.2/win64/en-US/Firefox%20Setup%2078.0.2.msi",
+          "MsiExe": "msi",
+          "InstallURI": "https://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win64&lang=en-US",
+          "FollowURI": "https://download-installer.cdn.mozilla.net/pub/firefox/releases/78.0.2/win64/en-US/Firefox%20Setup%2078.0.2.msi",
           "Sha256": "EEC10F50E910D7DC21B2EBEC40DB251EC4B5368F174EB8F3777BA24C06AB8671",
           "Sha512": "01A700C00A28D1B3C77E28217F740F1A3016EC08B1F0BDDD18819AEDF5747A835D09D87539665D120B5DFFB98C6FC312CB0A63FEF5A6E5CC6293986D33A0A7A3",
-          "InstallerType": "MSI",
-          "InstallSwitches": "/qn",
-          "UninstallString": "Start-Process -FilePath 'C:\Program Files\Mozilla Firefox\uninstall\helper.exe' -ArgumentList '/s' -Wait",
-          "UpdateURI": "https://www.mozilla.org/en-US/firefox/releasenotes/",
-          "UpdateRegex": "none"
+          "InstallExe": "firefox-x64-US.msi",
+          "InstallArgs": "/qn",
+          "UninstallExe": "\"C:\\Program Files\\Mozilla Firefox\\uninstall\\helper.exe",
+          "UninstallArgs": "/S",
+          "UpdateURI": "https://mcdonalds.com.au/",
+          "UpdateRegex": "(\\w+.*)"
+        },
+        "en-GB": {
+          "MsiExe": "exe",
+          "InstallURI": "https://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win64&lang=en-GB",
+          "FollowURI": "https://download-installer.cdn.mozilla.net/pub/firefox/releases/78.0.2/win64/en-GB/Firefox%20Setup%2078.0.2.msi",
+          "Sha256": "8017E6C70A814E4FF4B8B2F2050A4C0B8BBA802417D05E4D845653010EEC6246",
+          "Sha512": "175452059FD3416057EE4C51E368A798C39B6ECAF41EA09CF1A84DBA92AD06C469F0FF894658657C5861DE12E4E2ED4A60962ACA7F9BCABCB6D1DB48C063F457",
+          "InstallExe": "firefox-x64-GB.msi",
+          "InstallArgs": "/qn",
+          "UninstallExe": "\"C:\\Program Files\\Mozilla Firefox\\uninstall\\helper.exe",
+          "UninstallArgs": "/S",
+          "UpdateURI": null,
+          "UpdateRegex": "(\\e+.*)"
+        },
+        "en-CA": {
+          "MsiExe": "msi",
+          "InstallURI": "https://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win64&lang=en-CA",
+          "FollowURI": "https://download-installer.cdn.mozilla.net/pub/firefox/releases/78.0.2/win64/en-CA/Firefox%20Setup%2078.0.2.msi",
+          "Sha256": "30711110DC2E36AF4A9832224E0D392EB86D8C04A70471429FC8E3FD97DA6954",
+          "Sha512": "8B26BA6D347B690775D5526E218BCBAF57713D1CC244FEFBE9C6F490A97BA87D07520F3A2282ECEDB86D583A74B600EB4B978AB1395CEE6FD3EEA8203FCA07D1",
+          "InstallExe": "firefox-x64-CA.msi",
+          "InstallArgs": "/qn",
+          "UninstallExe": "\"C:\\Program Files\\Mozilla Firefox\\uninstall\\helper.exe",
+          "UninstallArgs": "/S",
+          "UpdateURI": null,
+          "UpdateRegex": "(\\r+.*)"
         }
       },
       "x86": {
         "en-US": {
-          "Url": "https://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win&lang=en-US",
-          "FollowUrl": "https://download-installer.cdn.mozilla.net/pub/firefox/releases/78.0.2/win32/en-US/Firefox%20Setup%2078.0.2.msi",
-          "Sha256": "5E2299E26BDC2615C8811D796A845FA8BB027020121029F475788CD152024458",
-          "Sha512": "18010FEE9CA8BCDCF8D29311D131140A6D8FBB9CDC78D82642570A3B383C0A6A90FB2CB74D872C7C53431D03AAD572A85D1791E28AE8A2E90079380990415603",
-          "InstallerType": "MSI",
-          "InstallSwitches": "/qn",
-          "UninstallString": "Start-Process -FilePath 'C:\Program Files (x86)\Mozilla Firefox\uninstall\helper.exe' -ArgumentList '/s' -Wait",
-          "UpdateURI": "https://www.mozilla.org/en-US/firefox/releasenotes/",
-          "UpdateRegex": "none"
+          "MsiExe": "msi",
+          "InstallURI": "https://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win&lang=en-US",
+          "FollowURI": "put-follow-uri-function-result-here",
+          "Sha256": "put-sha256-func-result-here",
+          "Sha512": "put-sha256-func-result-here",
+          "InstallExe": "firefox-US.msi",
+          "InstallArgs": "/passive-US",
+          "UninstallExe": "1",
+          "UninstallArgs": "v",
+          "UpdateURI": "https://mcdonalds.com.au/",
+          "UpdateRegex": "(\\u+.*)"
+        },
+        "en-GB": {
+          "MsiExe": "msi",
+          "InstallURI": "https://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win&lang=en-GB",
+          "FollowURI": "put-follow-uri-function-result-here",
+          "Sha256": "put-sha256-func-result-here",
+          "Sha512": "put-sha256-func-result-here",
+          "InstallExe": "firefox-GB.msi",
+          "InstallArgs": "/passive-GB",
+          "UninstallExe": "2",
+          "UninstallArgs": "d",
+          "UpdateURI": "https://www.coles.com.au/",
+          "UpdateRegex": "(\\y+.*)"
+        },
+        "en-CA": {
+          "MsiExe": "msi",
+          "InstallURI": "https://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win&lang=en-CA",
+          "FollowURI": "put-follow-uri-function-result-here",
+          "Sha256": "put-sha256-func-result-here",
+          "Sha512": "put-sha256-func-result-here",
+          "InstallExe": "firefox-CA.msi",
+          "InstallArgs": "/passive-CA",
+          "UninstallExe": "3",
+          "UninstallArgs": "w",
+          "UpdateURI": "https://www.aldi.com.au",
+          "UpdateRegex": "(\\t+.*)"
         }
       }
     }
