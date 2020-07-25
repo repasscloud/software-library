@@ -38,10 +38,10 @@
           "Sha512": "01A700C00A28D1B3C77E28217F740F1A3016EC08B1F0BDDD18819AEDF5747A835D09D87539665D120B5DFFB98C6FC312CB0A63FEF5A6E5CC6293986D33A0A7A3",
           "InstallExe": "firefox-x64-US.msi",
           "InstallArgs": "/qn",
-          "UninstallExe": "\"C:\\Program Files\\Mozilla Firefox\\uninstall\\helper.exe",
+          "UninstallExe": "C:\\Program Files\\Mozilla Firefox\\uninstall\\helper.exe",
           "UninstallArgs": "/S",
-          "UpdateURI": "https://mcdonalds.com.au/",
-          "UpdateRegex": "(\\w+.*)"
+          "UpdateURI": "https://www.mozilla.org/en-US/firefox/releasenotes/",
+          "UpdateRegex": "<div class=\\\"c-release-version\\\">([\\\\d.]+)</div>"
         },
         "en-GB": {
           "MsiExe": "exe",
@@ -51,10 +51,10 @@
           "Sha512": "175452059FD3416057EE4C51E368A798C39B6ECAF41EA09CF1A84DBA92AD06C469F0FF894658657C5861DE12E4E2ED4A60962ACA7F9BCABCB6D1DB48C063F457",
           "InstallExe": "firefox-x64-GB.msi",
           "InstallArgs": "/qn",
-          "UninstallExe": "\"C:\\Program Files\\Mozilla Firefox\\uninstall\\helper.exe",
+          "UninstallExe": "C:\\Program Files\\Mozilla Firefox\\uninstall\\helper.exe",
           "UninstallArgs": "/S",
           "UpdateURI": null,
-          "UpdateRegex": "(\\e+.*)"
+          "UpdateRegex": "<div class=\\\"c-release-version\\\">([\\\\d.]+)</div>"
         },
         "en-CA": {
           "MsiExe": "msi",
@@ -64,10 +64,10 @@
           "Sha512": "8B26BA6D347B690775D5526E218BCBAF57713D1CC244FEFBE9C6F490A97BA87D07520F3A2282ECEDB86D583A74B600EB4B978AB1395CEE6FD3EEA8203FCA07D1",
           "InstallExe": "firefox-x64-CA.msi",
           "InstallArgs": "/qn",
-          "UninstallExe": "\"C:\\Program Files\\Mozilla Firefox\\uninstall\\helper.exe",
+          "UninstallExe": "C:\\Program Files\\Mozilla Firefox\\uninstall\\helper.exe",
           "UninstallArgs": "/S",
           "UpdateURI": null,
-          "UpdateRegex": "(\\r+.*)"
+          "UpdateRegex": "<div class=\\\"c-release-version\\\">([\\\\d.]+)</div>"
         }
       },
       "x86": {
@@ -78,11 +78,11 @@
           "Sha256": "put-sha256-func-result-here",
           "Sha512": "put-sha256-func-result-here",
           "InstallExe": "firefox-US.msi",
-          "InstallArgs": "/passive-US",
+          "InstallArgs": "/qn",
           "UninstallExe": "1",
           "UninstallArgs": "v",
-          "UpdateURI": "https://mcdonalds.com.au/",
-          "UpdateRegex": "(\\u+.*)"
+          "UpdateURI": "https://www.mozilla.org/en-US/firefox/releasenotes/",
+          "UpdateRegex": "<div class=\\\"c-release-version\\\">([\\\\d.]+)</div>"
         },
         "en-GB": {
           "MsiExe": "msi",
@@ -91,11 +91,11 @@
           "Sha256": "put-sha256-func-result-here",
           "Sha512": "put-sha256-func-result-here",
           "InstallExe": "firefox-GB.msi",
-          "InstallArgs": "/passive-GB",
+          "InstallArgs": "/qn",
           "UninstallExe": "2",
           "UninstallArgs": "d",
-          "UpdateURI": "https://www.coles.com.au/",
-          "UpdateRegex": "(\\y+.*)"
+          "UpdateURI": "https://www.mozilla.org/en-US/firefox/releasenotes/",
+          "UpdateRegex": "<div class=\\\"c-release-version\\\">([\\\\d.]+)</div>"
         },
         "en-CA": {
           "MsiExe": "msi",
@@ -104,11 +104,11 @@
           "Sha256": "put-sha256-func-result-here",
           "Sha512": "put-sha256-func-result-here",
           "InstallExe": "firefox-CA.msi",
-          "InstallArgs": "/passive-CA",
+          "InstallArgs": "/qn",
           "UninstallExe": "3",
           "UninstallArgs": "w",
-          "UpdateURI": "https://www.aldi.com.au",
-          "UpdateRegex": "(\\t+.*)"
+          "UpdateURI": "https://www.mozilla.org/en-US/firefox/releasenotes/",
+          "UpdateRegex": "<div class=\\\"c-release-version\\\">([\\\\d.]+)</div>"
         }
       }
     }
