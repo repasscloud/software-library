@@ -30,11 +30,10 @@ Temporary Items
 *.exe
 
 # Test directory and files
-#test/*
-#lib/scripts/Test-Manifests.ps1
+
 
 # Private files
-#lib/private/*
+
 
 # Git Token
-test/token.key
+token.key
