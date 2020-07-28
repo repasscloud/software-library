@@ -1,4 +1,6 @@
 #Requires -PSEdition Core
+#Requires -Module Get.URLStatusCode
+#Requires -Module GetRedirectedUrl
 
 function Invoke-CreateCManiCore {
     [CmdletBinding()]
@@ -8,7 +10,7 @@ function Invoke-CreateCManiCore {
             ValueFromPipeline=$true,
             ValueFromPipelineByPropertyName=$true,
             ValueFromRemainingArguments=$false,
-            HelpMessage='Select Category of application from list provided.',
+            HelpMessage='Category of application.',
             Position=0)]
         [ValidateCount(5,14)]
         [ValidateSet('browser','business','entertainment','graphic_design','photo','social','productivity','games','security','microsoft')]
@@ -50,7 +52,7 @@ function Invoke-CreateCManiCore {
             ValueFromPipeline=$true,
             ValueFromPipelineByPropertyName=$true,
             ValueFromRemainingArguments=$false,
-            HelpMessage='Application version number using SemVer standards.',
+            HelpMessage='Application version number using SemVer Standards.',
             Position=3)]
         [Alias('ver')]
         [System.Version]$Version,
@@ -59,7 +61,7 @@ function Invoke-CreateCManiCore {
             ValueFromPipeline=$true,
             ValueFromPipelineByPropertyName=$true,
             ValueFromRemainingArguments=$false,
-            HelpMessage='Copyright notice, including "©" or "Copyright" text.',
+            HelpMessage='Copyright notice. Must include "©" symbol or "Copyright" text.',
             Position=4)]
         [ValidateCount(8,563)]
         [ValidateScript(
@@ -81,10 +83,10 @@ function Invoke-CreateCManiCore {
             ValueFromRemainingArguments=$false,
             HelpMessage='License list available online.',  #~> Update with URL
             Position=5)]
-        [ValidateSet('0BSD','BSD-1-Clause','BSD-2-Clause','BSD-3-Clause','AFL-3.0','APL-1.0','Apache-1.1','Apache-2.0','APSL-2.0','Artistic-1.0','Artistic-2.0','AAL','BSL-1.0','BSD-3-Clause-LBNL','BSD-2-Clause-Patent','CECILL-2.1','CDDL-1.0','CPAL-1.0','CPL-1.0','CATOSL-1.1','CAL-1.0','CUA-OPL-1.0','EPL-1.0','EPL-2.0','eCos-2.0','ECL-1.0','ECL-2.0','EFL-2.0','Entessa','EUDatagrid','EUPL-1.2','Fair','Frameworx-1.0','AGPL-3.0','GPL-2.0','GPL-3.0','LGPL-2.1','LGPL-3.0','HPND','IPL-1.0','Intel','IPA','ISC','Jabber','LPPL-1.3c','BSD-3-Clause-LBNL','LiliQ-P','LiliQ-R','LiliQ-R+','LPL-1.0','LPL-1.02','MS-PL','MS-RL','MirOS','MIT','CVW','Motosoto','MPL-1.0','MPL-1.1','MPL-2.0','MulanPSL-2.0','Multics','NASA-1.3','Naumen','NGPL','Nokia','NPOSL-3.0','NTP','OCLC-2.0','OGTSL','OSL-1.0','OSL-2.1','OSL-3.0','OLDAP-2.8','OPL-2.1','PHP-3.0','PHP-3.01','PostgreSQL','Python-2.0','CNRI-Python','QPL-1.0','RPSL-1.0','RPL-1.1','RPL-1.5','RSCPL','OFL-1.1','SimPL-2.0','Sleepycat','SISSL','SPL-1.0','Watcom-1.0','UPL','NCSA','UCL-1.0','Unlicense','VSL-1.0','W3C','WXwindows','Xnet','ZPL-2.0','Zlib','Other','Proprietary','Proprietary freeware, based on open source components')]
+        [ValidateSet('0BSD','BSD-1-Clause','BSD-2-Clause','BSD-3-Clause','AFL-3.0','APL-1.0','Apache-1.1','Apache-2.0','APSL-2.0','Artistic-1.0','Artistic-2.0','AAL','BSL-1.0','BSD-3-Clause-LBNL','BSD-2-Clause-Patent','CECILL-2.1','CDDL-1.0','CPAL-1.0','CPL-1.0','CATOSL-1.1','CAL-1.0','CUA-OPL-1.0','EPL-1.0','EPL-2.0','eCos-2.0','ECL-1.0','ECL-2.0','EFL-2.0','Entessa','EUDatagrid','EUPL-1.2','Fair','Frameworx-1.0','AGPL-3.0','GPL-2.0','GPL-3.0','LGPL-2.1','LGPL-3.0','HPND','IPL-1.0','Intel','IPA','ISC','Jabber','LPPL-1.3c','BSD-3-Clause-LBNL','LiliQ-P','LiliQ-R','LiliQ-R+','LPL-1.0','LPL-1.02','MS-PL','MS-RL','MirOS','MIT','CVW','Motosoto','MPL-1.0','MPL-1.1','MPL-2.0','MulanPSL-2.0','Multics','NASA-1.3','Naumen','NGPL','Nokia','NPOSL-3.0','NTP','OCLC-2.0','OGTSL','OSL-1.0','OSL-2.1','OSL-3.0','OLDAP-2.8','OPL-2.1','PHP-3.0','PHP-3.01','PostgreSQL','Python-2.0','CNRI-Python','QPL-1.0','RPSL-1.0','RPL-1.1','RPL-1.5','RSCPL','OFL-1.1','SimPL-2.0','Sleepycat','SISSL','SPL-1.0','Watcom-1.0','UPL','NCSA','UCL-1.0','UDFSL','Unlicense','VSL-1.0','W3C','WXwindows','Xnet','ZPL-2.0','Zlib','Other','Proprietary','Proprietary freeware, based on open source components')]
         [ValidateScript(
             {
-                [Array]$LicenseList=@('0BSD','BSD-1-Clause','BSD-2-Clause','BSD-3-Clause','AFL-3.0','APL-1.0','Apache-1.1','Apache-2.0','APSL-2.0','Artistic-1.0','Artistic-2.0','AAL','BSL-1.0','BSD-3-Clause-LBNL','BSD-2-Clause-Patent','CECILL-2.1','CDDL-1.0','CPAL-1.0','CPL-1.0','CATOSL-1.1','CAL-1.0','CUA-OPL-1.0','EPL-1.0','EPL-2.0','eCos-2.0','ECL-1.0','ECL-2.0','EFL-2.0','Entessa','EUDatagrid','EUPL-1.2','Fair','Frameworx-1.0','AGPL-3.0','GPL-2.0','GPL-3.0','LGPL-2.1','LGPL-3.0','HPND','IPL-1.0','Intel','IPA','ISC','Jabber','LPPL-1.3c','BSD-3-Clause-LBNL','LiliQ-P','LiliQ-R','LiliQ-R+','LPL-1.0','LPL-1.02','MS-PL','MS-RL','MirOS','MIT','CVW','Motosoto','MPL-1.0','MPL-1.1','MPL-2.0','MulanPSL-2.0','Multics','NASA-1.3','Naumen','NGPL','Nokia','NPOSL-3.0','NTP','OCLC-2.0','OGTSL','OSL-1.0','OSL-2.1','OSL-3.0','OLDAP-2.8','OPL-2.1','PHP-3.0','PHP-3.01','PostgreSQL','Python-2.0','CNRI-Python','QPL-1.0','RPSL-1.0','RPL-1.1','RPL-1.5','RSCPL','OFL-1.1','SimPL-2.0','Sleepycat','SISSL','SPL-1.0','Watcom-1.0','UPL','NCSA','UCL-1.0','Unlicense','VSL-1.0','W3C','WXwindows','Xnet','ZPL-2.0','Zlib','Other','Proprietary','Proprietary freeware, based on open source components')
+                [Array]$LicenseList=@('0BSD','BSD-1-Clause','BSD-2-Clause','BSD-3-Clause','AFL-3.0','APL-1.0','Apache-1.1','Apache-2.0','APSL-2.0','Artistic-1.0','Artistic-2.0','AAL','BSL-1.0','BSD-3-Clause-LBNL','BSD-2-Clause-Patent','CECILL-2.1','CDDL-1.0','CPAL-1.0','CPL-1.0','CATOSL-1.1','CAL-1.0','CUA-OPL-1.0','EPL-1.0','EPL-2.0','eCos-2.0','ECL-1.0','ECL-2.0','EFL-1.0','EFL-2.0','Entessa','EUDatagrid','EUPL-1.2','Fair','Frameworx-1.0','AGPL-3.0','GPL-2.0','GPL-3.0','LGPL-2.1','LGPL-3.0','HPND','IPL-1.0','Intel','IPA','ISC','Jabber','LPPL-1.3c','BSD-3-Clause-LBNL','LiliQ-P','LiliQ-R','LiliQ-R+','LPL-1.0','LPL-1.02','MS-PL','MS-RL','MirOS','MIT','CVW','Motosoto','MPL-1.0','MPL-1.1','MPL-2.0','MulanPSL-2.0','Multics','NASA-1.3','Naumen','NGPL','Nokia','NPOSL-3.0','NTP','OCLC-2.0','OGTSL','OSL-1.0','OSL-2.1','OSL-3.0','OLDAP-2.8','OPL-2.1','PHP-3.0','PHP-3.01','PostgreSQL','Python-2.0','CNRI-Python','QPL-1.0','RPSL-1.0','RPL-1.1','RPL-1.5','RSCPL','OFL-1.1','SimPL-2.0','Sleepycat','SISSL','SPL-1.0','Watcom-1.0','UPL','NCSA','UCL-1.0','Unlicense','VSL-1.0','W3C','WXwindows','Xnet','ZPL-2.0','Zlib','Other','Proprietary','Proprietary freeware, based on open source components')
                 if ($_ -in $LicenseList) {
                     $_
                 }
@@ -104,6 +106,8 @@ function Invoke-CreateCManiCore {
             Position=6)]
         [ValidateScript(
             {
+                # Set TLS 1.2
+                [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
                 if ($_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200) {
                     $_
                 }
@@ -123,6 +127,8 @@ function Invoke-CreateCManiCore {
             Position=7)]
         [ValidateScript(
             {
+                # Set TLS 1.2
+                [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
                 if ($_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200) {
                     $_
                 }
@@ -183,6 +189,8 @@ function Invoke-CreateCManiCore {
                         [String]$dir_tmp=$Env:TMPDIR
                     }
                 }
+                # Set TLS 1.2
+                [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
                 $url='https://raw.githubusercontent.com/repasscloud/software-library/master/lib/public/LCID.csv'
                 $output=[System.IO.Path]::Combine($dir_tmp,$([System.GUID]::NewGUID().Guid)+'.txt')
                 (New-Object System.Net.WebClient).DownloadFile($url, $output)
@@ -243,6 +251,8 @@ function Invoke-CreateCManiCore {
             Position=14)]
         [ValidateScript(
             {
+                # Set TLS 1.2
+                [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
                 if ($_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200) {
                     $_
                 }
@@ -305,6 +315,8 @@ function Invoke-CreateCManiCore {
         [ValidateScript(
             {
                 foreach ($i in $_) {
+                    # Set TLS 1.2
+                    [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls1
                     if ($_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200) {
                         $_
                     }
@@ -326,6 +338,8 @@ function Invoke-CreateCManiCore {
         [ValidateScript(
             {
                 foreach ($i in $_) {
+                    # Set TLS 1.2
+                    [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls1
                     if ($_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200) {
                         $_
                     }
@@ -437,6 +451,8 @@ function Invoke-CreateCManiCore {
         [ValidateScript(
             {
                 foreach ($i in $_) {
+                    # Set TLS 1.2
+                    [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls1
                     if ($_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200) {
                         $_
                     }
@@ -458,6 +474,8 @@ function Invoke-CreateCManiCore {
         [ValidateScript(
             {
                 foreach ($i in $_) {
+                    # Set TLS 1.2
+                    [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls1
                     if ($_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200) {
                         $_
                     }
@@ -501,7 +519,7 @@ function Invoke-CreateCManiCore {
 
         # Set location variables
         #[String]$dir_Public=Join-Path -Path $dir_CurrentWorking -ChildPath 'lib/public'
-        [String]$dir_Scripts=Join-Path -Path $dir_CurrentWorking -ChildPath 'lib/scripts'
+        #[String]$dir_Scripts=Join-Path -Path $dir_CurrentWorking -ChildPath 'lib/scripts'
         [String]$dir_Manifests=Join-Path -Path $dir_CurrentWorking -ChildPath 'app'
         
         # Set Temp directory variable to $dir_tmp by OS selection, with backwards compatibility for Windows PS5.1
@@ -517,7 +535,7 @@ function Invoke-CreateCManiCore {
         }
         
         # Import all functions
-        Get-ChildItem -Path $dir_Scripts -Filter "*.ps1" -Recurse | ForEach-Object { . $_.FullName }
+        #Get-ChildItem -Path $dir_Scripts -Filter "*.ps1" -Recurse | ForEach-Object { . $_.FullName }
 
         # Create temporary file
         [String]$file_tmp=[System.IO.Path]::Combine($dir_tmp,$([System.GUID]::NewGUID().Guid))
