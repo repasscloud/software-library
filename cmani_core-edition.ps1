@@ -316,7 +316,7 @@ function Invoke-CreateCManiCore {
             {
                 foreach ($i in $_) {
                     # Set TLS 1.2
-                    [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls1
+                    [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
                     if ($_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200) {
                         $_
                     }
@@ -339,7 +339,7 @@ function Invoke-CreateCManiCore {
             {
                 foreach ($i in $_) {
                     # Set TLS 1.2
-                    [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls1
+                    [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
                     if ($_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200) {
                         $_
                     }
@@ -452,7 +452,7 @@ function Invoke-CreateCManiCore {
             {
                 foreach ($i in $_) {
                     # Set TLS 1.2
-                    [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls1
+                    [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
                     if ($_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200) {
                         $_
                     }
@@ -475,7 +475,7 @@ function Invoke-CreateCManiCore {
             {
                 foreach ($i in $_) {
                     # Set TLS 1.2
-                    [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls1
+                    [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
                     if ($_.Length -gt 0 -and (Get-UrlStatusCode -Url $_) -like 200) {
                         $_
                     }
@@ -544,6 +544,11 @@ function Invoke-CreateCManiCore {
         $userAgent=[Microsoft.PowerShell.Commands.PSUserAgent]::Chrome
 
         # Manifest Copyright Notice
+        $zClient=[System.Net.WebClient]::new()
+        $zString=$zClient.DownloadString('https://raw.githubusercontent.com/repasscloud/software-library/ci/auto-builder-macdev/lib/public/json_copyright_notice.json')
+        [String]$RePassCloudManifestCopyrightNotice=($zString | ConvertFrom-Json).Copyright
+        $zClient.Dispose()
+        <#
         [String]$RePassCloudManifestCopyrightNotice=@"
 Copyright $([char]0x00A9) 2020 RePassCloud.com
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -558,6 +563,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 "@
+        #>
     }
     process {
         
