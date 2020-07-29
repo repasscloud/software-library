@@ -1,8 +1,9 @@
 # version format
-version: 1.0.{build}-{branch}
+version: 4.3.7.{build}
 
 # branches to build
 branches:
+  - ci/auto-builder-macdev
   except:
     - gh-pages
 
@@ -33,7 +34,7 @@ init:
   - git config --global core.autocrlf input
 
 # clone directory
-clone_folder: c:\projects\myproject
+clone_folder: C:\projects\software-matrix
 
 # fetch repository as zip archive
 shallow_clone: true                 # default is "false"
@@ -52,13 +53,17 @@ matrix:
 # scripts that run after cloning repository
 install:
   - ps: |
-      Start-Sleep -Seconds 15
       Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.208 -Force
       Install-Module -Name PowerShellGet -Force
       "Git version: $(git.exe --version)"
       "PSVersion:   $($PSVersionTable.PSVersion), build: $($PSVersionTable.BuildVersion), clr version: $($PSVersionTable.ClrVersion)"
       "Host name:   $($Host.Name)"
-  - ps: Write-Host 'This is PowerShell'
+  - ps: |
+      Write-Output "Build manifest files"
+      Get-ChildItem -Path .\tests -Filter "test_func-*.ps1" | ForEach-Object { & $_.FullName }
+  - ps: |
+      Write-Output "Install/Uninstall all applications from manifests"
+      .\tests\test-install.ps1
 
 
 build_script:

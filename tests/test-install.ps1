@@ -1,4 +1,4 @@
-Get-ChildItem -Path C:\tmp\software-matrix\app -Recurse -Filter "latest.json" | ForEach-Object {
+Get-ChildItem -Path C:\projects\software-matrix\app -Recurse -Filter "latest.json" | ForEach-Object {
     [String]$m=$_.FullName
     $json=Get-Content -Path $m -Raw | ConvertFrom-Json -Depth 5
     
@@ -7,7 +7,7 @@ Get-ChildItem -Path C:\tmp\software-matrix\app -Recurse -Filter "latest.json" | 
             'x64' {
                 Switch($json.Id.Installers.x64.$i.MsiExe) {
                     'msi' {
-                        [String]$outFile="C:\tmp\msiapp\$($json.Id.Installers.x64.$i.InstallExe)"
+                        [String]$outFile="$($Env:TEMP)\$($json.Id.Installers.x64.$i.InstallExe)"
                         Write-Output "Downloading $($json.Id.Name) by $($json.Id.Publisher), version $($json.Id.Version) in language $($i)"
                         Write-Output "Download URL: $($json.Id.Installers.x64.$i.FollowURI)"
                         Write-Output "Output File: $($outFile)"
@@ -43,18 +43,3 @@ Get-ChildItem -Path C:\tmp\software-matrix\app -Recurse -Filter "latest.json" | 
         }
     }    
 }
-
-
-<#
-MsiExe        : msi
-InstallURI    : https://7-zip.org/a/7z1900-x64.msi
-FollowURI     : https://7-zip.org/a/7z1900-x64.msi
-Sha256        : A7803233EEDB6A4B59B3024CCF9292A6FFFB94507DC998AA67C5B745D197A5DC
-Sha512        : 7837A8677A01EED9C3309923F7084BC864063BA214EE169882C5B04A7A8B198ED052C15E981860D9D7952C98F459A4FAB87A72FD78E7D0303004DCB86F4324C8
-InstallExe    : 7z1900-x64.msi
-InstallArgs   : /qn
-UninstallExe  : msiexec
-UninstallArgs : /x {23170F69-40C1-2702-1900-000001000000} /qn
-UpdateURI     : https://chocolatey.org/packages/7zip.install
-UpdateRegex   :
-#>
