@@ -61,7 +61,7 @@ install:
   - pwsh: |
       [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
       Register-PSRepository -Name "PSGallery" –SourceLocation "https://www.powershellgallery.com/api/v2/" -InstallationPolicy Trusted
-      Install-PackageProvider -Name NuGet -Force
+      Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
       Install-Module -Name PowerShellGet -Force
       "Git version: $(git.exe --version)"
       "PSVersion:   $($PSVersionTable.PSVersion), build: $($PSVersionTable.BuildVersion), clr version: $($PSVersionTable.ClrVersion)"
