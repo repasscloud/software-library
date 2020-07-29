@@ -81,16 +81,30 @@ function Invoke-CreateCManiCore {
             ValueFromPipeline=$true,
             ValueFromPipelineByPropertyName=$true,
             ValueFromRemainingArguments=$false,
-            HelpMessage='License list available online.',  #~> Update with URL
+            HelpMessage='License list available online. Link: https://github.com/repasscloud/software-library/blob/ci/auto-builder-macdev/lib/public/licenses.md',
             Position=5)]
-        [ValidateSet('0BSD','BSD-1-Clause','BSD-2-Clause','BSD-3-Clause','AFL-3.0','APL-1.0','Apache-1.1','Apache-2.0','APSL-2.0','Artistic-1.0','Artistic-2.0','AAL','BSL-1.0','BSD-3-Clause-LBNL','BSD-2-Clause-Patent','CECILL-2.1','CDDL-1.0','CPAL-1.0','CPL-1.0','CATOSL-1.1','CAL-1.0','CUA-OPL-1.0','EPL-1.0','EPL-2.0','eCos-2.0','ECL-1.0','ECL-2.0','EFL-2.0','Entessa','EUDatagrid','EUPL-1.2','Fair','Frameworx-1.0','AGPL-3.0','GPL-2.0','GPL-3.0','LGPL-2.1','LGPL-3.0','HPND','IPL-1.0','Intel','IPA','ISC','Jabber','LPPL-1.3c','BSD-3-Clause-LBNL','LiliQ-P','LiliQ-R','LiliQ-R+','LPL-1.0','LPL-1.02','MS-PL','MS-RL','MirOS','MIT','CVW','Motosoto','MPL-1.0','MPL-1.1','MPL-2.0','MulanPSL-2.0','Multics','NASA-1.3','Naumen','NGPL','Nokia','NPOSL-3.0','NTP','OCLC-2.0','OGTSL','OSL-1.0','OSL-2.1','OSL-3.0','OLDAP-2.8','OPL-2.1','PHP-3.0','PHP-3.01','PostgreSQL','Python-2.0','CNRI-Python','QPL-1.0','RPSL-1.0','RPL-1.1','RPL-1.5','RSCPL','OFL-1.1','SimPL-2.0','Sleepycat','SISSL','SPL-1.0','Watcom-1.0','UPL','NCSA','UCL-1.0','UDFSL','Unlicense','VSL-1.0','W3C','WXwindows','Xnet','ZPL-2.0','Zlib','Other','Proprietary','Proprietary freeware, based on open source components')]
         [ValidateScript(
             {
-                [Array]$LicenseList=@('0BSD','BSD-1-Clause','BSD-2-Clause','BSD-3-Clause','AFL-3.0','APL-1.0','Apache-1.1','Apache-2.0','APSL-2.0','Artistic-1.0','Artistic-2.0','AAL','BSL-1.0','BSD-3-Clause-LBNL','BSD-2-Clause-Patent','CECILL-2.1','CDDL-1.0','CPAL-1.0','CPL-1.0','CATOSL-1.1','CAL-1.0','CUA-OPL-1.0','EPL-1.0','EPL-2.0','eCos-2.0','ECL-1.0','ECL-2.0','EFL-1.0','EFL-2.0','Entessa','EUDatagrid','EUPL-1.2','Fair','Frameworx-1.0','AGPL-3.0','GPL-2.0','GPL-3.0','LGPL-2.1','LGPL-3.0','HPND','IPL-1.0','Intel','IPA','ISC','Jabber','LPPL-1.3c','BSD-3-Clause-LBNL','LiliQ-P','LiliQ-R','LiliQ-R+','LPL-1.0','LPL-1.02','MS-PL','MS-RL','MirOS','MIT','CVW','Motosoto','MPL-1.0','MPL-1.1','MPL-2.0','MulanPSL-2.0','Multics','NASA-1.3','Naumen','NGPL','Nokia','NPOSL-3.0','NTP','OCLC-2.0','OGTSL','OSL-1.0','OSL-2.1','OSL-3.0','OLDAP-2.8','OPL-2.1','PHP-3.0','PHP-3.01','PostgreSQL','Python-2.0','CNRI-Python','QPL-1.0','RPSL-1.0','RPL-1.1','RPL-1.5','RSCPL','OFL-1.1','SimPL-2.0','Sleepycat','SISSL','SPL-1.0','Watcom-1.0','UPL','NCSA','UCL-1.0','Unlicense','VSL-1.0','W3C','WXwindows','Xnet','ZPL-2.0','Zlib','Other','Proprietary','Proprietary freeware, based on open source components')
-                if ($_ -in $LicenseList) {
+                # Set Temp directory variable to $dir_tmp by OS selection, with backwards compatibility for Windows PS5.1
+                if ($IsWindows -or $Env:OS) {
+                    [String]$dir_tmpj=$Env:TEMP
+                } else {
+                    if ($IsLinux) {
+                        Write-Host "Linux"
+                    }
+                    elseif ($IsMacOS) {
+                        [String]$dir_tmpj=$Env:TMPDIR
+                    }
+                }
+                # Set TLS 1.2
+                [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
+                $urlg='https://raw.githubusercontent.com/repasscloud/software-library/ci/auto-builder-macdev/lib/public/licenses.csv'
+                $outputb=[System.IO.Path]::Combine($dir_tmpj,$([System.GUID]::NewGUID().Guid)+'.txt')
+                (New-Object System.Net.WebClient).DownloadFile($urlg, $outputb)
+                if ($_ -in ((Import-Csv -Path $outputb -Delimiter ',').'License Code')) {
                     $_
                 }
-                else {
+                else{
                     Throw "'$_' does NOT use an approved License type."
                 }
             }
@@ -310,7 +324,7 @@ function Invoke-CreateCManiCore {
             ValueFromPipeline=$true,
             ValueFromPipelineByPropertyName=$true,
             ValueFromRemainingArguments=$false,
-            HelpMessage='__cannot_be_blank__',  #~> this needs to be updated
+            HelpMessage='Provided as [Array], URI for x64 application installation.',
             Position=17)]
         [ValidateScript(
             {
@@ -333,7 +347,7 @@ function Invoke-CreateCManiCore {
             ValueFromPipeline=$true,
             ValueFromPipelineByPropertyName=$true,
             ValueFromRemainingArguments=$false,
-            HelpMessage='__cannot_be_blank__',  #~> this needs to be updated
+            HelpMessage='Provided as [Array], URI for x86 application installation.',
             Position=18)]
         [ValidateScript(
             {
@@ -356,7 +370,7 @@ function Invoke-CreateCManiCore {
             ValueFromPipeline=$true,
             ValueFromPipelineByPropertyName=$true,
             ValueFromRemainingArguments=$false,
-            HelpMessage='__cannot_be_blank__',  #~> this needs to be updated
+            HelpMessage='Provided as [Array], installer file name.',
             Position=19)]
         [Alias('inst64')]
         [Array]$InstallExe_x64,
@@ -365,7 +379,7 @@ function Invoke-CreateCManiCore {
             ValueFromPipeline=$true,
             ValueFromPipelineByPropertyName=$true,
             ValueFromRemainingArguments=$false,
-            HelpMessage='__cannot_be_blank__',  #~> this needs to be updated
+            HelpMessage='Provided as [Array], installer file name.',
             Position=20)]
         [Alias('inst86')]
         [Array]$InstallExe_x86,
@@ -374,7 +388,7 @@ function Invoke-CreateCManiCore {
             ValueFromPipeline=$true,
             ValueFromPipelineByPropertyName=$true,
             ValueFromRemainingArguments=$false,
-            HelpMessage='__cannot_be_blank__',  #~> this needs to be updated
+            HelpMessage='Provided as [Array], silent install arguments.',
             Position=21)]
         [Alias('iargs64')]
         [Array]$InstallArgs_x64,
@@ -383,7 +397,7 @@ function Invoke-CreateCManiCore {
             ValueFromPipeline=$true,
             ValueFromPipelineByPropertyName=$true,
             ValueFromRemainingArguments=$false,
-            HelpMessage='__cannot_be_blank__',  #~> this needs to be updated
+            HelpMessage='Provided as [Array], silent install arguments.',
             Position=22)]
         [Alias('iargs86')]
         [Array]$InstallArgs_x86,
@@ -392,7 +406,7 @@ function Invoke-CreateCManiCore {
             ValueFromPipeline=$true,
             ValueFromPipelineByPropertyName=$true,
             ValueFromRemainingArguments=$false,
-            HelpMessage='__cannot_be_blank__',  #~> this needs to be updated
+            HelpMessage='Provided as [Array], installed application detection.',
             Position=23)]
         [Alias('funst64')]
         [Array]$FindUninstall_x64,
@@ -401,7 +415,7 @@ function Invoke-CreateCManiCore {
             ValueFromPipeline=$true,
             ValueFromPipelineByPropertyName=$true,
             ValueFromRemainingArguments=$false,
-            HelpMessage='__cannot_be_blank__',  #~> this needs to be updated
+            HelpMessage='Provided as [Array], installed application detection.',
             Position=24)]
         [Alias('funst86')]
         [Array]$FindUninstall_x86,
@@ -410,7 +424,7 @@ function Invoke-CreateCManiCore {
             ValueFromPipeline=$true,
             ValueFromPipelineByPropertyName=$true,
             ValueFromRemainingArguments=$false,
-            HelpMessage='__cannot_be_blank__',  #~> this needs to be updated
+            HelpMessage='Provided as [Array], uninstaller executable.',
             Position=25)]
         [Alias('unstexe64')]
         [Array]$UninstallExe_x64,
@@ -419,7 +433,7 @@ function Invoke-CreateCManiCore {
             ValueFromPipeline=$true,
             ValueFromPipelineByPropertyName=$true,
             ValueFromRemainingArguments=$false,
-            HelpMessage='__cannot_be_blank__',  #~> this needs to be updated
+            HelpMessage='Provided as [Array], uninstaller executable.',
             Position=26)]
         [Alias('unstexe86')]
         [Array]$UninstallExe_x86,
@@ -428,7 +442,7 @@ function Invoke-CreateCManiCore {
             ValueFromPipeline=$true,
             ValueFromPipelineByPropertyName=$true,
             ValueFromRemainingArguments=$false,
-            HelpMessage='__cannot_be_blank__',  #~> this needs to be updated
+            HelpMessage='Provided as [Array], uninstaller arguments.',
             Position=27)]
         [Alias('unstargs64')]
         [Array]$UninstallArgs_x64,
@@ -437,7 +451,7 @@ function Invoke-CreateCManiCore {
             ValueFromPipeline=$true,
             ValueFromPipelineByPropertyName=$true,
             ValueFromRemainingArguments=$false,
-            HelpMessage='__cannot_be_blank__',  #~> this needs to be updated
+            HelpMessage='Provided as [Array], uninstaller arguments.',
             Position=28)]
         [Alias('unstargs86')]
         [Array]$UninstallArgs_x86,
@@ -446,7 +460,7 @@ function Invoke-CreateCManiCore {
             ValueFromPipeline=$true,
             ValueFromPipelineByPropertyName=$true,
             ValueFromRemainingArguments=$false,
-            HelpMessage='__cannot_be_blank__',  #~> this needs to be updated
+            HelpMessage='Provided as [Array], update URI.',
             Position=29)]
         [ValidateScript(
             {
@@ -469,7 +483,7 @@ function Invoke-CreateCManiCore {
             ValueFromPipeline=$true,
             ValueFromPipelineByPropertyName=$true,
             ValueFromRemainingArguments=$false,
-            HelpMessage='__cannot_be_blank__',  #~> this needs to be updated
+            HelpMessage='Provided as [Array], update URI.',
             Position=30)]
         [ValidateScript(
             {
@@ -492,7 +506,7 @@ function Invoke-CreateCManiCore {
             ValueFromPipeline=$true,
             ValueFromPipelineByPropertyName=$true,
             ValueFromRemainingArguments=$false,
-            HelpMessage='__cannot_be_blank__',  #~> this needs to be updated
+            HelpMessage='Regex string for checking updates.',
             Position=31)]
         [Alias('updreg64')]
         [Array]$UpdateRegex_x64,
@@ -501,7 +515,7 @@ function Invoke-CreateCManiCore {
             ValueFromPipeline=$true,
             ValueFromPipelineByPropertyName=$true,
             ValueFromRemainingArguments=$false,
-            HelpMessage='__cannot_be_blank__',  #~> this needs to be updated
+            HelpMessage='Regex string for checking updates.',
             Position=32)]
         [Alias('updreg86')]
         [Array]$UpdateRegex_x86
@@ -518,8 +532,6 @@ function Invoke-CreateCManiCore {
         [String]$dir_CurrentWorking=[System.Environment]::CurrentDirectory
 
         # Set location variables
-        #[String]$dir_Public=Join-Path -Path $dir_CurrentWorking -ChildPath 'lib/public'
-        #[String]$dir_Scripts=Join-Path -Path $dir_CurrentWorking -ChildPath 'lib/scripts'
         [String]$dir_Manifests=Join-Path -Path $dir_CurrentWorking -ChildPath 'app'
         
         # Set Temp directory variable to $dir_tmp by OS selection, with backwards compatibility for Windows PS5.1
@@ -533,9 +545,6 @@ function Invoke-CreateCManiCore {
                 [String]$dir_tmp=$Env:TMPDIR
             }
         }
-        
-        # Import all functions
-        #Get-ChildItem -Path $dir_Scripts -Filter "*.ps1" -Recurse | ForEach-Object { . $_.FullName }
 
         # Create temporary file
         [String]$file_tmp=[System.IO.Path]::Combine($dir_tmp,$([System.GUID]::NewGUID().Guid))
@@ -548,22 +557,6 @@ function Invoke-CreateCManiCore {
         $zString=$zClient.DownloadString('https://raw.githubusercontent.com/repasscloud/software-library/ci/auto-builder-macdev/lib/public/json_copyright_notice.json')
         [String]$RePassCloudManifestCopyrightNotice=($zString | ConvertFrom-Json).Copyright
         $zClient.Dispose()
-        <#
-        [String]$RePassCloudManifestCopyrightNotice=@"
-Copyright $([char]0x00A9) 2020 RePassCloud.com
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-"@
-        #>
     }
     process {
         
