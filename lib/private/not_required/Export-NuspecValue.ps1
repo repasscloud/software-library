@@ -1,5 +1,7 @@
-# Set Nuspec value
 function Export-NuspecValue {
+# Set Nuspec value
+    [CmdletBinding()]
+    [OutputType([String])]
     param(
         [Parameter(Mandatory=$false,Position=0)]
         [ValidateScript({
@@ -19,9 +21,9 @@ function Export-NuspecValue {
 
     if (-not($NuspecURI)) {
         [String]$return_value='  "Nuspec": false,' + $OFS + '  "NuspecURI": "' + $NuspecURI + '",'
-        return $return_value
+        return [String]$return_value
     } else {
         [String]$return_value='  "Nuspec": true,' + $OFS + '  "NuspecURI": "' + $NuspecURI + '",'
-        return $return_value
+        return [String]$return_value
     }
 }

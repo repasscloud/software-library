@@ -1,0 +1,118 @@
+name: CI Testing
+
+on:
+  push:
+    branches:
+      - ci/*
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  ubuntu-build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Display environment variables
+      run: |
+        "Git version: $(git --version)"
+        "PSVersion:   $($PSVersionTable.PSVersion)"
+        "PSBuild:     $($PSVersionTable.BuildVersion)"
+        "PSClr:       $($PSVersionTable.ClrVersion)"
+        "Host name:   $($Host.Name)"
+        "Env Path:    $($Env:PATH)"
+      shell: pwsh
+    - name: Bootstrap setup
+      run: |
+        [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+        Install-PackageProvider -Name NuGet -Force
+        Install-Module -Name PowerShellGet -Force
+      shell: pwsh
+    - name: Install required modules
+      run: |
+        Install-Module -Name Get.URLStatusCode
+        Install-Module -Name GetRedirectedURL
+      shell: pwsh
+    - name: Load CMani
+      run: |
+        . .\cmani_core-edition.ps1
+      shell: pwsh
+    - name: Build scripts
+      run: |
+        Get-ChildItem -Path .\tests -Filter "test_func-*.ps1" | ForEach-Object { & $_.FullName }
+      shell: pwsh
+    - name: Install/Uninstall applications
+      run: |
+        Write-Output 'No install on Ubuntu'
+#       .\tests\test-install.ps1
+      shell: pwsh
+  windows-pscore:
+    runs-on: windows-2019
+    - uses: actions/checkout@v2
+    - name: Display environment variables
+      run: |
+        "Git version: $(git --version)"
+        "PSVersion:   $($PSVersionTable.PSVersion)"
+        "PSBuild:     $($PSVersionTable.BuildVersion)"
+        "PSClr:       $($PSVersionTable.ClrVersion)"
+        "Host name:   $($Host.Name)"
+        "Env Path:    $($Env:PATH)"
+      shell: pwsh
+    - name: Bootstrap setup
+      run: |
+        [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+        Install-PackageProvider -Name NuGet -Force
+        Install-Module -Name PowerShellGet -Force
+      shell: pwsh
+    - name: Install required modules
+      run: |
+        Install-Module -Name Get.URLStatusCode
+        Install-Module -Name GetRedirectedURL
+      shell: pwsh
+    - name: Load CMani
+      run: |
+        . .\cmani_core-edition.ps1
+      shell: pwsh
+    - name: Build scripts
+      run: |
+        Get-ChildItem -Path .\tests -Filter "test_func-*.ps1" | ForEach-Object { & $_.FullName }
+      shell: pwsh
+    - name: Install/Uninstall applications
+      run: |
+        .\tests\test-install.ps1
+      shell: pwsh
+  windows-psdesktop:
+    runs-on: windows-2019
+    steps:
+    - uses: actions/checkout@v2
+    - name: Display environment variables
+      run: |
+        "Git version: $(git --version)"
+        "PSVersion:   $($PSVersionTable.PSVersion)"
+        "PSBuild:     $($PSVersionTable.BuildVersion)"
+        "PSClr:       $($PSVersionTable.ClrVersion)"
+        "Host name:   $($Host.Name)"
+        "Env Path:    $($Env:PATH)"
+      shell: powershell
+    - name: Bootstrap setup
+      run: |
+        [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+        Install-PackageProvider -Name NuGet -Force
+        Install-Module -Name PowerShellGet -Force
+      shell: powershell
+    - name: Install required modules
+      run: |
+        Install-Module -Name Get.URLStatusCode
+        Install-Module -Name GetRedirectedURL
+      shell: powershell
+    - name: Load CMani
+      run: |
+        . .\cmani_core-edition.ps1
+      shell: powershell
+    - name: Build scripts
+      run: |
+        Get-ChildItem -Path .\tests -Filter "test_func-*.ps1" | ForEach-Object { & $_.FullName }
+      shell: powershell
+    - name: Install/Uninstall applications
+      run: |
+        .\tests\test-install.ps1
+      shell: powershell

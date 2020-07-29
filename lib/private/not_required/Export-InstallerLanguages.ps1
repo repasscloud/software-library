@@ -1,5 +1,4 @@
 function Export-InstallerLanguages {
-
 <#
 .SYNOPSIS
   <Overview of script>
@@ -91,7 +90,6 @@ function Export-InstallerLanguages {
     -Languages @('en-US','en-AU')
 
 #>
-
     [CmdletBinding()]
     [OutputType([String])]  #~> issue #37
     param (

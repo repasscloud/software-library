@@ -30,8 +30,15 @@ Temporary Items
 *.exe
 
 # Test directory and files
-test/*
-lib/scripts/Test-Manifests.ps1
+
 
 # Private files
-lib/private/*
+
+
+# Git Token
+token.key
+
+# Files removed from tests
+app/*
+# exception to the rule
+!app/.gitkeep

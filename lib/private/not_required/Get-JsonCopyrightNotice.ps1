@@ -1,4 +1,6 @@
 function Get-JsonCopyrightNotice {
+    [CmdletBinding()]
+    [OutputType([String])]
     param(
         [Parameter(Mandatory=$false, Position=0)]
         [uri]
@@ -12,13 +14,14 @@ function Get-JsonCopyrightNotice {
         $wc.Dispose()
         [System.Threading.Thread]::Sleep(100)
         return $return_value
-    } else {
+    }
+    else {
         $f=$JsonCopyrightNoticeURI
         $wc = [System.Net.WebClient]::new()
         $dl = $wc.DownloadString($f)
         $return_value='    "Copyright": "' + $($dl | ConvertFrom-Json).Copyright + '",'
         $wc.Dispose()
         [System.Threading.Thread]::Sleep(100)
-        return $return_value
+        return [String]$return_value
     }
 }
