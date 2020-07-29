@@ -29,7 +29,7 @@ Get-ChildItem -Path C:\projects\software-matrix\app -Recurse -Filter "latest.jso
                         else {
                             Start-Process -FilePath $json.Id.Installers.x64.$i.UninstallExe -ArgumentList $json.Id.Installers.x64.$i.UninstallArgs -Wait
                             Remove-Item -Path $outFile -Force -Confirm:$false
-                            Write-Host '=============[ END ]============='
+                            Write-Output '=============[ END ]============='
                         }
                     }
                     Default {
