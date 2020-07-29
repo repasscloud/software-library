@@ -57,27 +57,27 @@ matrix:
 
 # scripts that run after cloning repository
 install:
-  - ps: |
+  - pwsh: |
       Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.208 -Force
       Install-Module -Name PowerShellGet -Force
       "Git version: $(git.exe --version)"
       "PSVersion:   $($PSVersionTable.PSVersion), build: $($PSVersionTable.BuildVersion), clr version: $($PSVersionTable.ClrVersion)"
       "Host name:   $($Host.Name)"
-  - ps: |
+  - pwsh: |
       Write-Output 'Install required modules'
       Install-Module -Name Get.URLStatusCode
       Install-Module -Name GetRedirectedURL
-  - ps: |
+  - pwsh: |
       Write-Output 'Load CMani'
       . .\cmani_core-edition.ps1
 
 build_script:
-  - ps: |
+  - pwsh: |
       Write-Output "Build manifest files"
       Get-ChildItem -Path .\tests -Filter "test_func-*.ps1" | ForEach-Object { & $_.FullName }
 
 test_script:
-  - ps: |
+  - pwsh: |
       Write-Output "Install/Uninstall all applications from manifests"
       .\tests\test-install.ps1
 
