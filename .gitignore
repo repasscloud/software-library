@@ -37,3 +37,6 @@ Temporary Items
 
 # Git Token
 token.key
+
+# Files removed from tests
+app/*
