@@ -6,7 +6,7 @@ branches:
   only:
     - master
     - production
-    - ci\/.*
+    - ci.*
   except:
     - /dev.*/     # You can use Regular expression to match multiple branch name(s)
     - playground
