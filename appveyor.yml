@@ -2,10 +2,8 @@
 version: 1.0.{build}-{branch}
 
 # branches to build
-branches:
-  - 'ci/auto-builder-macdev'
-except:
-  - gh-pages
+#branches:
+
 
 # Do not build on tags (GitHub, Bitbucket, GitLab, Gitea)
 skip_tags: true
