@@ -58,7 +58,7 @@ matrix:
 
 # scripts that run after cloning repository
 install:
-  - pwsh: |
+  - ps: |
       [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
       Register-PSRepository -Name "PSGallery" –SourceLocation "https://www.powershellgallery.com/api/v2/" -InstallationPolicy Trusted
       Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
@@ -66,21 +66,21 @@ install:
       "Git version: $(git.exe --version)"
       "PSVersion:   $($PSVersionTable.PSVersion), build: $($PSVersionTable.BuildVersion), clr version: $($PSVersionTable.ClrVersion)"
       "Host name:   $($Host.Name)"
-  - pwsh: |
+  - ps: |
       Write-Output 'Install required modules'
       Install-Module -Name Get.URLStatusCode
       Install-Module -Name GetRedirectedURL
-  - pwsh: |
+  - ps: |
       Write-Output 'Load CMani'
-      . .\cmani_core-edition.ps1
+      . .\cmani_desktop-edition.ps1
 
 build_script:
-  - pwsh: |
+  - ps: |
       Write-Output "Build manifest files"
       Get-ChildItem -Path .\tests -Filter "test_func-*.ps1" | ForEach-Object { & $_.FullName }
 
 test_script:
-  - pwsh: |
+  - ps: |
       Write-Output "Install/Uninstall all applications from manifests"
       .\tests\test-install.ps1
 
