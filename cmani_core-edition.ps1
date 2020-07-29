@@ -4,7 +4,7 @@
 
 function Invoke-CreateCManiCore {
     [CmdletBinding()]
-    [OutputType([String])]
+    [OutputType([System.Collections.Hashtable])]
     param (
         [Parameter(Mandatory=$true,
             ValueFromPipeline=$true,
