@@ -2,7 +2,8 @@ if ($IsWindows -or $ENV:OS) {
     [String]$dir_tmp=$Env:TEMP
 } else {
     if ($IsLinux) {
-        Write-Host "Linux"  #~> This needs to be tested still
+        Write-Output "Linux"  #~> This needs to be tested still
+        exit 0
     }
     elseif ($IsMacOS) {
         [String]$dir_tmp=$Env:TMPDIR
