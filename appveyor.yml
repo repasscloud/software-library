@@ -2,10 +2,15 @@
 version: 4.3.7.{build}
 
 # branches to build
-#branches:
-#  - 'ci/auto-builder-macdev'
-#  except:
-#    - gh-pages
+branches:
+  only:
+    - master
+    - production
+    - ci\/.*
+  except:
+    - /dev.*/     # You can use Regular expression to match multiple branch name(s)
+    - playground
+    - gh-pages
 
 # Do not build on tags (GitHub, Bitbucket, GitLab, Gitea)
 skip_tags: true
