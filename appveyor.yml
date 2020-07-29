@@ -4,9 +4,10 @@ version: 4.3.7.{build}
 # branches to build
 branches:
   only:
-#    - master
-#    - production
-#    - ci.*
+    - master
+    - production
+    - ci/auto-builder-macdev
+    - ci/auto-builder
   except:
     - /dev.*/     # You can use Regular expression to match multiple branch name(s)
     - playground
