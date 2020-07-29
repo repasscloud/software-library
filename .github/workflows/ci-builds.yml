@@ -14,11 +14,11 @@ jobs:
     - uses: actions/checkout@v2
     - name: Display environment variables
       run: |
-        "Git version: $(git.exe --version)"
+        "Git version: $(git --version)"
         "PSVersion:   $($PSVersionTable.PSVersion), build: $($PSVersionTable.BuildVersion), clr version: $($PSVersionTable.ClrVersion)"
         "Host name:   $($Host.Name)"
         $Env:PATH
-      shell: powershell
+      shell: pwsh
     - name: Bootstrap setup
       run: |
         Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.208 -Force
@@ -52,7 +52,7 @@ jobs:
         "PSVersion:   $($PSVersionTable.PSVersion), build: $($PSVersionTable.BuildVersion), clr version: $($PSVersionTable.ClrVersion)"
         "Host name:   $($Host.Name)"
         $Env:PATH
-      shell: powershell
+      shell: pwsh
     - name: Bootstrap setup
       run: |
         Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.208 -Force
@@ -90,21 +90,21 @@ jobs:
       run: |
         Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.208 -Force
         Install-Module -Name PowerShellGet -Force
-      shell: pwsh
+      shell: powershell
     - name: Install required modules
       run: |
         Install-Module -Name Get.URLStatusCode
         Install-Module -Name GetRedirectedURL
-      shell: pwsh
+      shell: powershell
     - name: Load CMani
       run: |
         . .\cmani_core-edition.ps1
-      shell: pwsh
+      shell: powershell
     - name: Build scripts
       run: |
         Get-ChildItem -Path .\tests -Filter "test_func-*.ps1" | ForEach-Object { & $_.FullName }
-      shell: pwsh
+      shell: powershell
     - name: Install/Uninstall applications
       run: |
         .\tests\test-install.ps1
-      shell: pwsh
+      shell: powershell
