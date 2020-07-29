@@ -1,9 +1,15 @@
 # version format
-version: 1.0.{build}-{branch}
+version: 4.3.7.{build}
 
 # branches to build
 branches:
+  only:
+    - master
+    - production
+    - ci.*
   except:
+    - /dev.*/     # You can use Regular expression to match multiple branch name(s)
+    - playground
     - gh-pages
 
 # Do not build on tags (GitHub, Bitbucket, GitLab, Gitea)
@@ -33,7 +39,7 @@ init:
   - git config --global core.autocrlf input
 
 # clone directory
-clone_folder: c:\projects\myproject
+clone_folder: C:\projects\software-matrix
 
 # fetch repository as zip archive
 shallow_clone: true                 # default is "false"
@@ -54,20 +60,26 @@ install:
   - ps: |
       Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.208 -Force
       Install-Module -Name PowerShellGet -Force
-      Install-Module -Name PSSQLite -Force
-      Import-Module PSSQLite
       "Git version: $(git.exe --version)"
       "PSVersion:   $($PSVersionTable.PSVersion), build: $($PSVersionTable.BuildVersion), clr version: $($PSVersionTable.ClrVersion)"
       "Host name:   $($Host.Name)"
-  - ps: Write-Host 'This is PowerShell'
-
+  - ps: |
+      Write-Output 'Install required modules'
+      Install-Module -Name Get.URLStatusCode
+      Install-Module -Name GetRedirectedURL
+  - ps: |
+      Write-Output 'Load CMani'
+      . .\cmani_core-edition.ps1
 
 build_script:
-  - ps: Write-host "This is powershell!"
-#  - ps: ./build.ps1
+  - ps: |
+      Write-Output "Build manifest files"
+      Get-ChildItem -Path .\tests -Filter "test_func-*.ps1" | ForEach-Object { & $_.FullName }
 
-#test_script:
-#  - ps: ./test.ps1
+test_script:
+  - ps: |
+      Write-Output "Install/Uninstall all applications from manifests"
+      .\tests\test-install.ps1
 
 #on_finish:
 #  - ps: #$blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
