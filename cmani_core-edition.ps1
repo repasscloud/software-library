@@ -90,7 +90,7 @@ function Invoke-CreateCManiCore {
                     [String]$dir_tmpj=$Env:TEMP
                 } else {
                     if ($IsLinux) {
-                        Write-Host "Linux"
+                        Write-Output "Linux"
                     }
                     elseif ($IsMacOS) {
                         [String]$dir_tmpj=$Env:TMPDIR
@@ -197,7 +197,7 @@ function Invoke-CreateCManiCore {
                     [String]$dir_tmp=$Env:TEMP
                 } else {
                     if ($IsLinux) {
-                        Write-Host "Linux"
+                        Write-Output "Linux"
                     }
                     elseif ($IsMacOS) {
                         [String]$dir_tmp=$Env:TMPDIR
@@ -539,7 +539,7 @@ function Invoke-CreateCManiCore {
             [String]$dir_tmp=$Env:TEMP
         } else {
             if ($IsLinux) {
-                Write-Host "Linux"  #~> This needs to be tested still
+                Write-Output "Linux"  #~> This needs to be tested still
             }
             elseif ($IsMacOS) {
                 [String]$dir_tmp=$Env:TMPDIR
