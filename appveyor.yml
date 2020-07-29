@@ -60,6 +60,7 @@ matrix:
 install:
   - pwsh: |
       [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+      Register-PSRepository -Name "PSGallery" –SourceLocation "https://www.powershellgallery.com/api/v2/" -InstallationPolicy Trusted
       Install-PackageProvider -Name NuGet -Force
       Install-Module -Name PowerShellGet -Force
       "Git version: $(git.exe --version)"
