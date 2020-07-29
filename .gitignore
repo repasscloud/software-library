@@ -40,3 +40,5 @@ token.key
 
 # Files removed from tests
 app/*
+# exception to the rule
+!app/.gitkeep
