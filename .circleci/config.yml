@@ -17,7 +17,7 @@ jobs:
           command: dotnet tool install --global PowerShell
       - run:
           name: "CircleCI Build App Test 1"
-          command: & '.\tests\psdesktop-test.ps1'
+          command: .\tests\psdesktop-test.ps1
           shell: powershell.exe
 #      - run: systeminfo
 #      - run: 
